@@ -6,9 +6,14 @@ import 'babel-polyfill';
 import Mixin from './mixins';
 import store from './store';
 import axios from 'axios';
+import 'swiper/dist/css/swiper.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import WeVue from 'we-vue'
+import 'we-vue/lib/style.css'
 
 
-
+Vue.use(WeVue)
+Vue.use(VueAwesomeSwiper)
 Vue.use(VueRouter);
 Vue.mixin(Mixin);
 
