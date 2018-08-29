@@ -45,6 +45,7 @@ export default {
     .topLogo{
         width: 100%;
         height: 45px;
+      background: #fff;
     }
     a:-webkit-any-link {
         text-decoration: none;

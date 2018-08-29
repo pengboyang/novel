@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive">
+        <!-- 这里是会被缓存的视图组件，比如 page1,page2 -->
+      </router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 
@@ -18,6 +23,7 @@ html,body{
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
