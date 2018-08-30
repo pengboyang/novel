@@ -43,7 +43,7 @@ export default {
     .comTop{
         box-sizing: border-box;
         width: 100%;
-        height: 90px;
+        height: 100px;
         position: fixed;
         left: 0;
         top: 0;
@@ -56,7 +56,7 @@ export default {
         height: 46px;
     }
     .topLogo .logo{
-        height: 28px;
+        height: 42px;
         padding-top: 12px;
         padding-left: 8px;
     }
@@ -74,6 +74,7 @@ export default {
         background: #fff;
         padding: 0 75px 0 75px;
         font-size: 14px;
+        margin-top: 10px;
     }
     .topBar .navBox{
         width: 52.5px;

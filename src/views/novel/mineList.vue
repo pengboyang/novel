@@ -6,7 +6,7 @@
           <div class="uesrLogo"><img src="../../assets/img/my-pic.png" alt=""></div>
           <div class="userName">
             <div class="name">微信用户名</div>
-            <div class="vip"><img src="../../assets/img/vip.png" alt=""></div>
+            <!-- <div class="vip"><img src="../../assets/img/vip.png" alt=""></div> -->
           </div>
         </div>
         <div class="others">
@@ -14,11 +14,11 @@
             <span class="leftImg"><img src="../../assets/img/bookGold.png" alt=""></span>
             <span class="text">余额</span>
             <span class="text"><span class="gold">100</span>书币</span>
-            <div class="btn">
+            <div class="btn" @click="goRecharge">
               <img src="../../assets/img/recharge.png" alt="">
             </div>
           </div>
-          <div class="comRow">
+          <div class="comRow" @click="goService">
             <span class="leftImg"><img src="../../assets/img/kefu.png" alt=""></span>
             <span class="text">联系客服</span>
             <div class="arrowBtn">
@@ -35,6 +35,15 @@
     return {
     }
   },
+  created(){},
+  methods:{
+    goRecharge(){
+      this.$router.push({path:'/recharge'})
+    },
+    goService(){
+      this.$router.push({path:'/customService'})
+    }
+  }
 }
 </script>
 <style>
@@ -50,12 +59,12 @@
 .mineList .mineListCon .userInfo {
   display: flex;
   width: 100%;
-  height: 56px;
+  align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 .mineList .mineListCon .userInfo .uesrLogo{
-  width: 56px;
+  width: 60px;
   padding-right: 16px;
 }
 .mineList .mineListCon .userInfo .uesrLogo img{
@@ -68,11 +77,11 @@
   line-height: 16px;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
 }
 .mineList .mineListCon .userInfo .userName .vip{
-  width: 110px;
+  width: 105px;
 }
 .mineList .mineListCon .userInfo .userName .vip img{
   width: 100%;
@@ -97,7 +106,7 @@
 }
 .mineList .mineListCon .others .comRow .leftImg{
   width: 20px;
-  padding-right: 18px;
+  margin-right: 18px;
 }
 .mineList .mineListCon .others .comRow .leftImg img{
   width: 100%;
@@ -113,7 +122,7 @@
   text-align: right;
 }
 .mineList .mineListCon .others .comRow .btn img{
-  width: 50px;
+  width: 54px;
   height: auto;
   vertical-align: middle;
 }
