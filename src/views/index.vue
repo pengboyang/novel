@@ -6,41 +6,44 @@
 </template>
 <script>
   import navbar from '../components/topbar'
-  export default{
-    name:'index',
-    data(){
-      return{
-        wrapperHeight:0
+
+  export default {
+    name: 'index',
+    data() {
+      return {
+        wrapperHeight: 0
       }
     },
-    components:{
+    components: {
       navbar
     },
   }
 </script>
 <style>
-  .allView{
+  .allView {
     width: 100%;
     height: 100%;
   }
-  .topnav{
-    position:fixed;
-    top:0;
-    left:0;
+
+  .topnav {
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2;
   }
-  .wrapper{
-    width:100%;
-    height:100%;
+
+  .wrapper {
+    width: 100%;
+    height: 100%;
     position: absolute;
-    top:0;
-    left:0;
-    padding-top: 90px;
+    top: 0;
+    left: 0;
+    padding-top: 100px;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1;
     -webkit-overflow-scrolling: touch;
   }
-  
+
 </style>
 

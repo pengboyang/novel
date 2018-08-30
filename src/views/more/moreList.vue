@@ -155,6 +155,8 @@
   height: 46px;
   line-height: 46px;
   position: fixed;
+  left: 15px;
+  top: 0;
   background: #fff;
 }
 .topBanner .returnBack{
@@ -162,7 +164,6 @@
   height: auto;
   vertical-align: middle;
   display: inline-block; 
-  padding-left: 15px;
 }
 .topBanner .topTitle{
   font-size: 17px;
@@ -172,7 +173,7 @@
   text-align: center;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 15px;
   bottom: 0;
   left: 0;
   margin: auto;
