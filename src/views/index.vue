@@ -1,7 +1,7 @@
 <template>
   <div class="allView">
     <navbar></navbar>
-    <router-view class="wrapper" :style="{height:wrapperHeight+'px'}"></router-view>
+    <router-view class="wrapper"></router-view>
   </div>
 </template>
 <script>
@@ -16,9 +16,6 @@
     components:{
       navbar
     },
-    mounted(){
-        this.wrapperHeight = document.documentElement.clientHeight - 104;
-    }
   }
 </script>
 <style>
@@ -27,7 +24,9 @@
     height: 100%;
   }
   .wrapper{
-    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    padding-top: 90px;
   }
   
 </style>

@@ -3,7 +3,7 @@
     <div class="manTitle">
       <span class="kind">{{$attrs.title}}</span>
       <span class="timer"><span class="hour">04</span>时<span class="minute">04</span>分<span class="second">10</span>秒</span>
-      <span class="moreList">更多></span>
+      <span class="moreList" @click="freeMoreList">更多></span>
     </div>
     <div class="freeNovel">
         <div class="novelWra">
@@ -34,7 +34,18 @@
   </div>
 </template>
 <script>
-  
+  export default{
+    name:'freeWeek',
+    data(){
+      return {}
+    },
+    created(){},
+    methods:{
+      freeMoreList(){
+        this.$router.push({path:'/moreList'});
+      }
+    }
+  }
 </script>
 <style>
 .freeWeek{
@@ -92,7 +103,7 @@
   justify-content:space-between;
 }
 .freeWeek .freeNovel .novelWra {
-  width: 30%;
+  width: 28%;
 	vertical-align: middle;
 	color: black;
 	text-align: center;

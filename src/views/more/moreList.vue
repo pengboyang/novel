@@ -1,47 +1,11 @@
 <template>
-  <div class="assortmentList">
-    <div class="assortmentCont">
-      <div class="lineBg"></div>
-      <div class="assortment">
-        <div class="gender">
-          <span class="active">男生</span>
-          <span>女生</span>
-        </div>
-        <div class="mold">
-          <span class="active">都市生活</span>
-          <span>玄幻仙侠</span>
-          <span>历史军事</span>
-          <span>游戏科幻</span>
-          <span @click="show=!show"><img src="../../assets/img/bottomJT.png" alt=""></span>
-          <transition name="fade">
-            <div v-if="show">
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-              <span>玄幻仙侠</span>
-            </div>
-          </transition>
-        </div>
-        <div class="completion">
-          <span class="active">全部</span>
-          <span>完结</span>
-          <span>连载</span>
-        </div>
-      </div>
-      <div class="filament"></div>
-      <div class="novelBooks">
+  <div class="moreList">
+    <div class="topBanner">
+      <img @click="routeBack" class="returnBack" src="../../assets/img/returnback.png" alt="">
+      <div class="topTitle">女生精品</div>
+    </div>
+    <div class="lineBg"></div>
+    <div class="comBooks">
         <div class="novelCon clearfloat">
           <div class="novelLeft">
             <img src="../../assets/img/wanmeishijie .png" alt="">
@@ -156,20 +120,23 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
     <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
   </div>
 </template>
 <script>
-export default{
-  name:'assortmentList',
-  data(){
-    return{
-      show: false
+  export default{
+    name:'moreList',
+    data(){
+      return{}
+    },
+    created(){},
+    methods:{
+      routeBack(){
+        this.$router.go(-1)
+      }
     }
   }
-}
 </script>
 <style>
 .clearfloat:after {
@@ -183,73 +150,68 @@ export default{
 .clearfloat {
     zoom: 1
 }
-.assortmentList{
-  color: #999;
-  font-size: 14px;
+.topBanner{
+  width: 100%;
+  height: 46px;
+  line-height: 46px;
+  position: fixed;
+  background: #fff;
 }
-.assortmentList .assortmentCont{
-  padding: 0 15px;
+.topBanner .returnBack{
+  width: 12px;
+  height: auto;
+  vertical-align: middle;
+  display: inline-block; 
+  padding-left: 15px;
 }
-.assortmentList .lineBg{
+.topBanner .topTitle{
+  font-size: 17px;
+  font-weight: 700;
+  width: 100px;
+  height: 46px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.lineBg{
+  position: fixed;
+  left: 0;
+  top: 46px;
   width: 100%;
   height: 5px;
-  background: url('../../assets/img/linebg.png');
+  background: url('../../assets/img/linebg.png')
 }
-.assortmentList .filament{
-  margin-top: 16px;
-  width: 100%;
-  border-bottom: 1px solid #e0e0ee;
+.comBooks{
+  padding: 65px 15px 0 15px;
 }
-.assortmentList .assortment .gender{
-  padding: 15px 0 15px 0;
-}
-.assortmentList .assortment .gender span{
-  padding: 2px 6px;
-}
-.assortmentList .assortment .mold{
-  padding: 0 0 15px 0;
-}
-.assortmentList .assortment .mold span{
-  padding: 2px 6px;
-}
-.assortmentList .assortment .mold img{
-  width: 16px;
-}
-.assortmentList .assortment .completion span{
-  padding: 2px 6px;
-}
-.active{
-  border: 1px solid #ff4646;
-  border-radius: 14px;
-  color: #ff4646;
-}
-.assortmentList .novelBooks{
-  margin-top: 20px;
-}
-.assortmentList .novelBooks .novelCon{
+ .comBooks .novelCon{
   margin-bottom: 15px;
 }
-.assortmentList .novelBooks .novelCon .novelLeft{
+.comBooks .novelCon .novelLeft{
   width: 28%;
   float: left;
 }
-.assortmentList .novelBooks .novelCon .novelLeft img{
+ .comBooks .novelCon .novelLeft img{
   width: 100%;
   height: auto;
   vertical-align: middle;
 }
-.assortmentList .novelBooks .novelCon .novelRight{
+ .comBooks .novelCon .novelRight{
   width: 65%;
   float: right;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookname{
+ .comBooks .novelCon .novelRight .bookname{
   font-size: 18px;
   line-height: 24px;
   font-weight: 700;
   margin-bottom: 8px;
   color: #000;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookDescribed{
+ .comBooks .novelCon .novelRight .bookDescribed{
   font-size: 12px;
   color: #999;
   margin-bottom: 8px;
@@ -258,37 +220,31 @@ export default{
   overflow: hidden;
   letter-spacing: 1px;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookInfo{
+.comBooks .novelCon .novelRight .bookInfo{
   font-size: 12px;
   color: #999;
   line-height: 12px;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookInfo .described{
+ .comBooks .novelCon .novelRight .bookInfo .described{
   float: right;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookInfo .described span{
+ .comBooks .novelCon .novelRight .bookInfo .described span{
  background: #e0e0e0;
  padding: 2px 10px;
  vertical-align: middle;
  border-radius: 10px;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookInfo .author{
+ .comBooks .novelCon .novelRight .bookInfo .author{
   float: left;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookInfo .author .icon{
+.comBooks .novelCon .novelRight .bookInfo .author .icon{
   vertical-align: middle;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookInfo .author .icon img{
+.comBooks .novelCon .novelRight .bookInfo .author .icon img{
   width: 8px;
 }
-.assortmentList .novelBooks .novelCon .novelRight .bookInfo .author .man{
+ .comBooks .novelCon .novelRight .bookInfo .author .man{
   vertical-align: middle;
-}
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }
 </style>
 
