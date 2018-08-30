@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="rule">
-      <div>工作时间：周一至周五 10:00-19:00</div>
-      <div>QQ</div>
+      <div><span class="ruleLabel">工作时间：</span>周一至周五 10:00-19:00</div>
+      <div><span class="ruleLabel">客服QQ：</span>3437733149</div>
     </div>
   </div>
 </template>
@@ -112,6 +112,11 @@
     line-height: 40px;
     color: #999;
     font-size: 16px;
+  }
+
+  .ruleLabel{
+    display: inline-block;
+    width:80px;
   }
 </style>
 
