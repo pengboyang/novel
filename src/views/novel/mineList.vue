@@ -78,7 +78,7 @@
   }
 
   .mineList .mineListCon .userInfo .uesrLogo {
-    width: 60px;
+    width: 80px;
     padding-right: 16px;
   }
 
@@ -95,6 +95,7 @@
     padding-bottom: 5px;
     font-size: 14px;
     font-weight: 700;
+    color:#000;
   }
 
   .mineList .mineListCon .userInfo .userName .vip {

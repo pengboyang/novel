@@ -2,7 +2,7 @@
   <div class="freeWeek">
     <div class="manTitle">
       <span class="kind">{{$attrs.title}}</span>
-      <span class="timer"><span class="hour">04</span>时<span class="minute">04</span>分<span class="second">10</span>秒</span>
+      <!--<span class="timer"><span class="hour">04</span>时<span class="minute">04</span>分<span class="second">10</span>秒</span>-->
       <span class="moreList" @click="freeMoreList">更多></span>
     </div>
     <div class="freeNovel">

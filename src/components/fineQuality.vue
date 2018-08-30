@@ -82,7 +82,7 @@
   justify-content:space-between;
 }
 .manContent .manNovel .novelWra {
-  width: 26%;
+  width: 28%;
 	vertical-align: middle;
 	color: black;
 	text-align: center;
@@ -95,7 +95,7 @@
   height: auto;
   vertical-align: middle;
 }
-.manContent .manNovel .novelWra .novelName{
+.novelName,.novelPrice{
     font-size: 12px;
     margin-top: 8px;
     margin-bottom: 10px;
