@@ -66,12 +66,25 @@ Vue.prototype.$http.interceptors.response.use(function (response) {
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to.query);
   if (to.meta.title) {
     document.title = to.meta.title;
   }
   if (to.meta.keepAlive) {
     to.meta.isBack = true;
+  }
+  if(!store.state.code){
+    let url=window.location.href;
+    let baseurl=url.split('#')[0];
+    let hash=url.split('?')[1];
+    let hasharr=hash.split('&');
+    let query={};
+    hasharr.forEach((item,index)=>{
+      query[item.split('=')[0]]=item.split('=')[1];
+    });
+    store.dispatch({
+      type: 'codeChange',
+      val: query.code
+    });
   }
   next();
 

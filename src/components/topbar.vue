@@ -57,7 +57,8 @@ export default {
       background: #fff;
     }
     .topLogo .logo{
-        height: 28px;
+      width:20%;
+        height: auto;
         padding-top: 12px;
         padding-left: 8px;
     }

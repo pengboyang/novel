@@ -9,6 +9,7 @@ export default new vuex.Store({
     /*全局状态*/
     state: {
       openId:'',
+      code:'',
       userInfo:{},
     },
     /*局部状态*/
@@ -18,8 +19,14 @@ export default new vuex.Store({
     getters:{
 
     },
-    mutations:{
+  mutations:{
+    codeChange(state,info){
+      state.code=info.val;
     },
-    actions:{
-    }
+  },
+  actions:{
+    codeChange({commit},info){
+      commit('codeChange',info);
+    },
+  }
 });

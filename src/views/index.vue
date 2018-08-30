@@ -35,9 +35,11 @@
     position: absolute;
     top:0;
     left:0;
-    padding-top: 85px;
+    padding-top: 90px;
+    overflow-x: hidden;
     overflow-y: auto;
     z-index: 1;
+    -webkit-overflow-scrolling: touch;
   }
   
 </style>
