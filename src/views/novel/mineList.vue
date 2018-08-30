@@ -36,12 +36,20 @@
         isFirstEnter: false, // 是否第一次进入，默认false
       }
     },
+    beforeCreate(){
+      this.getCode();
+    },
     created() {
       this.isFirstEnter = true;
     },
     activated() {
       if (!this.$route.meta.isBack || this.isFirstEnter) {
         // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
+        if(this.$store.state.userCode){
+          this.authorlogin();
+        }else{
+          this.getUser();
+        }
       }
       // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
       this.$route.meta.isBack = false;
@@ -54,7 +62,27 @@
       },
       goService() {
         this.$router.push({path: '/customService'})
-      }
+      },
+      getUser(){
+        let times=Date.parse(new Date());
+        let md5=this.getmd5(localStorage.getItem('uuid')+times).toUpperCase();
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.getUser,
+          headers:{times:times,sign:md5}
+        }).then(res => {
+          console.log(res);
+          var data = res.data;
+          if(data.code==1){
+            localStorage.setItem('uuid', data.uuid);
+          }else if(data.code==3){
+            location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fs.55duanzi.com%2fnovel%2fdist%2findex.html%23%2fnovel%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
+          }else{
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      },
     }
   }
 </script>
@@ -78,12 +106,12 @@
   }
 
   .mineList .mineListCon .userInfo .uesrLogo {
-    width: 80px;
+    width: 100px;
     padding-right: 16px;
   }
 
   .mineList .mineListCon .userInfo .uesrLogo img {
-    width: 100%;
+    width: 100px;
     height: auto;
     vertical-align: middle;
   }
@@ -96,6 +124,7 @@
     font-size: 14px;
     font-weight: 700;
     color:#000;
+    font-size: 18px;
   }
 
   .mineList .mineListCon .userInfo .userName .vip {
@@ -164,5 +193,6 @@
     height: auto;
     vertical-align: middle;
   }
+  .userName{margin-left:14px;}
 </style>
 

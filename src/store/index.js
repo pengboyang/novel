@@ -10,6 +10,7 @@ export default new vuex.Store({
     state: {
       openId:'',
       code:'',
+      userCode:'',
       userInfo:{},
     },
     /*局部状态*/
@@ -23,10 +24,16 @@ export default new vuex.Store({
     codeChange(state,info){
       state.code=info.val;
     },
+    userCodeChange(state,info){
+      state.userCode=info.val;
+    },
   },
   actions:{
     codeChange({commit},info){
       commit('codeChange',info);
+    },
+    userCodeChange({commit},info){
+      commit('userCodeChange',info);
     },
   }
 });

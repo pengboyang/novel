@@ -26,27 +26,29 @@ const router = new VueRouter({
 
 //系统错误捕获
 // const errorHandler = (err, vm, info)=>{
-  // let obj={
-  //     message, // 异常信息
-  //     name, // 异常名称
-  //     script,  // 异常脚本url
-  //     line,  // 异常行号
-  //     column,  // 异常列号
-  //     stack  // 异常堆栈信息
-  // } = err;
-  // console.log(err.message);
+// let obj={
+//     message, // 异常信息
+//     name, // 异常名称
+//     script,  // 异常脚本url
+//     line,  // 异常行号
+//     column,  // 异常列号
+//     stack  // 异常堆栈信息
+// } = err;
+// console.log(err.message);
 // };
 // Vue.config.errorHandler = errorHandler;
 
 // ajax
 Vue.$http = Vue.prototype.$http = axios.create({
   // baseURL: 'http://api.55duanzi.com',
-  // baseURL: 'http://tt.i6bktq.cn:83',
+  baseURL: 'http://dsp.i6bktq.cn:83',
   withCredentials: true,// `withCredentials` 表示跨域请求时是否需要使用凭证
   timeout: 5000
 });
 //拦截器（ajax请求前）
 Vue.prototype.$http.interceptors.request.use((config) => {
+  let uuid = localStorage.getItem('uuid') || '';
+  config.headers.uuid = uuid;
   return config;
 }, (error) => {
   return Promise.reject(error);
@@ -69,21 +71,25 @@ router.beforeEach((to, from, next) => {
   if (to.meta.keepAlive) {
     to.meta.isBack = true;
   }
-  if(!store.state.code){
-    try{
-      let url=window.location.href;
-      let baseurl=url.split('#')[0];
-      let hash=url.split('?')[1];
-      let hasharr=hash.split('&');
-      let query={};
-      hasharr.forEach((item,index)=>{
-        query[item.split('=')[0]]=item.split('=')[1];
+  if (!localStorage.getItem('uuid')) {
+    try {
+      let query = Mixin.methods.getCode();
+      Vue.$http({
+        method: 'get',
+        url: '/novel/user/login',
+        params: {
+          code: query.code,
+        }
+      }).then(res => {
+        console.log(res);
+        var data = res.data;
+        if (data.code == 1) {
+          localStorage.setItem('uuid', data.uuid);
+        }
+      }).catch(error => {
+        console.log(error);
       });
-      store.dispatch({
-        type: 'codeChange',
-        val: query.code
-      });
-    }catch (e) {
+    } catch (e) {
 
     }
   }
