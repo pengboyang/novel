@@ -1,7 +1,7 @@
 <template>
   <div class="bookDetail">
     <div class="topBanner">
-      <img @click="routeBack" class="returnBack" src="../../assets/img/returnback.png" alt="">
+      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="topTitle">我是书名</div>
     </div>
     <div class="lineBg"></div>
@@ -82,7 +82,10 @@
   .clearfloat {
     zoom: 1
   }
-
+  .bookDetail{
+    height:100%;
+    overflow-y: auto;
+  }
   .bookDetail .topBanner {
     width: 100%;
     height: 46px;

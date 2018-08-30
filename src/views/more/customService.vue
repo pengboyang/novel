@@ -1,7 +1,7 @@
 <template>
   <div class="customService">
     <div class="serviceTop">
-      <img @click="back" class="returnBtn" src="../../assets/img/returnback.png" alt="">
+      <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="title">联系客服</div>
     </div>
     <div class="lineBg"></div>
@@ -36,6 +36,8 @@
   .serviceTop {
     width: 100%;
     height: 46px;
+    line-height: 46px;
+    padding-left:15px;
     position: relative;
     left: 0;
     top: 0;
@@ -117,6 +119,13 @@
   .ruleLabel{
     display: inline-block;
     width:80px;
+  }
+  .returnBack {
+    width: 12px;
+    height: auto;
+    vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
   }
 </style>
 

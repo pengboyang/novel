@@ -1,7 +1,7 @@
 <template>
   <div class="recharge">
     <div class="rechargeTop">
-      <img @click="back" class="returnBtn" src="../../assets/img/returnback.png" alt="">
+      <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="title">书币充值</div>
     </div>
     <div class="lineBg"></div>
@@ -60,6 +60,8 @@
 .rechargeTop{
   width: 100%;
   height: 46px;
+  line-height: 46px;
+  padding-left: 15px;
   position: fixed;
   left: 0;
   top: 0;

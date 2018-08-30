@@ -66,9 +66,6 @@ Vue.prototype.$http.interceptors.response.use(function (response) {
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.title) {
-    document.title = to.meta.title;
-  }
   if (to.meta.keepAlive) {
     to.meta.isBack = true;
   }
@@ -87,13 +84,16 @@ router.beforeEach((to, from, next) => {
         val: query.code
       });
     }catch (e) {
-      
+
     }
   }
   next();
 
 });
 router.afterEach((to, from) => {
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
 });
 
 /* eslint-disable no-new */

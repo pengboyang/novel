@@ -72,7 +72,7 @@
   .mineList .mineListCon .userInfo {
     display: flex;
     width: 100%;
-    align-items: center;
+    /*align-items: center;*/
     padding-top: 20px;
     padding-bottom: 20px;
   }

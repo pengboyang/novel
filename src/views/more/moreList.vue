@@ -1,7 +1,7 @@
 <template>
   <div class="moreList">
     <div class="topBanner">
-      <img @click="routeBack" class="returnBack" src="../../assets/img/returnback.png" alt="">
+      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="topTitle">女生精品</div>
     </div>
     <div class="lineBg"></div>
@@ -146,7 +146,10 @@
     visibility: hidden;
     height: 0
 }
-
+.moreList{
+  height:100%;
+  overflow-y: auto;
+}
 .clearfloat {
     zoom: 1
 }

@@ -2,7 +2,7 @@
   <div class="readNovel">
     <div class="topWra">
       <div class="topBaner">
-        <img @click="back" class="reBtn" src="../../assets/img/returnback.png" alt="">
+        <div style="width:30px;height:100%;display:inline-block;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
         <span class="title">完美世界</span>
       </div>
       <div class="setting">
@@ -84,13 +84,12 @@
   width: 12px;
   height: auto;
   vertical-align: middle;
-  display: inline-block; 
+  display: inline-block;
 }
 .readNovel .topWra .topBaner .title{
   font-size: 18px;
   font-weight: 700;
   vertical-align: middle;
-  padding-left: 15px;
 }
 .readNovel .topWra .setting{
   height: 25px;
@@ -218,6 +217,13 @@
   height: auto;
   vertical-align: middle;
   float: right;
+}
+.returnBack {
+  width: 12px;
+  height: auto;
+  vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>
 

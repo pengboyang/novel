@@ -45,5 +45,12 @@
     -webkit-overflow-scrolling: touch;
   }
 
+  .transparentBg{
+    background:rgba(255,255,255,0);
+  }
+
+  .comSwiepr,.manContent,.newBook,.manContent,.freeWeek,.weui-loadmore,.assortment,.assortmentCont,.mineList,.detaiContent,.comBooks,.manList,.assortmentList,.moreList,.bookDetail{
+    background:#fff;
+  }
 </style>
 
