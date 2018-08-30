@@ -5,6 +5,7 @@
     <new-book title="男生新书"></new-book>
     <fine-quality title="男生热搜" :id="id"></fine-quality>
     <free-week title="男生限免"></free-week>
+    <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
   </div>
 </template>
 <script>

@@ -2,7 +2,7 @@
   <div class="newBook">
       <div class="manTitle">
         <span class="kind">{{$attrs.title}}</span>
-        <span class="moreList">更多></span>
+        <span class="moreList" @click="newMoreList">更多></span>
       </div>
       <div class="books">
         <div class="content clearfloat">
@@ -10,12 +10,17 @@
             <img src="../assets/img/wanmeishijie .png" alt="">
           </div>
           <div class="bookRight">
-            <p class="bookname">我是书的名称</p>
-            <div class="booknick">我是书的作者</div>
-            <div>我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookbtn">
-              <span>分类</span>
-              <span>完结</span>
+            <p class="bookname">完美世界</p>
+            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
+            <div class="bookInfo clearfloat">
+              <div class="author">
+                <span class="icon"><img src="../assets/img/man.png" alt=""></span>
+                <span class="man">作者：辰东</span>
+              </div>
+              <div class="described">
+                <span>分类</span>
+                <span>完结</span>
+              </div>
             </div>
           </div>
         </div>
@@ -24,12 +29,17 @@
             <img src="../assets/img/wanmeishijie .png" alt="">
           </div>
           <div class="bookRight">
-            <p class="bookname">我是书的名称</p>
-            <div class="booknick">我是书的作者</div>
-            <div>我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookbtn">
-              <span>分类</span>
-              <span>完结</span>
+            <p class="bookname">完美世界</p>
+            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
+            <div class="bookInfo clearfloat">
+              <div class="author">
+                <span class="icon"><img src="../assets/img/man.png" alt=""></span>
+                <span class="man">作者：辰东</span>
+              </div>
+              <div class="described">
+                <span>分类</span>
+                <span>完结</span>
+              </div>
             </div>
           </div>
         </div>
@@ -38,12 +48,17 @@
             <img src="../assets/img/wanmeishijie .png" alt="">
           </div>
           <div class="bookRight">
-            <p class="bookname">我是书的名称</p>
-            <div class="booknick">我是书的作者</div>
-            <div>我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookbtn">
-              <span>分类</span>
-              <span>完结</span>
+            <p class="bookname">完美世界</p>
+            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
+            <div class="bookInfo clearfloat">
+              <div class="author">
+                <span class="icon"><img src="../assets/img/man.png" alt=""></span>
+                <span class="man">作者：辰东</span>
+              </div>
+              <div class="described">
+                <span>分类</span>
+                <span>完结</span>
+              </div>
             </div>
           </div>
         </div>
@@ -58,6 +73,11 @@
       return {}
     },
     created(){
+    },
+    methods:{
+      newMoreList(){
+          this.$router.push({path:'/moreList'});
+      }
     }
   }
 </script>
@@ -98,13 +118,13 @@
 }
 .newBook .books .content{
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 .newBook .books .content:last-child{
   margin-bottom: 15px;
 }
 .newBook .books .content .bookLeft{
-  width: 30%;
+  width: 28%;
   float: left;
 }
 .newBook .books .content .bookLeft img{
@@ -118,11 +138,44 @@
 }
 .newBook .books .content .bookRight .bookname{
   font-size: 18px;
+  line-height: 24px;
   font-weight: 700;
+  margin-bottom: 8px;
 }
-.newBook .books .content .bookRight .booknick{
-  font-size: 16px;
-  line-height: 34px;
+.newBook .books .content .bookRight .bookDescribed{
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 8px;
+  line-height: 22px;
+  height: 70px;
+  overflow: hidden;
+  letter-spacing: 1px;
+}
+.newBook .books .content .bookRight .bookInfo{
+  font-size: 12px;
+  color: #999;
+  line-height: 12px;
+}
+.newBook .books .content .bookRight .bookInfo .described{
+  float: right;
+}
+.newBook .books .content .bookRight .bookInfo .described span{
+ background: #e0e0e0;
+ padding: 2px 10px;
+ vertical-align: middle;
+ border-radius: 10px;
+}
+.newBook .books .content .bookRight .bookInfo .author{
+  float: left;
+}
+.newBook .books .content .bookRight .bookInfo .author .icon{
+  vertical-align: middle;
+}
+.newBook .books .content .bookRight .bookInfo .author .icon img{
+  width: 8px;
+}
+.newBook .books .content .bookRight .bookInfo .author .man{
+  vertical-align: middle;
 }
 </style>
 

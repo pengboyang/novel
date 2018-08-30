@@ -1,29 +1,31 @@
 <template>
-<div class="comTop">
-    <div class="topLogo"></div>
-    <div class="topBar">
-        <div class="navBox">
-            <router-link :to="{path:'/novel/manList', query:{id:1}}">
-                <span class="icon icon-man">男生</span>
-            </router-link>
+    <div class="comTop">
+        <div class="topLogo">
+            <img class="logo" src="../assets/img/novelLogo.png" alt="">
         </div>
-        <div class="navBox">
-            <router-link :to="{path:'/novel/womenList', query:{id:2}}">
-                <span class="icon icon-women">女生</span>
-            </router-link>
-        </div>
-        <div class="navBox">
-            <router-link to="/novel/assortmentList">
-                <span class="icon icon-assortment">分类</span>
-            </router-link>
-        </div>
-        <div class="navBox">
-            <router-link to="/novel/mineList">
-                <span class="icon icon-mine">我的</span>
-            </router-link>
+        <div class="topBar">
+            <div class="navBox">
+                <router-link :to="{path:'/novel/manList', query:{id:1}}">
+                    <span class="icon icon-man">男生</span>
+                </router-link>
+            </div>
+            <div class="navBox">
+                <router-link :to="{path:'/novel/womenList', query:{id:2}}">
+                    <span class="icon icon-women">女生</span>
+                </router-link>
+            </div>
+            <div class="navBox">
+                <router-link to="/novel/assortmentList">
+                    <span class="icon icon-assortment">分类</span>
+                </router-link>
+            </div>
+            <div class="navBox">
+                <router-link to="/novel/mineList">
+                    <span class="icon icon-mine">我的</span>
+                </router-link>
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -40,12 +42,24 @@ export default {
 <style scoped>
     .comTop{
         box-sizing: border-box;
-        padding: 0 15px;
+        width: 100%;
+        height: 90px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: #fff;
+        z-index: 999;
+        font-family: 'noto';
     }
     .topLogo{
         width: 100%;
-        height: 45px;
+        height: 46px;
       background: #fff;
+    }
+    .topLogo .logo{
+        height: 28px;
+        padding-top: 12px;
+        padding-left: 8px;
     }
     a:-webkit-any-link {
         text-decoration: none;
@@ -59,7 +73,7 @@ export default {
         justify-content: space-around;
         width: 100%;
         background: #fff;
-        padding: 0 60px 16px 60px;
+        padding: 0 75px 0 75px;
         font-size: 14px;
     }
     .topBar .navBox{
@@ -73,7 +87,7 @@ export default {
         text-align: center;
     }
     .icon-man {
-      color: black;
+        color: #999;
     }
     .router-link-active .icon-man{
       color: #fff;
@@ -82,7 +96,7 @@ export default {
       font-size: 16px;
     }
     .icon-women {
-      color: black;
+       color: #999;
     }
     .router-link-active .icon-women{
       color: #fff;
@@ -91,7 +105,7 @@ export default {
       font-size: 16px;
     }
     .icon-assortment {
-      color: black;
+       color: #999;
     }
     .router-link-active .icon-assortment{
       color: #fff;
@@ -100,7 +114,7 @@ export default {
       font-size: 16px;
     }
     .icon-mine {
-      color: black;
+       color: #999;
     }
     .router-link-active .icon-mine{
       color: #fff;

@@ -66,6 +66,7 @@ Vue.prototype.$http.interceptors.response.use(function (response) {
 });
 
 router.beforeEach((to, from, next) => {
+  console.log(to.query);
   if (to.meta.title) {
     document.title = to.meta.title;
   }

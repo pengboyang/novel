@@ -8,6 +8,8 @@ Vue.use(vuex);
 export default new vuex.Store({
     /*全局状态*/
     state: {
+      openId:'',
+      userInfo:{},
     },
     /*局部状态*/
     modules:{

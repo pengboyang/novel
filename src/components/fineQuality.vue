@@ -2,10 +2,10 @@
   <div class="manContent">
       <div class="manTitle">
         <span class="kind">{{$attrs.title}}</span>
-        <span class="moreList">更多></span>
+        <span class="moreList" @click="moreList">更多></span>
       </div>
       <div class="manNovel">
-          <div class="novelWra">
+          <div class="novelWra" @click="goDetail">
             <div class="novelPic"><img src="../assets/img/girl.png" alt=""></div>
             <div class="novelName">我是书名</div>
           </div>
@@ -40,7 +40,14 @@
       return {}
     },
     created(){
-      console.log(this.$attrs)
+    },
+    methods:{
+      moreList(){
+        this.$router.push({path:'/moreList'});
+      },
+      goDetail(){
+        this.$router.push({path:'/bookDetail'});
+      }
     }
   }
 </script>
@@ -75,7 +82,7 @@
   justify-content:space-between;
 }
 .manContent .manNovel .novelWra {
-  width: 30%;
+  width: 26%;
 	vertical-align: middle;
 	color: black;
 	text-align: center;
@@ -89,7 +96,9 @@
   vertical-align: middle;
 }
 .manContent .manNovel .novelWra .novelName{
-  line-height: 40px;
+    font-size: 12px;
+    margin-top: 8px;
+    margin-bottom: 10px;
 }
 </style>
 

@@ -16,9 +16,6 @@
     components:{
       navbar
     },
-    mounted(){
-        this.wrapperHeight = document.documentElement.clientHeight - 104;
-    }
   }
 </script>
 <style>

@@ -40,5 +40,35 @@ export default [
       },
     ]
   },
+  {
+    meta: {
+      title: 'moreList',
+      keepAlive: false,
+      isBack:false,
+    },
+    path: '/moreList',
+    name: 'moreList',
+    component: resolve => require(['views/more/moreList'], resolve),
+  },
+  {
+    meta: {
+      title: 'bookDetail',
+      keepAlive: false,
+      isBack:false,
+    },
+    path: '/bookDetail',
+    name: 'bookDetail',
+    component: resolve => require(['views/more/bookDetail'], resolve),
+  },
+  {
+    meta: {
+      title: 'readNovel',
+      keepAlive: false,
+      isBack:false,
+    },
+    path: '/readNovel',
+    name: 'readNovel',
+    component: resolve => require(['views/more/readNovel'], resolve),
+  },
   
 ];
