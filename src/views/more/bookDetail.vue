@@ -85,18 +85,19 @@
   height: 46px;
   line-height: 46px;
   position: fixed;
+  left: 15px;
+  top: 0;
   background: #fff;
   z-index: 999;
 }
-.topBanner .returnBack{
+.bookDetail .topBanner .returnBack{
   width: 12px;
   height: auto;
   vertical-align: middle;
   display: inline-block; 
   vertical-align: middle;
-  padding-left: 15px;
 }
-.topBanner .topTitle{
+.bookDetail .topBanner .topTitle{
   font-size: 17px;
   font-weight: 700;
   width: 100px;
@@ -104,12 +105,12 @@
   text-align: center;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 15px;
   bottom: 0;
   left: 0;
   margin: auto;
 }
-.lineBg{
+.bookDetail .lineBg{
   position: fixed;
   left: 0;
   top: 46px;

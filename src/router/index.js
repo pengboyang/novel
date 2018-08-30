@@ -6,34 +6,34 @@ export default [
   },
   {
     meta: {
-      title: 'novel',
+      title: '小说',
       keepAlive: false,
       isBack:false,
     },
     path: '/novel/',
-    name: 'novel',
+    name: 'xiao',
     component: resolve => require(['views/index'], resolve),
     children:[
       {
-        meta: {title: 'manList', keepAlive:true,isBack:false,},
+        meta: {title: '男生列表', keepAlive:true,isBack:false,},
         path: 'manList',
         name:'manList',
         component: resolve => require(['views/novel/manList'], resolve),
       },
       {
-        meta: {title: 'womenList', keepAlive:true,isBack:false,},
+        meta: {title: '女生列表', keepAlive:true,isBack:false,},
         path: 'womenList',
         name:'womenList',
         component: resolve => require(['views/novel/womenList'], resolve),
       },
       {
-        meta: {title: 'assortmentList', keepAlive:true,isBack:false,},
+        meta: {title: '分类列表', keepAlive:true,isBack:false,},
         path: 'assortmentList',
         name:'assortmentList',
         component: resolve => require(['views/novel/assortmentList'], resolve),
       },
       {
-        meta: {title: 'mineList', keepAlive:true,isBack:false,},
+        meta: {title: '我的', keepAlive:true,isBack:false,},
         path: 'mineList',
         name:'mineList',
         component: resolve => require(['views/novel/mineList'], resolve),
@@ -42,7 +42,7 @@ export default [
   },
   {
     meta: {
-      title: 'moreList',
+      title: '更多列表',
       keepAlive: false,
       isBack:false,
     },
@@ -52,7 +52,7 @@ export default [
   },
   {
     meta: {
-      title: 'bookDetail',
+      title: '小说详情',
       keepAlive: false,
       isBack:false,
     },
@@ -62,13 +62,33 @@ export default [
   },
   {
     meta: {
-      title: 'readNovel',
+      title: '小说正文',
       keepAlive: false,
       isBack:false,
     },
     path: '/readNovel',
     name: 'readNovel',
     component: resolve => require(['views/more/readNovel'], resolve),
+  },
+  {
+    meta: {
+      title: '充值',
+      keepAlive: false,
+      isBack:false,
+    },
+    path: '/recharge',
+    name: 'recharge',
+    component: resolve => require(['views/more/recharge'], resolve),
+  },
+  {
+    meta: {
+      title: '客服',
+      keepAlive: false,
+      isBack:false,
+    },
+    path: '/customService',
+    name: 'customService',
+    component: resolve => require(['views/more/customService'], resolve),
   },
   
 ];
