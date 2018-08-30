@@ -19,6 +19,7 @@ html,body{
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 #app {
   font-family: 'STHeiti SC','\5fae\8f6f\96c5\9ed1',Arial,'Helvetica Neue',Helvetica,sans-serif;
