@@ -5,6 +5,7 @@
     <new-book title="女生新书"></new-book>
     <fine-quality title="女生热搜"></fine-quality>
     <free-week title="女生热搜"></free-week>
+    <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
   </div>
 </template>
 <script>
