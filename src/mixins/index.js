@@ -10,6 +10,10 @@ var mixin = {
         login: '/novel/user/login',
         getUser: '/novel/user/getUser',
         authorlogin: '/novel/user/authorlogin',
+        novelApiLibrary: '/novel/api/library',
+        novelApiCategory: '/novel/api/category',
+        novelApiDetail: '/novel/api/detail',
+        novelApiList: '/novel/api/list',
       }
     };
   },
@@ -48,21 +52,21 @@ var mixin = {
       return md5.digest('hex');
     },
     /*获取code*/
-    getCode(str){
-      let url=str||window.location.href;
-      let baseurl=url.split('#')[0];
-      let hash=baseurl.split('?')[1];
-      let hasharr=hash.split('&');
-      let query={};
-      hasharr.forEach((item,index)=>{
-        query[item.split('=')[0]]=item.split('=')[1];
+    getCode(str) {
+      let url = str || window.location.href;
+      let baseurl = url.split('#')[0];
+      let hash = baseurl.split('?')[1];
+      let hasharr = hash.split('&');
+      let query = {};
+      hasharr.forEach((item, index) => {
+        query[item.split('=')[0]] = item.split('=')[1];
       });
-      if(query.state){
+      if (query.state) {
         store.dispatch({
           type: 'userCodeChange',
           val: query.code,
         });
-      }else{
+      } else {
         store.dispatch({
           type: 'codeChange',
           val: query.code,

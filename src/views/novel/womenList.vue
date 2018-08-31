@@ -1,10 +1,11 @@
 <template>
   <div class="manList">
     <my-swiper></my-swiper>
-    <fine-quality title="女生精品"></fine-quality>
-    <new-book title="女生新书"></new-book>
-    <fine-quality title="女生热搜"></fine-quality>
-    <free-week title="女生热搜"></free-week>
+    <div v-for="item in womenBookList">
+      <new-book v-if="item.style==3" :data="item"></new-book>
+      <fine-quality v-else-if="item.style==6" :data="item"></fine-quality>
+      <free-week v-else-if="item.style==4" :data="item"></free-week>
+    </div>
     <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
   </div>
 </template>
@@ -19,6 +20,8 @@
     name: 'manList',
     data() {
       return {
+        gender: 0,
+        womenBookList: [],
         isFirstEnter: false, // 是否第一次进入，默认false
       }
     },
@@ -28,21 +31,22 @@
       newBook,
       freeWeek
     },
-    methods: {},
-    mounted() {
-      console.log(this.$route)
-    },
     created() {
-      this.isFirstEnter = true;
+      this.gender = this.$route.query.id;
+      this.womenPageList();
     },
-    activated() {
-      if (!this.$route.meta.isBack || this.isFirstEnter) {
-        // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
+    methods: {
+      womenPageList() {
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.novelApiLibrary,
+          params: {gender: this.gender}
+        }).then(res => {
+          if (res.status == 200) {
+            this.womenBookList = res.data.novelLists;
+          }
+        }).catch()
       }
-      // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
-      this.$route.meta.isBack = false;
-      // 恢复成默认的false，避免isBack一直是true，导致每次都获取新数据
-      this.isFirstEnter = false;
     },
   }
 </script>

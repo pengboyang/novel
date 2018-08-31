@@ -40,6 +40,7 @@ const router = new VueRouter({
 
 // ajax
 Vue.$http = Vue.prototype.$http = axios.create({
+  baseURL: 'http://dsp.i6bktq.cn:83',
   // baseURL: 'http://api.55duanzi.com',
   baseURL: 'http://dsp.i6bktq.cn:83',
   withCredentials: true,// `withCredentials` 表示跨域请求时是否需要使用凭证

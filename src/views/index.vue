@@ -45,14 +45,20 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  .transparentBg{
-    background:rgba(255,255,255,0);
+  .transparentBg {
+    background: rgba(255, 255, 255, 0);
   }
 
-  .comSwiepr,.manContent,.newBook,.manContent,.freeWeek,.weui-loadmore,.assortment,.assortmentCont,.mineList,.detaiContent,.comBooks,.manList,.assortmentList,.moreList,.bookDetail{
-    background:#fff;
+  .comSwiepr, .manContent, .newBook, .manContent, .freeWeek, .weui-loadmore, .assortment, .assortmentCont, .mineList, .detaiContent, .comBooks, .manList, .assortmentList, .moreList, .bookDetail {
+    background: #fff;
   }
-  .kind,.bookname{color:#000;}
-  .novelPic img{box-shadow: 0px 0px 5px #999;}
+
+  .kind, .bookname {
+    color: #000;
+  }
+
+  .novelPic img {
+    box-shadow: 0px 0px 5px #999;
+  }
 </style>
 

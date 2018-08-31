@@ -1,7 +1,8 @@
 <template>
   <div class="customService">
     <div class="serviceTop">
-      <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
+      <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+                                                              alt=""></div>
       <div class="title">联系客服</div>
     </div>
     <div class="lineBg"></div>
@@ -37,7 +38,7 @@
     width: 100%;
     height: 46px;
     line-height: 46px;
-    padding-left:15px;
+    padding-left: 15px;
     position: relative;
     left: 0;
     top: 0;
@@ -116,10 +117,11 @@
     font-size: 16px;
   }
 
-  .ruleLabel{
+  .ruleLabel {
     display: inline-block;
-    width:80px;
+    width: 80px;
   }
+
   .returnBack {
     width: 12px;
     height: auto;
