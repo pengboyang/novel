@@ -164,6 +164,7 @@
 
   .bookDetail {
     height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
   }
 
@@ -174,6 +175,7 @@
     position: fixed;
     left: 0;
     top: 0;
+    padding-left:15px;
     background: #fff;
     z-index: 999;
     padding-left: 15px;
@@ -211,6 +213,10 @@
   }
 
   .bookDetail .detaiContent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
     padding: 70px 15px 0 15px;;
   }
 

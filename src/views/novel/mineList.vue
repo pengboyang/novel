@@ -13,7 +13,7 @@
         <div class="comRow">
           <span class="leftImg"><img src="../../assets/img/bookGold.png" alt=""></span>
           <span class="text">余额</span>
-          <span class="text"><span class="gold">100</span>书币</span>
+          <span class="text"><span class="gold">0</span>书币</span>
           <div class="btn" @click="goRecharge">
             <img src="../../assets/img/recharge.png" alt="">
           </div>
@@ -39,19 +39,24 @@
       }
     },
     created() {
-      this.getCode();
-      if (this.$store.state.userCode) {
-        this.authorlogin();
-      } else {
-        this.getUser();
+      if(!this.$store.state.userInfo.imgPath){
+        this.getCode();
+        if (this.$store.state.userCode) {
+          this.authorlogin();
+        } else {
+          this.getUser();
+        }
+      }else{
+        this.imgPath=this.$store.state.userInfo.imgPath;
+        this.nickName=this.$store.state.userInfo.nickName;
       }
     },
     methods: {
       goRecharge() {
-        this.$router.push({path: '/recharge'})
+        this.$router.push({path: '/recharge'});
       },
       goService() {
-        this.$router.push({path: '/customService'})
+        this.$router.push({path: '/customService'});
       },
       getUser() {
         let times = Date.parse(new Date());
@@ -65,10 +70,16 @@
           var data = res.data;
           if (data.code == 1) {
             localStorage.setItem('uuid', data.uuid);
-            this.imgPath = require(data.imagePath);
-            this.nickName = data.nickName;
+            this.imgPath =this.$store.state.userInfo.imgPath= data.imagePath;
+            this.nickName =this.$store.state.userInfo.nickName= data.nickName;
           } else if (data.code == 3) {
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fs.55duanzi.com%2fnovel%2fdist%2findex.html%23%2fnovel%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
+          } else if (data.code == 4) {
+            this.login(data=> {
+              if(data=='success'){
+                this.getUser();
+              }
+            })
           } else {
           }
         }).catch(error => {
@@ -87,8 +98,8 @@
           console.log(res);
           var data = res.data;
           if (data.code == 1) {
-            this.imgPath = require(data.imagePath);
-            this.nickName = data.nickName;
+            this.imgPath =this.$store.state.userInfo.imgPath= data.imagePath;
+            this.nickName =this.$store.state.userInfo.nickName= data.nickName;
           }
         }).catch(error => {
           console.log(error);
@@ -119,6 +130,8 @@
   .mineList .mineListCon .userInfo .uesrLogo {
     width: 100px;
     padding-right: 16px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .mineList .mineListCon .userInfo .uesrLogo img {

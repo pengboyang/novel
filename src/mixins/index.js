@@ -54,45 +54,54 @@ var mixin = {
       return md5.digest('hex');
     },
     /*获取code*/
-    getCode(str) {
-      let url = str || window.location.href;
-      let baseurl = url.split('#')[0];
-      let hash = baseurl.split('?')[1];
-      let hasharr = hash.split('&');
-      let query = {};
-      hasharr.forEach((item, index) => {
-        query[item.split('=')[0]] = item.split('=')[1];
-      });
-      if (query.state) {
-        store.dispatch({
-          type: 'userCodeChange',
-          val: query.code,
+    getCode() {
+      try{
+        let url = window.location.href;
+        let baseurl = url.split('#')[0];
+        let hash = baseurl.split('?')[1];
+        let hasharr = hash.split('&');
+        let query = {};
+        hasharr.forEach((item, index) => {
+          query[item.split('=')[0]] = item.split('=')[1];
         });
-      } else {
-        store.dispatch({
-          type: 'codeChange',
-          val: query.code,
-        });
+        if (query.state) {
+          store.dispatch({
+            type: 'userCodeChange',
+            val: query.code,
+          });
+        } else {
+          store.dispatch({
+            type: 'codeChange',
+            val: query.code,
+          });
+        }
+        return query;
+      }catch (e) {
+
       }
-      return query;
     },
     /*登录*/
-    login(Vue, code) {
-      console.log(Vue.apiUrl.login);
-      console.log(this.apiUrl.login);
-      Vue.$http({
-        method: 'get',
-        url: this.apiUrl.login,
-        params: {
-          code: code,
-        }
-      }).then(res => {
-        console.log(res);
-        var data = res.data;
+    login(callback) {
+      try {
+        let query = this.getCode();
+        this.$http({
+          method: 'get',
+          url: '/novel/user/login',
+          params: {
+            code: query.code,
+          }
+        }).then(res => {
+          var data = res.data;
+          if (data.code == 1) {
+            localStorage.setItem('uuid', data.uuid);
+            callback('success');
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      } catch (e) {
 
-      }).catch(error => {
-        console.log(error);
-      });
+      }
     },
   }
 

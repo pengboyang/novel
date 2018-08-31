@@ -1,7 +1,7 @@
 <template>
   <div class="comSwiepr">
     <wv-swipe :autoplay="10000" :height="120">
-      <wv-swipe-item v-for="item in srcLists"><img @click="goBookDetail(item.id,item.type)" style="width:100%;height:auto;vertical-align:middle" :src="item.cover" alt=""></wv-swipe-item>
+      <wv-swipe-item v-for="(item,index) in srcLists" :key="index"><img @click="goBookDetail(item.id,item.type)" style="width:100%;height:auto;vertical-align:middle" :src="item.cover" alt=""></wv-swipe-item>
     </wv-swipe>
   </div>
 </template>

@@ -203,7 +203,10 @@
     width: 100%;
     height: 110px;
     position: fixed;
+    top:0;
+    left:0;
     background: #f0ece9;
+    z-index: 1;
   }
 
   .readNovel .topWra .topBaner {
@@ -253,8 +256,10 @@
   }
 
   .readNovel .novelCont {
-    margin-top: 110px;
-    padding: 0 15px;
+    height:100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 110px 15px 60px;
   }
 
   .readNovel .novelCont .chapter {
