@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.keepAlive) {
     to.meta.isBack = true;
   }
-  if (!localStorage.getItem('uuid')) {
+  if (!store.state.code&&!store.state.userCode) {
     try {
       let query = Mixin.methods.getCode();
       Vue.$http({

@@ -124,6 +124,8 @@
   .mineList .mineListCon .userInfo .uesrLogo {
     width: 100px;
     padding-right: 16px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .mineList .mineListCon .userInfo .uesrLogo img {
