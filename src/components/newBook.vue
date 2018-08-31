@@ -49,18 +49,7 @@
       },
       /*推荐*/
       goNovelDetail(id,type){
-        this.$http({
-          method:'get',
-          url:this.apiUrl.novelApiList,
-          params:{category:type}
-        }).then(res=>{
-          if(res.status==200){
-            console.log(res);
-            this.betterMoreList=res.data.novelList;
-            // this.$forceUpdate();
-            this.$router.push({path:'/bookDetail',query: {id: id,type:type,betterMoreList:this.betterMoreList}});
-          }
-        }).catch()
+          this.$router.push({path:'/bookDetail',query: {id: id,type:type}});
       }
     }
   }

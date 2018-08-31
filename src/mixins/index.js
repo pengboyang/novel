@@ -6,7 +6,8 @@ var mixin = {
                 novelApiLibrary:'/novel/api/library',
                 novelApiCategory:'/novel/api/category',
                 novelApiDetail:'/novel/api/detail',
-                novelApiList:'/novel/api/list'
+                novelApiList:'/novel/api/list',
+                novelApiContent:'/novel/api/content'
             }
         };
     },
