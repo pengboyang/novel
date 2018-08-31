@@ -1,5 +1,5 @@
 <template>
-  <div class="readNovel"  ref="scroTop">
+  <div class="readNovel">
     <div class="topWra" :style="{background:color}">
       <div class="topBaner">
         <div style="width:30px;height:100%;display:inline-block;" @click.stop="back"><img class="returnBack"
@@ -14,15 +14,15 @@
       </div>
       <div class="novelTitle">{{bookTitle}}</div>
     </div>
-    <div class="novelCont" @click="showBottom" :style="{fontSize:num+'px'}">
+    <div class="novelCont" @click="showBottom" :style="{fontSize:num+'px'}" ref="scroTop">
       <div class="novelText" v-html="novelStr"></div>
       <div class="chapter" v-if="btnFlag">
         <div v-bind:class="['novelbtn',PrenoPage ? 'novelActive' : 'novelActive1']" @click.stop="bookInfo(bookId,novelPrePage)">上一章</div>
         <div v-bind:class="['novelbtn',NextnoPage ? 'novelActive' : 'novelActive1']"  @click.stop="bookInfo(bookId,novelNextPage)">下一章</div>
       </div>
       <div class="payNovel" v-if="vipRecharge">
-        <div class="price">价格:<span class="gold">100</span>书币</div>
-        <div class="balance">余额:<span class="gold">20</span>书币</div>
+        <div class="price">价格:<span class="gold">{{price}}</span>书币</div>
+        <div class="balance">余额:<span class="gold">{{balance}}</span>书币</div>
         <!-- <div class="payrule">
           <input id="radio" type="checkbox" v-model="checked" name="radio" value=""/>
           <span>自动购买下一章，以后不再提示</span>
@@ -80,6 +80,8 @@
         meuLists:[],
         lastPage:0,
         chapterSum:0,
+        balance:0,
+        price:0,
       }
     },
     watch:{
@@ -152,6 +154,8 @@
             this.bookTitle = res.data.title;
             this.novelPrePage = res.data.prepage;
             this.novelNextPage = res.data.nextpage;
+            this.balance = res.data.balance;
+            this.price = res.data.price;
             if(!res.data.pay){
                 this.btnFlag = true;
                 this.vipRecharge = false;

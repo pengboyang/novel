@@ -1,5 +1,5 @@
 <template>
-  <div class="bookDetail">
+  <div class="bookDetail" ref="scroTops">
     <div class="topBanner">
       <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack"
                                                                    src="../../assets/img/returnback.png" alt=""></div>
@@ -50,7 +50,7 @@
           <span class="moreList" @click="moreList">更多></span>
         </div>
         <div class="manNovel">
-          <div class="novelWra" @click="goDetail(item.id,item.type)" v-for="item in betterMoreList">
+          <div class="novelWra" v-for="item in betterMoreList"  @click="goDetail(item.id,item.type)">
             <div class="novelPic"><img :src="item.cover" alt=""></div>
             <div class="novelName">{{item.title}}</div>
           </div>
@@ -141,7 +141,14 @@
         }).catch()
       },
       goDetail(id, type) {
-        this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
+        this.bookId = id;
+        this.bookType = type;
+        this.bookDetailInfo();
+        this.bookMoreList();
+        this.$refs.scroTops.scrollTop=0;
+        console.log(this.$refs.scroTops)
+
+        // this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
       },
       moreList() {
         this.$router.push({path: '/moreList',query:{type:this.moreType}});
@@ -163,9 +170,13 @@
   }
 
   .bookDetail {
+    width: 100%;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 
   .bookDetail .topBanner {
@@ -201,6 +212,9 @@
     bottom: 0;
     left: 0;
     margin: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .bookDetail .lineBg {
