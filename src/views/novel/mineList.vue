@@ -48,10 +48,10 @@
     },
     methods: {
       goRecharge() {
-        this.$router.push({path: '/recharge'})
+        this.$router.push({path: '/recharge'});
       },
       goService() {
-        this.$router.push({path: '/customService'})
+        this.$router.push({path: '/customService'});
       },
       getUser() {
         let times = Date.parse(new Date());

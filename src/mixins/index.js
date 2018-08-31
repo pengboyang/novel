@@ -54,26 +54,30 @@ var mixin = {
     },
     /*获取code*/
     getCode(str) {
-      let url = str || window.location.href;
-      let baseurl = url.split('#')[0];
-      let hash = baseurl.split('?')[1];
-      let hasharr = hash.split('&');
-      let query = {};
-      hasharr.forEach((item, index) => {
-        query[item.split('=')[0]] = item.split('=')[1];
-      });
-      if (query.state) {
-        store.dispatch({
-          type: 'userCodeChange',
-          val: query.code,
+      try{
+        let url = str || window.location.href;
+        let baseurl = url.split('#')[0];
+        let hash = baseurl.split('?')[1];
+        let hasharr = hash.split('&');
+        let query = {};
+        hasharr.forEach((item, index) => {
+          query[item.split('=')[0]] = item.split('=')[1];
         });
-      } else {
-        store.dispatch({
-          type: 'codeChange',
-          val: query.code,
-        });
+        if (query.state) {
+          store.dispatch({
+            type: 'userCodeChange',
+            val: query.code,
+          });
+        } else {
+          store.dispatch({
+            type: 'codeChange',
+            val: query.code,
+          });
+        }
+        return query;
+      }catch (e) {
+
       }
-      return query;
     },
     /*登录*/
     login(Vue, code) {

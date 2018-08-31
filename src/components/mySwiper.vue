@@ -1,7 +1,7 @@
 <template>
   <div class="comSwiepr">
     <wv-swipe :autoplay="3000">
-      <wv-swipe-item v-for="item in srcLists"><img :src="item.cover" alt=""></wv-swipe-item>
+      <wv-swipe-item v-for="(item,index) in srcLists" :key="index"><img :src="item.cover" alt=""></wv-swipe-item>
     </wv-swipe>
   </div>
 </template>
