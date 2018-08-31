@@ -38,8 +38,8 @@
       </div>
       <div class="filament"></div>
       <div class="novelBooks">
-        <div class="novelCon clearfloat" v-for="item in serachLists">
-          <div class="novelLeft" @click="goDetail(item.id,item.type)">
+        <div class="novelCon clearfloat" v-for="item in serachLists"  @click="goDetail(item.id,item.type)">
+          <div class="novelLeft">
             <img :src="item.cover" alt="">
           </div>
           <div class="novelRight">

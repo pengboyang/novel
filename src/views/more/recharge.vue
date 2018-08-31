@@ -10,7 +10,7 @@
       <div class="text">请选择充值金额</div>
       <div class="rechargePic clearfloat">
         <div class="wra clearfloat" v-for="(item,index) in priceNum" @click="exchange(item,index)">
-          <img :src="item.srcOne" alt="">
+          <img :class="{'picActive': activeIndex == index}" :src="item.srcOne" alt="">
         </div>
       </div>
       <div class="prompt">
@@ -28,6 +28,7 @@
     name: 'recharge',
     data() {
       return {
+        activeIndex:-1,
         priceNum:[
           {
             id:0,
@@ -55,6 +56,7 @@
         this.$router.go(-1)
       },
       exchange(item,index){
+        this.activeIndex = index;
       }
     }
   }
@@ -143,6 +145,7 @@
     width: 100%;
     height: auto;
     vertical-align: middle;
+    border: 1px solid transparent;
   }
 
   .prompt {
@@ -150,6 +153,10 @@
     font-size: 14px;
     color: #999;
     line-height: 28px;
+  }
+  .picActive{
+    border: 1px solid red;
+    background: red;
   }
 </style>
 
