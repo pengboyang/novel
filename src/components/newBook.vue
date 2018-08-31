@@ -1,62 +1,24 @@
 <template>
   <div class="newBook">
       <div class="manTitle">
-        <span class="kind">{{$attrs.title}}</span>
+        <span class="kind">{{title}}</span>
         <span class="moreList" @click="newMoreList">更多></span>
       </div>
       <div class="books">
-        <div class="content clearfloat">
-          <div class="bookLeft">
-            <img src="../assets/img/wanmeishijie .png" alt="">
+        <div class="content clearfloat" v-for="item in newBookList">
+          <div class="bookLeft" @click="goNovelDetail(item.id,item.type)">
+            <img :src="item.cover" alt="">
           </div>
           <div class="bookRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
+            <p class="bookname">{{item.title}}</p>
+            <div class="bookDescribed">{{item.summary}}</div>
             <div class="bookInfo clearfloat">
               <div class="author">
                 <span class="icon"><img src="../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
+                <span class="man">作者：{{item.author}}</span>
               </div>
               <div class="described">
-                <span>分类</span>
-                <span>完结</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content clearfloat">
-          <div class="bookLeft">
-            <img src="../assets/img/wanmeishijie .png" alt="">
-          </div>
-          <div class="bookRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookInfo clearfloat">
-              <div class="author">
-                <span class="icon"><img src="../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
-              </div>
-              <div class="described">
-                <span>分类</span>
-                <span>完结</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content clearfloat">
-          <div class="bookLeft">
-            <img src="../assets/img/wanmeishijie .png" alt="">
-          </div>
-          <div class="bookRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookInfo clearfloat">
-              <div class="author">
-                <span class="icon"><img src="../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
-              </div>
-              <div class="described">
-                <span>分类</span>
+                <span>{{item.typename}}</span>
                 <span>完结</span>
               </div>
             </div>
@@ -70,13 +32,35 @@
   export default{
     name:'newBook',
     data(){
-      return {}
+      return {
+        newBookList:[],
+        title:'',
+        betterMoreList:[],
+      }
     },
     created(){
+      this.newBookList = this.$attrs.data.novelItemList;
+      this.title = this.$attrs.data.name;
+      console.log(this.newBookList)
     },
     methods:{
       newMoreList(){
           this.$router.push({path:'/moreList'});
+      },
+      /*推荐*/
+      goNovelDetail(id,type){
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiList,
+          params:{category:type}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.betterMoreList=res.data.novelList;
+            // this.$forceUpdate();
+            this.$router.push({path:'/bookDetail',query: {id: id,type:type,betterMoreList:this.betterMoreList}});
+          }
+        }).catch()
       }
     }
   }
@@ -133,7 +117,7 @@
   vertical-align: middle;
 }
 .newBook .books .content .bookRight{
-  width: 65%;
+  width: 66%;
   float: right;
 }
 .newBook .books .content .bookRight .bookname{
@@ -161,7 +145,7 @@
 }
 .newBook .books .content .bookRight .bookInfo .described span{
  background: #e0e0e0;
- padding: 2px 10px;
+ padding: 2px 6px;
  vertical-align: middle;
  border-radius: 10px;
 }

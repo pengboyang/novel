@@ -32,10 +32,20 @@
     </div>
     <div class="novelToast">
       <div class="btn">
-        <img class="left" src="../../assets/img/menu.png" alt="">
+        <img @click="showToast" class="left" src="../../assets/img/menu.png" alt="">
         <img class="right" src="../../assets/img/novelInfo.png" alt="">
       </div>
     </div>
+    <wv-popup :visible.sync="popupVisible1">
+        <div class="page page-infinite-wrapper">
+          <wv-group title="目录" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50" infinite-scroll-immediate-check="true">
+              <div class="menuTitle" v-for="item in list">{{item}}</div>
+          </wv-group>
+          <p v-show="loading" class="loading-tips">
+            <wv-spinner type="snake" color="#444" :size="24"/>
+          </p>
+        </div>
+    </wv-popup>
   </div>
 </template>
 <script>
@@ -45,12 +55,36 @@
       return {
         btnFlag:true,
         checked: true,
+        popupVisible1:false,
+        list: [],
+        loading: false,
+        allLoaded: false,
       }
+    },
+    mounted () {
+        for (let i = 1; i <= 15; i++) {
+          this.list.push(i)
+        }
     },
     created(){},
     methods:{
       back(){
         this.$router.go(-1);
+      },
+      showToast(){
+        this.popupVisible1 = true;
+      },
+      loadMore () {
+        this.loading = true
+        setTimeout(() => {
+          let last = this.list[this.list.length - 1]
+          for (let i = 1; i <= 5; i++) {
+            this.list.push(last + i)
+          }
+          this.$nextTick(() => {
+            this.loading = false
+          })
+        }, 1000)
       }
     }
   }
@@ -218,6 +252,20 @@
   height: auto;
   vertical-align: middle;
   float: right;
+}
+.readNovel .loading-tips {
+  color: #222;
+  text-align: center;
+}
+.readNovel .page{
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
+}
+.readNovel .page .menuTitle{
+  line-height: 45px;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0 15px;
 }
 </style>
 

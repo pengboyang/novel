@@ -4,15 +4,11 @@
       <div class="lineBg"></div>
       <div class="assortment">
         <div class="gender">
-          <span class="active">男生</span>
-          <span>女生</span>
+          <span @click="changeSex(item,index)" v-for="(item,index) in genderLists" :class="{'Active': genderIndex == index}">{{item==1?'男生':'女生'}}</span>
         </div>
         <div class="mold">
-          <span class="active">都市生活</span>
-          <span>玄幻仙侠</span>
-          <span>历史军事</span>
-          <span>游戏科幻</span>
-          <span @click="show=!show"><img src="../../assets/img/bottomJT.png" alt=""></span>
+          <span @click="changeAssortment(items,index)" v-for="(items,index) in channelLists" :class="{'Active': channelIndex == index}">{{items.value}}</span>
+          <!-- <span @click="show=!show"><img src="../../assets/img/bottomJT.png" alt=""></span>
           <transition name="fade">
             <div v-if="show">
               <span>玄幻仙侠</span>
@@ -32,12 +28,10 @@
               <span>玄幻仙侠</span>
               <span>玄幻仙侠</span>
             </div>
-          </transition>
+          </transition> -->
         </div>
         <div class="completion">
-          <span class="active">全部</span>
-          <span>完结</span>
-          <span>连载</span>
+          <span @click="changeType(item,index)" v-for="(item,index) in typeLists" :class="{'Active': typeIndex == index}">{{item==0?'全部':(item==1?'连载':'完结')}}</span>
         </div>
       </div>
       <div class="filament"></div>
@@ -166,7 +160,46 @@ export default{
   name:'assortmentList',
   data(){
     return{
-      show: false
+      show: false,
+      cateGoryBookList:[],
+      defaultId:1,
+      genderLists:[],
+      statusLists:[],
+      typeLists:[],
+      channelLists:[],
+      genderIndex:0,
+      channelIndex:0,
+      typeIndex:0,
+    }
+  },
+  created(){
+    this.cateGoryList();
+  },
+  methods:{
+    cateGoryList(){
+      this.$http({
+        method:'get',
+        url:this.apiUrl.novelApiCategory,
+        params:{gender:this.defaultId}
+      }).then(res=>{
+        if(res.status==200){
+          console.log(res);
+          this.genderLists = res.data.genderList;
+          this.statusLists = res.data.statusList;
+          this.typeLists = res.data.typeList;
+          this.channelLists = res.data.channelList;
+          console.log(this.channelLists);
+        }
+      }).catch();
+    },
+    changeSex(item,index){
+      this.genderIndex = index;
+    },
+    changeAssortment(item,index){
+      this.channelIndex = index;
+    },
+    changeType(item,index){
+      this.typeIndex=index;
     }
   }
 }
@@ -201,15 +234,22 @@ export default{
   border-bottom: 1px solid #e0e0ee;
 }
 .assortmentList .assortment .gender{
-  padding: 15px 0 15px 0;
+  padding: 15px 0 8px 0;
 }
 .assortmentList .assortment .gender span{
+    border: 1px solid transparent;
+  border-radius: 14px;
   padding: 2px 6px;
 }
 .assortmentList .assortment .mold{
-  padding: 0 0 15px 0;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap:wrap;
+  padding-bottom: 8px;
 }
 .assortmentList .assortment .mold span{
+  border: 1px solid transparent;
+  border-radius: 14px;
   padding: 2px 6px;
 }
 .assortmentList .assortment .mold img{
@@ -217,9 +257,11 @@ export default{
 }
 .assortmentList .assortment .completion span{
   padding: 2px 6px;
+    border: 1px solid transparent;
+  border-radius: 14px;
 }
-.active{
-  border: 1px solid #ff4646;
+.Active{
+  border: 1px solid #ff4646 !important;
   border-radius: 14px;
   color: #ff4646;
 }

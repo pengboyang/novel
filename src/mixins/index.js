@@ -3,6 +3,10 @@ var mixin = {
     data: () => {
         return {
             apiUrl: {
+                novelApiLibrary:'/novel/api/library',
+                novelApiCategory:'/novel/api/category',
+                novelApiDetail:'/novel/api/detail',
+                novelApiList:'/novel/api/list'
             }
         };
     },
