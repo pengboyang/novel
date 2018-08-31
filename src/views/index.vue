@@ -44,7 +44,7 @@
     z-index: 1;
     -webkit-overflow-scrolling: touch;
   }
-  .novelCont{
+  .moreList,.novelCont,.readNovel .page{
     -webkit-overflow-scrolling: touch;
   }
   .transparentBg {

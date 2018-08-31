@@ -197,7 +197,7 @@
     text-align: center;
     position: absolute;
     top: 0;
-    right: 15px;
+    right: 0;
     bottom: 0;
     left: 0;
     margin: auto;
