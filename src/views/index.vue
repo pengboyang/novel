@@ -44,7 +44,7 @@
     z-index: 1;
     -webkit-overflow-scrolling: touch;
   }
-  .bookDetail{
+  .novelCont{
     -webkit-overflow-scrolling: touch;
   }
   .transparentBg {

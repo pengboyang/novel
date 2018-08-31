@@ -53,9 +53,9 @@ var mixin = {
       return md5.digest('hex');
     },
     /*获取code*/
-    getCode(str) {
+    getCode() {
       try{
-        let url = str || window.location.href;
+        let url = window.location.href;
         let baseurl = url.split('#')[0];
         let hash = baseurl.split('?')[1];
         let hasharr = hash.split('&');
@@ -80,22 +80,26 @@ var mixin = {
       }
     },
     /*登录*/
-    login(Vue, code) {
-      console.log(Vue.apiUrl.login);
-      console.log(this.apiUrl.login);
-      Vue.$http({
-        method: 'get',
-        url: this.apiUrl.login,
-        params: {
-          code: code,
-        }
-      }).then(res => {
-        console.log(res);
-        var data = res.data;
+    login() {
+      try {
+        let query = this.getCode();
+        this.$http({
+          method: 'get',
+          url: '/novel/user/login',
+          params: {
+            code: query.code,
+          }
+        }).then(res => {
+          var data = res.data;
+          if (data.code == 1) {
+            localStorage.setItem('uuid', data.uuid);
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      } catch (e) {
 
-      }).catch(error => {
-        console.log(error);
-      });
+      }
     },
   }
 
