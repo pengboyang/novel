@@ -3,9 +3,9 @@
     <div class="mineListCon">
       <div class="lineBg"></div>
       <div class="userInfo">
-        <div class="uesrLogo"><img src="../../assets/img/my-pic.png" alt=""></div>
+        <div class="uesrLogo"><img :src="imgPath" alt=""></div>
         <div class="userName">
-          <div class="name">微信用户名</div>
+          <div class="name">{{nickName}}</div>
           <!-- <div class="vip"><img src="../../assets/img/vip.png" alt=""></div> -->
         </div>
       </div>
@@ -34,6 +34,8 @@
     data() {
       return {
         isFirstEnter: false, // 是否第一次进入，默认false
+        imgPath: require('../../assets/img/my-pic.png'),
+        nickName:''
       }
     },
     created() {
@@ -63,9 +65,30 @@
           var data = res.data;
           if (data.code == 1) {
             localStorage.setItem('uuid', data.uuid);
+            this.imgPath=require(data.imagePath);
+            this.nickName=data.nickName;
           } else if (data.code == 3) {
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fs.55duanzi.com%2fnovel%2fdist%2findex.html%23%2fnovel%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
           } else {
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      },
+      /*用户授权*/
+      authorlogin() {
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.authorlogin,
+          params: {
+            code: this.$store.state.userCode,
+          }
+        }).then(res => {
+          console.log(res);
+          var data = res.data;
+          if(data.code==1){
+            this.imgPath=require(data.imagePath);
+            this.nickName=data.nickName;
           }
         }).catch(error => {
           console.log(error);

@@ -92,22 +92,6 @@ var mixin = {
         console.log(error);
       });
     },
-    /*用户授权*/
-    authorlogin() {
-      this.$http({
-        method: 'get',
-        url: this.apiUrl.authorlogin,
-        params: {
-          code: this.$store.state.userCode,
-        }
-      }).then(res => {
-        console.log(res);
-        var data = res.data;
-
-      }).catch(error => {
-        console.log(error);
-      });
-    },
   }
 
 };

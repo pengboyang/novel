@@ -134,6 +134,7 @@
     font-size: 18px;
     font-weight: 700;
     vertical-align: middle;
+    color:#000;
   }
 
   .readNovel .topWra .setting {

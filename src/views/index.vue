@@ -44,7 +44,9 @@
     z-index: 1;
     -webkit-overflow-scrolling: touch;
   }
-
+  .bookDetail{
+    -webkit-overflow-scrolling: touch;
+  }
   .transparentBg {
     background: rgba(255, 255, 255, 0);
   }
