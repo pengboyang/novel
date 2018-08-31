@@ -10,8 +10,8 @@
           <div class="novelPic"><img :src="item.cover" alt=""></div>
           <div class="novelName">{{item.title}}</div>
           <div class="novelPrice">
-            <span class="costPrice">￥99.99</span>
-            <span class="currentPrice">￥0</span>
+            <!-- <span class="costPrice">￥99.99</span>
+            <span class="currentPrice">￥0</span> -->
           </div>
         </div>
     </div>
