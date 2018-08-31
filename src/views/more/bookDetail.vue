@@ -20,7 +20,7 @@
       </div>
       <div class="novelText">
         <div>{{summary}}</div>
-        <div class="btn"><img src="../../assets/img/moretext.png" alt=""></div>
+        <!-- <div class="btn"><img src="../../assets/img/moretext.png" alt=""></div> -->
       </div>
       <div class="readBtn" @click="readBook"><img src="../../assets/img/readBtn.png" alt=""></div>
       <div class="aboutNovel">
@@ -30,23 +30,32 @@
           <div class="btn">
             <img src="../../assets/img/serialize.png" alt="">
           </div>
-        </div>
-        <div class="comRow">
-          <span class="section">第<span class="gold">{{chapterSum}}</span>章</span>
-          <span class="section">{{chapterName}}</span>
-          <div class="centerBtn">
-            <img src="../../assets/img/new.png" alt="">
+          <div class="comRow">
+            <span class="section">第<span class="gold">{{chapterSum}}</span>章</span>
+            <span class="section">{{chapterName}}</span>
+            <div class="centerBtn">
+              <img src="../../assets/img/new.png" alt="">
+            </div>
           </div>
-        </div>
-        <div class="comRow">
-          <span class="section">更新于<span class="gold">2018-8-13</span><span>12:00</span></span>
-        </div>
-        <div class="comRow">
-          <span class="section">更新于<span class="gold">2018-8-13</span><span>12:00</span></span>
+          <div class="comRow">
+            <span class="section">更新于<span class="gold">{{utime}}</span></span>
+          </div>
         </div>
       </div>
       <div class="allSection" @click="goNovelMenu">全部章节></div>
-      <fine-quality :data="betterMoreList"></fine-quality>
+      <!-- <fine-quality :data="betterMoreList"></fine-quality> -->
+      <div class="newMore">
+        <div class="manTitle">
+          <span class="kind">{{title}}</span>
+          <span class="moreList" @click="">更多></span>
+        </div>
+        <div class="manNovel">
+          <div class="novelWra" @click="goDetail(item.id,item.type)" v-for="item in betterMoreList">
+            <div class="novelPic"><img :src="item.cover" alt=""></div>
+            <div class="novelName">{{item.title}}</div>
+          </div>
+        </div>
+      </div>
       <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
     </div>
   </div>
@@ -69,15 +78,15 @@
         summary: '',
         title: '',
         typename: '',
+        utime: '',
         betterMoreList: []
       }
     },
     created() {
       this.bookId = this.$route.query.id;
       this.bookType = this.$route.query.type;
-      this.betterMoreList = this.$route.query.betterMoreList;
-      console.log(this.betterMoreList)
       this.bookDetailInfo();
+      this.bookMoreList();
     },
     components: {
       fineQuality,
@@ -87,7 +96,7 @@
         this.$router.go(-1)
       },
       readBook() {
-        this.$router.push({path: '/readNovel'});
+        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title}});
       },
       goNovelMenu() {
         this.$router.push({path: '/novelMenuList'});
@@ -101,9 +110,10 @@
           if (res.status == 200) {
             console.log(res);
             this.bookDetailLists = res.data.novelItem;
-            this.chapterName = res.data.chapterName;
-            this.chapterSum = res.data.chapterSum;
-            this.novelType = res.data.novelType;
+            this.chapterName = res.data.chapterLatestInfo.chapterName;
+            this.chapterSum = res.data.chapterLatestInfo.chapterSum;
+            this.novelType = res.data.chapterLatestInfo.novelType;
+            this.utime = res.data.chapterLatestInfo.utime;
             this.author = res.data.novelItem.author;
             this.cover = res.data.novelItem.cover;
             this.id = res.data.novelItem.id;
@@ -114,6 +124,21 @@
           }
         }).catch();
       },
+      bookMoreList() {
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.novelApiList,
+          params: {category: this.bookType}
+        }).then(res => {
+          if (res.status == 200) {
+            console.log(res);
+            this.betterMoreList = res.data.novelList.novelItemList;
+          }
+        }).catch()
+      },
+      goDetail(id, type) {
+        this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
+      }
     }
   }
 </script>
@@ -310,6 +335,54 @@
     line-height: 46px;
     font-weight: 700;
     border-bottom: 5px solid #e0e0e0;
+  }
+
+  .bookDetail .detaiContent .newMore .manTitle {
+    padding: 22px 0 20px 0;
+  }
+
+  .bookDetail .detaiContent .newMore .manTitle .kind {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .bookDetail .detaiContent .newMore .manTitle .moreList {
+    float: right;
+    font-size: 14px;
+    color: #999;
+  }
+
+  .bookDetail .detaiContent .newMore .manNovel {
+    width: 100%;
+    background-color: white;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .bookDetail .detaiContent .newMore .manNovel .novelWra {
+    width: 26%;
+    vertical-align: middle;
+    color: black;
+    text-align: center;
+  }
+
+  .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic {
+    width: 100%;
+  }
+
+  .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  .bookDetail .detaiContent .newMore .manNovel .novelWra .novelName {
+    font-size: 12px;
+    margin-top: 8px;
+    margin-bottom: 10px;
   }
 
 </style>

@@ -1,12 +1,8 @@
 <template>
   <div class="comSwiepr">
-    <swiper :options="swiperOption">
-      <swiper-slide><img src="../assets/img/banner.png" alt=""></swiper-slide>
-      <swiper-slide><img src="../assets/img/banner.png" alt=""></swiper-slide>
-      <swiper-slide><img src="../assets/img/banner.png" alt=""></swiper-slide>
-      <swiper-slide><img src="../assets/img/banner.png" alt=""></swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-    </swiper>
+    <wv-swipe :autoplay="3000">
+      <wv-swipe-item v-for="item in srcLists"><img :src="item.cover" alt=""></wv-swipe-item>
+    </wv-swipe>
   </div>
 </template>
 <script>
@@ -14,20 +10,24 @@
     name: 'mySwiper',
     data() {
       return {
-        swiperOption: {
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-          autoplay: {
-            delay: 2000,
-            stopOnLastSlide: false,
-            disableOnInteraction: false,
-          },
-          loop: true,
-        }
+        srcLists: [],
       }
-    }
+    },
+    props: {
+      lists: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
+    },
+    watch: {
+      lists: function (od, nw) {
+        this.srcLists = od;
+      }
+    },
+    created() {
+    },
   }
 </script>
 <style>

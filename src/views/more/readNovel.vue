@@ -5,17 +5,17 @@
         <div style="width:30px;height:100%;display:inline-block;" @click="back"><img class="returnBack"
                                                                                      src="../../assets/img/returnback.png"
                                                                                      alt=""></div>
-        <span class="title">完美世界</span>
+        <span class="title">{{bookName}}</span>
       </div>
       <div class="setting">
         <img src="../../assets/img/big.png" alt="">
         <img src="../../assets/img/small.png" alt="">
         <img src="../../assets/img/white.png" alt="">
       </div>
-      <div class="novelTitle">朝气蓬勃</div>
+      <div class="novelTitle">{{bookTitle}}</div>
     </div>
     <div class="novelCont">
-      <div class="novelText">我是内容</div>
+      <div class="novelText" v-html="novelStr"></div>
       <div class="chapter" v-if="btnFlag">
         <div class="novelbtn" @click="">上一章</div>
         <div class="novelbtn" @click="">下一章</div>
@@ -64,6 +64,11 @@
         list: [],
         loading: false,
         allLoaded: false,
+        bookId: '',
+        bookPage: '',
+        novelStr: '',
+        bookTitle: '',
+        bookName: '',
       }
     },
     mounted() {
@@ -72,6 +77,12 @@
       }
     },
     created() {
+    },
+    created() {
+      this.bookId = this.$route.query.id;
+      this.bookPage = this.$route.query.page;
+      this.bookName = this.$route.query.title;
+      this.bookInfo();
     },
     methods: {
       back() {
@@ -91,6 +102,19 @@
             this.loading = false
           })
         }, 1000)
+      },
+      bookInfo() {
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.novelApiContent,
+          params: {id: this.bookId, page: this.bookPage}
+        }).then(res => {
+          if (res.status == 200) {
+            console.log(res);
+            this.novelStr = res.data.content;
+            this.bookTitle = res.data.title;
+          }
+        }).catch()
       }
     }
   }
@@ -134,7 +158,7 @@
     font-size: 18px;
     font-weight: 700;
     vertical-align: middle;
-    color:#000;
+    color: #000;
   }
 
   .readNovel .topWra .setting {
@@ -291,7 +315,6 @@
     height: auto;
     vertical-align: middle;
     display: inline-block;
-    vertical-align: middle;
   }
 
   .readNovel .loading-tips {
