@@ -6,12 +6,13 @@
       <span class="moreList" @click="freeMoreList">更多></span>
     </div>
     <div class="freeNovel">
-      <div class="novelWra" v-for="item in freeBookList" @click="goDetail(item.id,item.type)">
-        <div class="novelPic"><img :src="item.cover" alt=""></div>
-        <div class="novelName">{{item.title}}</div>
-        <div class="novelPrice">
-          <span class="costPrice">￥99.99</span>
-          <span class="currentPrice">￥0</span>
+        <div class="novelWra" v-for="item in freeBookList" @click="goDetail(item.id,item.type)">
+          <div class="novelPic"><img :src="item.cover" alt=""></div>
+          <div class="novelName">{{item.title}}</div>
+          <div class="novelPrice">
+            <!-- <span class="costPrice">￥99.99</span>
+            <span class="currentPrice">￥0</span> -->
+          </div>
         </div>
       </div>
     </div>
@@ -28,12 +29,13 @@
       }
     },
     created() {
+      this.noType=this.$attrs.noType;
       this.freeBookList = this.$attrs.data.novelItemList;
       this.title = this.$attrs.data.name;
     },
     methods: {
       freeMoreList() {
-        this.$router.push({path: '/moreList'});
+         this.$router.push({path: '/moreList',query:{type:this.noType}});
       },
       goDetail(id, type) {
         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});

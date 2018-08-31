@@ -1,122 +1,28 @@
 <template>
   <div class="moreList">
     <div class="topBanner">
-      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack"
-                                                                   src="../../assets/img/returnback.png" alt=""></div>
-      <div class="topTitle">女生精品</div>
+      <div style="width:46px;height:100%;" @click="routeBack">
+        <img class="returnBack" src="../../assets/img/returnback.png" alt="">
+      </div>
+      <div class="topTitle">{{novelTitle}}</div>
     </div>
     <div class="lineBg"></div>
     <div class="comBooks">
-      <div class="novelCon clearfloat">
+      <div class="novelCon clearfloat" v-for="item in moreLists"  @click="goNovelDetail(item.id,item.type)">
         <div class="novelLeft">
-          <img src="../../assets/img/wanmeishijie .png" alt="">
+          <img :src="item.cover" alt="">
         </div>
         <div class="novelRight">
-          <p class="bookname">完美世界</p>
-          <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
+          <p class="bookname">{{item.title}}</p>
+          <div class="bookDescribed">{{item.summary}}</div>
           <div class="bookInfo clearfloat">
             <div class="author">
               <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-              <span class="man">作者：辰东</span>
+              <span class="man">作者：{{item.author}}</span>
             </div>
             <div class="described">
-              <span>分类</span>
-              <span>完结</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="novelCon clearfloat">
-        <div class="novelLeft">
-          <img src="../../assets/img/wanmeishijie .png" alt="">
-        </div>
-        <div class="novelRight">
-          <p class="bookname">完美世界</p>
-          <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-          <div class="bookInfo clearfloat">
-            <div class="author">
-              <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-              <span class="man">作者：辰东</span>
-            </div>
-            <div class="described">
-              <span>分类</span>
-              <span>完结</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="novelCon clearfloat">
-        <div class="novelLeft">
-          <img src="../../assets/img/wanmeishijie .png" alt="">
-        </div>
-        <div class="novelRight">
-          <p class="bookname">完美世界</p>
-          <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-          <div class="bookInfo clearfloat">
-            <div class="author">
-              <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-              <span class="man">作者：辰东</span>
-            </div>
-            <div class="described">
-              <span>分类</span>
-              <span>完结</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="novelCon clearfloat">
-        <div class="novelLeft">
-          <img src="../../assets/img/wanmeishijie .png" alt="">
-        </div>
-        <div class="novelRight">
-          <p class="bookname">完美世界</p>
-          <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-          <div class="bookInfo clearfloat">
-            <div class="author">
-              <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-              <span class="man">作者：辰东</span>
-            </div>
-            <div class="described">
-              <span>分类</span>
-              <span>完结</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="novelCon clearfloat">
-        <div class="novelLeft">
-          <img src="../../assets/img/wanmeishijie .png" alt="">
-        </div>
-        <div class="novelRight">
-          <p class="bookname">完美世界</p>
-          <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-          <div class="bookInfo clearfloat">
-            <div class="author">
-              <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-              <span class="man">作者：辰东</span>
-            </div>
-            <div class="described">
-              <span>分类</span>
-              <span>完结</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="novelCon clearfloat">
-        <div class="novelLeft">
-          <img src="../../assets/img/wanmeishijie .png" alt="">
-        </div>
-        <div class="novelRight">
-          <p class="bookname">完美世界</p>
-          <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-          <div class="bookInfo clearfloat">
-            <div class="author">
-              <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-              <span class="man">作者：辰东</span>
-            </div>
-            <div class="described">
-              <span>分类</span>
-              <span>完结</span>
+              <span>{{item.typename}}</span>
+              <span>{{item.state==2?'完结':'连载'}}</span>
             </div>
           </div>
         </div>
@@ -129,13 +35,34 @@
   export default {
     name: 'moreList',
     data() {
-      return {}
+      return {
+        novelType:'',
+        novelTitle:'',
+        moreLists:[]
+      }
     },
     created() {
+      this.novelType=this.$route.query.type;
+      this.novelMoreList();
     },
     methods: {
       routeBack() {
         this.$router.go(-1)
+      },
+      novelMoreList(){
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiList,
+          params:{category:this.novelType}
+        }).then(res=>{
+          if(res.status==200){
+            this.moreLists = res.data.novelList.novelItemList;
+            this.novelTitle = res.data.novelList.name;
+          }
+        }).catch();
+      },
+      goNovelDetail(id, type){
+         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
       }
     }
   }
@@ -183,7 +110,7 @@
     text-align: center;
     position: absolute;
     top: 0;
-    right: 15px;
+    right: 30px;
     bottom: 0;
     left: 0;
     margin: auto;
@@ -234,8 +161,8 @@
     font-size: 12px;
     color: #999;
     margin-bottom: 8px;
-    line-height: 22px;
-    height: 70px;
+    line-height: 20px;
+    height: 64px;
     overflow: hidden;
     letter-spacing: 1px;
   }
@@ -243,7 +170,7 @@
   .comBooks .novelCon .novelRight .bookInfo {
     font-size: 12px;
     color: #999;
-    line-height: 12px;
+    line-height: 14px;
   }
 
   .comBooks .novelCon .novelRight .bookInfo .described {
@@ -252,12 +179,16 @@
 
   .comBooks .novelCon .novelRight .bookInfo .described span {
     background: #e0e0e0;
-    padding: 2px 10px;
+    padding: 0px 5px 1px 5px;
     vertical-align: middle;
     border-radius: 10px;
   }
 
   .comBooks .novelCon .novelRight .bookInfo .author {
+    width: 96px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
     float: left;
   }
 

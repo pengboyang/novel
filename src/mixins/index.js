@@ -14,7 +14,8 @@ var mixin = {
         novelApiCategory: '/novel/api/category',
         novelApiDetail: '/novel/api/detail',
         novelApiList: '/novel/api/list',
-        novelApiContent: '/novel/api/content'
+        novelApiContent: '/novel/api/content',
+        novelApiCatalog: '/novel/api/catalog',
       }
     };
   },

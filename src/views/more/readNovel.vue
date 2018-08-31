@@ -1,40 +1,40 @@
 <template>
-  <div class="readNovel">
-    <div class="topWra">
+  <div class="readNovel"  ref="scroTop">
+    <div class="topWra" :style="{background:color}">
       <div class="topBaner">
-        <div style="width:30px;height:100%;display:inline-block;" @click="back"><img class="returnBack"
+        <div style="width:30px;height:100%;display:inline-block;" @click.stop="back"><img class="returnBack"
                                                                                      src="../../assets/img/returnback.png"
                                                                                      alt=""></div>
         <span class="title">{{bookName}}</span>
       </div>
       <div class="setting">
-        <img src="../../assets/img/big.png" alt="">
-        <img src="../../assets/img/small.png" alt="">
-        <img src="../../assets/img/white.png" alt="">
+        <img @click="bigSize" src="../../assets/img/big.png" alt="">
+        <img @click="smallSize"  src="../../assets/img/small.png" alt="">
+        <img @click=""  src="../../assets/img/white.png" alt="">
       </div>
       <div class="novelTitle">{{bookTitle}}</div>
     </div>
-    <div class="novelCont">
+    <div class="novelCont" @click="showBottom" :style="{fontSize:num+'px'}">
       <div class="novelText" v-html="novelStr"></div>
       <div class="chapter" v-if="btnFlag">
-        <div class="novelbtn" @click="">上一章</div>
-        <div class="novelbtn" @click="">下一章</div>
+        <div v-bind:class="['novelbtn',PrenoPage ? 'novelActive' : 'novelActive1']" @click.stop="bookInfo(bookId,novelPrePage)">上一章</div>
+        <div v-bind:class="['novelbtn',NextnoPage ? 'novelActive' : 'novelActive1']"  @click.stop="bookInfo(bookId,novelNextPage)">下一章</div>
       </div>
-      <div class="payNovel">
+      <div class="payNovel" v-if="vipRecharge">
         <div class="price">价格:<span class="gold">100</span>书币</div>
         <div class="balance">余额:<span class="gold">20</span>书币</div>
-        <div class="payrule">
+        <!-- <div class="payrule">
           <input id="radio" type="checkbox" v-model="checked" name="radio" value=""/>
           <span>自动购买下一章，以后不再提示</span>
-        </div>
+        </div> -->
         <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div>
-        <div class="payBtn"><img src="../../assets/img/payBtn.png" alt=""></div>
+        <div class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
         <div class="payVip">
           <div>开通超级VIP,全站书籍免费看></div>
         </div>
       </div>
     </div>
-    <div class="novelToast">
+    <div class="novelToast" v-if="botmFlag">
       <div class="btn">
         <img @click="showToast" class="left" src="../../assets/img/menu.png" alt="">
         <img class="right" src="../../assets/img/novelInfo.png" alt="">
@@ -44,7 +44,7 @@
       <div class="page page-infinite-wrapper">
         <wv-group title="目录" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading"
                   infinite-scroll-distance="50" infinite-scroll-immediate-check="true">
-          <div class="menuTitle" v-for="item in list">{{item}}</div>
+          <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">{{item.chapterTitle}}</div>
         </wv-group>
         <p v-show="loading" class="loading-tips">
           <wv-spinner type="snake" color="#444" :size="24"/>
@@ -58,7 +58,11 @@
     name: 'readNovel',
     data() {
       return {
-        btnFlag: true,
+        num:16,
+        color:'#f0ece9',
+        botmFlag:false,
+        btnFlag: false,
+        vipRecharge:false,
         checked: true,
         popupVisible1: false,
         list: [],
@@ -69,12 +73,30 @@
         novelStr: '',
         bookTitle: '',
         bookName: '',
+        PrenoPage:false,
+        NextnoPage:false,
+        novelPrePage:'',
+        novelNextPage:'',
+        meuLists:[],
+        lastPage:0,
+        chapterSum:0,
       }
     },
-    mounted() {
-      for (let i = 1; i <= 15; i++) {
-        this.list.push(i)
-      }
+    watch:{
+        novelPrePage(one,two){
+            if(one==0){
+                this.PrenoPage= true;
+            }else{
+                this.PrenoPage= false;
+            }
+        },
+        novelNextPage(one,two){
+            if(one==0){
+                this.NextnoPage= true;
+            }else{
+                this.NextnoPage= false;
+            }
+        }
     },
     created() {
     },
@@ -82,7 +104,8 @@
       this.bookId = this.$route.query.id;
       this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
-      this.bookInfo();
+      this.chapterSum = this.$route.query.allMenu;
+      this.bookInfo(this.bookId,this.bookPage);
     },
     methods: {
       back() {
@@ -91,30 +114,75 @@
       showToast() {
         this.popupVisible1 = true;
       },
-      loadMore() {
-        this.loading = true
-        setTimeout(() => {
-          let last = this.list[this.list.length - 1]
-          for (let i = 1; i <= 5; i++) {
-            this.list.push(last + i)
+      novMenuList(){
+        if(this.lastPage==this.chapterSum){
+          return false;
+        }
+        this.loading = true;
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiCatalog,
+          params:{id:this.bookId,begin:this.lastPage}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.meuLists = res.data.catalogList.concat(this.meuLists);
+            this.lastPage = res.data.catalogList[res.data.catalogList.length-1].chapter;
+            this.loading = false;
+             console.log(this.lastPage)
           }
-          this.$nextTick(() => {
-            this.loading = false
-          })
-        }, 1000)
+        }).catch();
       },
-      bookInfo() {
+      loadMore() {
+        this.novMenuList()
+      },
+      bookInfo(id,page) {
+        if(page==0){
+          return false;
+        }
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiContent,
-          params: {id: this.bookId, page: this.bookPage}
+          params: {id: id, page: page}
         }).then(res => {
           if (res.status == 200) {
             console.log(res);
+            this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
+            this.novelPrePage = res.data.prepage;
+            this.novelNextPage = res.data.nextpage;
+            if(!res.data.pay){
+                this.btnFlag = true;
+                this.vipRecharge = false;
+            }else{
+                this.btnFlag = false;
+                this.vipRecharge = true;
+            }
+            this.popupVisible1 = false;
           }
         }).catch()
+      },
+      showBottom(){
+        this.botmFlag = true;
+        setTimeout(()=>{
+          this.botmFlag = false;
+        },3000)
+      },
+      rechargeGold(){
+        console.log(1);
+      },
+      bigSize(){
+        if(this.num>18){
+          return false;
+        }
+        this.num++;
+      },
+      smallSize(){
+        if(this.num<12){
+          return false;
+        }
+        this.num--;
       }
     }
   }
@@ -207,14 +275,14 @@
     border-radius: 8px;
     margin: 0 36px;
     color: #fff;
-    background: #999;
     line-height: 28px;
     font-size: 14px;
   }
 
   .readNovel .novelCont .payNovel {
     border-top: 1px solid #666;
-    display: none;
+    margin-bottom: 40px;
+    margin-top: 10px;
   }
 
   .readNovel .novelCont .payNovel .price {
@@ -249,7 +317,7 @@
   .readNovel .novelCont .payNovel .payrule span {
     padding-left: 5px;
     font-size: 12px;
-    color: #999;
+    /* color: #999; */
     letter-spacing: 2px;
   }
 
@@ -337,6 +405,12 @@
     line-height: 45px;
     border-bottom: 1px solid #e0e0e0;
     padding: 0 15px;
+  }
+  .novelActive{
+    background: #999;
+  }
+  .novelActive1{
+    background: #666;
   }
 </style>
 

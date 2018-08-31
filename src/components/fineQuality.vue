@@ -20,16 +20,18 @@
       return {
         listData: [],
         title: '',
-        betterMoreList: []
+        betterMoreList: [],
+        noType:''
       }
     },
     created() {
+      this.noType=this.$attrs.noType;
       this.listData = this.$attrs.data.novelItemList;
       this.title = this.$attrs.data.name;
     },
     methods: {
       moreList() {
-        this.$router.push({path: '/moreList'});
+        this.$router.push({path: '/moreList',query:{type:this.noType}});
       },
       goDetail(id, type) {
         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});

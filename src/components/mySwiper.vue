@@ -1,7 +1,7 @@
 <template>
   <div class="comSwiepr">
-    <wv-swipe :autoplay="3000">
-      <wv-swipe-item v-for="(item,index) in srcLists" :key="index"><img :src="item.cover" alt=""></wv-swipe-item>
+    <wv-swipe :autoplay="10000" :height="120">
+      <wv-swipe-item v-for="(item,index) in srcLists" :key="index"><img @click="goBookDetail(item.id,item.type)" style="width:100%;height:auto;vertical-align:middle" :src="item.cover" alt=""></wv-swipe-item>
     </wv-swipe>
   </div>
 </template>
@@ -24,10 +24,16 @@
     watch: {
       lists: function (od, nw) {
         this.srcLists = od;
+        console.log(this.srcLists);
       }
     },
     created() {
     },
+    methods:{
+      goBookDetail(id,type){
+         this.$router.push({path: '/bookDetail', query: {id: id,type: type}});
+      }
+    }
   }
 </script>
 <style>

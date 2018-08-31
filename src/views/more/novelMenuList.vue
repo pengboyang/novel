@@ -2,7 +2,7 @@
   <div class="novelMenuList">
     <div class="topBanner">
       <img @click="routeBack" class="returnBack" src="../../assets/img/returnback.png" alt="">
-      <span class="topTitle">完美世界</span>
+      <span class="topTitle">{{novelTitle}}</span>
     </div>
     <div class="lineBg"></div>
     <div class="menus">
@@ -11,143 +11,9 @@
         <div class="paixu"><img src="../../assets/img/paixu.png" alt=""></div>
       </div>
       <div class="menWra">
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
-            <img src="../../assets/img/lock.png" alt="">
-          </div>
-        </div>
-        <div class="comRow">
-          <span class="text">余额</span>
-          <span class="text">朝气蓬勃</span>
-          <div class="btn">
+        <div class="comRow" v-for="item in menuLists" @click="goRead(novelId,item.chapter,novelTitle)">
+          <span class="text">{{item.chapterTitle}}</span>
+          <div class="btn" v-if="item.pay">
             <img src="../../assets/img/lock.png" alt="">
           </div>
         </div>
@@ -163,14 +29,38 @@
   export default {
     name: 'novelMenuList',
     data() {
-      return {}
+      return {
+        menuLists:[],
+        novelId:'',
+        page:'',
+        novelTitle:''
+      }
     },
     created() {
+      this.novelTitle = this.$route.query.title;
+      this.novelId = this.$route.query.id;
+      this.page = this.$route.query.begin;
+      this.NovelMenuList();
     },
     methods: {
       routeBack() {
         this.$router.go(-1)
       },
+      NovelMenuList(){
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiCatalog,
+          params:{id:this.novelId,begin:this.page}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);;
+            this.menuLists = res.data.catalogList;
+          }
+        }).catch();
+      },
+      goRead(id,page,title){
+        this.$router.push({path: '/readNovel', query: { id:id,page: page,title:title}});
+      }
     }
   }
 </script>

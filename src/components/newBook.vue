@@ -5,8 +5,8 @@
       <span class="moreList" @click="newMoreList">更多></span>
     </div>
     <div class="books">
-      <div class="content clearfloat" v-for="item in newBookList">
-        <div class="bookLeft" @click="goNovelDetail(item.id,item.type)">
+      <div class="content clearfloat" v-for="item in newBookList" @click="goNovelDetail(item.id,item.type)">
+        <div class="bookLeft">
           <img :src="item.cover" alt="">
         </div>
         <div class="bookRight">
@@ -39,13 +39,13 @@
       }
     },
     created() {
+      this.noType=this.$attrs.noType;
       this.newBookList = this.$attrs.data.novelItemList;
       this.title = this.$attrs.data.name;
-      console.log(this.newBookList)
     },
     methods: {
       newMoreList() {
-        this.$router.push({path: '/moreList'});
+         this.$router.push({path: '/moreList',query:{type:this.noType}});
       },
       /*推荐*/
       goNovelDetail(id, type) {
@@ -132,8 +132,8 @@
     font-size: 12px;
     color: #999;
     margin-bottom: 8px;
-    line-height: 22px;
-    height: 70px;
+    line-height: 20px;
+    height: 64px;
     overflow: hidden;
     letter-spacing: 1px;
   }
@@ -141,7 +141,7 @@
   .newBook .books .content .bookRight .bookInfo {
     font-size: 12px;
     color: #999;
-    line-height: 12px;
+    line-height: 14px;
   }
 
   .newBook .books .content .bookRight .bookInfo .described {
@@ -150,12 +150,14 @@
 
   .newBook .books .content .bookRight .bookInfo .described span {
     background: #e0e0e0;
-    padding: 2px 6px;
+    padding: 0px 5px 1px 5px;
     vertical-align: middle;
     border-radius: 10px;
   }
 
   .newBook .books .content .bookRight .bookInfo .author {
+    width: 96px;
+    overflow: hidden;
     float: left;
   }
 

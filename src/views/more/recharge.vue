@@ -9,17 +9,8 @@
     <div class="rechCont">
       <div class="text">请选择充值金额</div>
       <div class="rechargePic clearfloat">
-        <div class="wra clearfloat">
-          <img src="../../assets/img/rechagePic.png" alt="">
-        </div>
-        <div class="wra clearfloat">
-          <img src="../../assets/img/rechagePic.png" alt="">
-        </div>
-        <div class="wra clearfloat">
-          <img src="../../assets/img/rechagePic.png" alt="">
-        </div>
-        <div class="wra clearfloat">
-          <img src="../../assets/img/rechagePic.png" alt="">
+        <div class="wra clearfloat" v-for="(item,index) in priceNum" @click="exchange(item,index)">
+          <img :src="item.srcOne" alt="">
         </div>
       </div>
       <div class="prompt">
@@ -36,13 +27,34 @@
   export default {
     name: 'recharge',
     data() {
-      return {}
+      return {
+        priceNum:[
+          {
+            id:0,
+            srcOne:require('../../assets/img/rechagePic.png'),
+          },
+          {
+            id:1,
+            srcOne:require('../../assets/img/rechagePic1.png'),
+          },
+          {
+            id:2,
+            srcOne:require('../../assets/img/rechagePic2.png'),
+          },
+          {
+            id:3,
+            srcOne:require('../../assets/img/rechagePic3.png'),
+          },
+        ]
+      }
     },
     created() {
     },
     methods: {
       back() {
         this.$router.go(-1)
+      },
+      exchange(item,index){
       }
     }
   }
@@ -71,13 +83,12 @@
     background: #fff;
   }
 
-  .rechargeTop .returnBtn {
+  .rechargeTop .returnBack{
     width: 12px;
     height: auto;
     vertical-align: middle;
-    position: absolute;
-    left: 15px;
-    top: 13px;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   .rechargeTop .title {
@@ -119,12 +130,12 @@
   }
 
   .recharge .rechCont .rechargePic .wra:nth-child(odd) {
-    width: 46%;
+    width: 44%;
     float: left;
   }
 
   .recharge .rechCont .rechargePic .wra:nth-child(even) {
-    width: 46%;
+    width: 44%;
     float: right;
   }
 

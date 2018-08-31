@@ -38,7 +38,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 100px;
+    padding-top: 115px;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1;

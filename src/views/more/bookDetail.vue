@@ -9,7 +9,7 @@
     <div class="detaiContent">
       <div class="novelInfo clearfloat">
         <div class="left">
-          <img src="../../assets/img/wanmeishijie .png" alt="">
+          <img :src="novelPic" alt="">
         </div>
         <div class="right">
           <p>{{title}}</p>
@@ -30,16 +30,16 @@
           <div class="btn">
             <img src="../../assets/img/serialize.png" alt="">
           </div>
-          <div class="comRow">
+        </div>
+        <div class="comRow">
             <span class="section">第<span class="gold">{{chapterSum}}</span>章</span>
             <span class="section">{{chapterName}}</span>
             <div class="centerBtn">
               <img src="../../assets/img/new.png" alt="">
             </div>
-          </div>
-          <div class="comRow">
+        </div>
+        <div class="comRow">
             <span class="section">更新于<span class="gold">{{utime}}</span></span>
-          </div>
         </div>
       </div>
       <div class="allSection" @click="goNovelMenu">全部章节></div>
@@ -47,7 +47,7 @@
       <div class="newMore">
         <div class="manTitle">
           <span class="kind">{{title}}</span>
-          <span class="moreList" @click="">更多></span>
+          <span class="moreList" @click="moreList">更多></span>
         </div>
         <div class="manNovel">
           <div class="novelWra" @click="goDetail(item.id,item.type)" v-for="item in betterMoreList">
@@ -69,6 +69,7 @@
       return {
         bookId: '',
         bookDetailLists: [],
+        novelPic:'',
         chapterName: '',
         chapterSum: '',
         novelType: '',
@@ -79,7 +80,8 @@
         title: '',
         typename: '',
         utime: '',
-        betterMoreList: []
+        betterMoreList: [],
+        moreType:''
       }
     },
     created() {
@@ -96,10 +98,10 @@
         this.$router.go(-1)
       },
       readBook() {
-        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title}});
+        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,allMenu:this.chapterSum}});
       },
       goNovelMenu() {
-        this.$router.push({path: '/novelMenuList'});
+        this.$router.push({path: '/novelMenuList',query: {id: this.bookId,begin:0, title: this.title}});
       },
       bookDetailInfo() {
         this.$http({
@@ -111,12 +113,13 @@
             console.log(res);
             this.bookDetailLists = res.data.novelItem;
             this.chapterName = res.data.chapterLatestInfo.chapterName;
-            this.chapterSum = res.data.chapterLatestInfo.chapterSum;
+            this.chapterSum = res.data.chapterLatestInfo.chapter;
             this.novelType = res.data.chapterLatestInfo.novelType;
             this.utime = res.data.chapterLatestInfo.utime;
             this.author = res.data.novelItem.author;
             this.cover = res.data.novelItem.cover;
             this.id = res.data.novelItem.id;
+            this.novelPic = res.data.novelItem.cover;
             this.summary = res.data.novelItem.summary;
             this.title = res.data.novelItem.title;
             this.typename = res.data.novelItem.typename;
@@ -131,14 +134,18 @@
           params: {category: this.bookType}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
-            this.betterMoreList = res.data.novelList.novelItemList;
+            var data = res.data.novelList.novelItemList;
+            this.betterMoreList = data.slice(0,3);
+            this.moreType = res.data.novelList.type
           }
         }).catch()
       },
       goDetail(id, type) {
         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
-      }
+      },
+      moreList() {
+        this.$router.push({path: '/moreList',query:{type:this.moreType}});
+      },
     }
   }
 </script>
@@ -171,6 +178,7 @@
     padding-left:15px;
     background: #fff;
     z-index: 999;
+    padding-left: 15px;
   }
 
   .bookDetail .topBanner .returnBack {
@@ -189,7 +197,7 @@
     text-align: center;
     position: absolute;
     top: 0;
-    right: 30px;
+    right: 15px;
     bottom: 0;
     left: 0;
     margin: auto;

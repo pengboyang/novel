@@ -94,7 +94,6 @@
           params: {gender: this.defaultId}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.genderLists = res.data.genderList;
             this.statusLists = res.data.statusList;//小说状态
             this.typeLists = res.data.typeList;//付费状态
@@ -125,7 +124,6 @@
       changeType(item, index) {
         this.defaultState = item;
         this.typeIndex = index;
-        console.log(this.defaultType, this.defaultState, this.defaultPayState);
         this.othersNovelList(this.defaultType, this.defaultState, this.defaultPayState)
       },
       /*小说列表*/
@@ -136,7 +134,6 @@
           params: {category: category, status: status, type: type},
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.serachLists = res.data.novelList.novelItemList;
           }
         }).catch()
