@@ -90,5 +90,15 @@ export default [
     name: 'customService',
     component: resolve => require(['views/more/customService'], resolve),
   },
+  {
+    meta: {
+      title: '小说目录',
+      keepAlive: false,
+      isBack:false,
+    },
+    path: '/novelMenuList',
+    name: 'novelMenuList',
+    component: resolve => require(['views/more/novelMenuList'], resolve),
+  },
   
 ];

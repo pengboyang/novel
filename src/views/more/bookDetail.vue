@@ -2,7 +2,7 @@
   <div class="bookDetail">
     <div class="topBanner">
       <img @click="routeBack" class="returnBack" src="../../assets/img/returnback.png" alt="">
-      <div class="topTitle">我是书名</div>
+      <div class="topTitle">{{title}}</div>
     </div>
     <div class="lineBg"></div>
     <div class="detaiContent">
@@ -11,28 +11,28 @@
           <img src="../../assets/img/wanmeishijie .png" alt="">
         </div>
         <div class="right">
-          <p>完美世界</p>
-          <div class="lei"><span>分类</span><span>言情</span></div>
-          <div class="ahtuor"><span>作者</span><span>辰东</span></div>
+          <p>{{title}}</p>
+          <div class="lei"><span>分类</span><span>{{typename}}</span></div>
+          <div class="ahtuor"><span>作者</span><span>{{author}}</span></div>
           <div class="textNum">5币/千字</div>
         </div>
       </div>
       <div class="novelText">
-        <div>图片垂直居中图，片垂直居中图片垂直居中图片，垂直居中图片垂直居中图片垂。图片垂直居中图片垂，直居中图片垂直居中，图片垂直居中图片垂直居中图片垂直居中。</div>
+        <div>{{summary}}</div>
         <div class="btn"><img src="../../assets/img/moretext.png" alt=""></div>
       </div>
       <div class="readBtn" @click="readBook"><img src="../../assets/img/readBtn.png" alt=""></div>
       <div class="aboutNovel">
           <div class="comRow">
             <span class="menu">目录</span>
-            <span class="section">共<span class="gold">345</span>章</span>
+            <span class="section">共<span class="gold">{{chapterSum}}</span>章</span>
             <div class="btn">
               <img src="../../assets/img/serialize.png" alt="">
             </div>
           </div>
           <div class="comRow">
-            <span class="section">第<span class="gold">345</span>章</span>
-            <span class="section">小不点显神威</span>
+            <span class="section">第<span class="gold">{{chapterSum}}</span>章</span>
+            <span class="section">{{chapterName}}</span>
             <div class="centerBtn">
               <img src="../../assets/img/new.png" alt="">
             </div>
@@ -41,8 +41,8 @@
             <span class="section">更新于<span class="gold">2018-8-13</span><span>12:00</span></span>
           </div>
       </div>
-      <div class="allSection">全部章节></div>
-      <fine-quality title="精品推荐"></fine-quality>
+      <div class="allSection" @click="goNovelMenu">全部章节></div>
+      <fine-quality :data="betterMoreList"></fine-quality>
       <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
     </div>
   </div>
@@ -52,9 +52,28 @@
   export default{
     name:'bookDetail',
     data(){
-      return{}
+      return{
+        bookId:'',
+        bookDetailLists:[],
+        chapterName:'',
+        chapterSum:'',
+        novelType:'',
+        author:'',
+        cover:'',
+        id:'',
+        summary:'',
+        title:'',
+        typename:'',
+        betterMoreList:[]
+      }
     },
-    created(){},
+    created(){
+      this.bookId = this.$route.query.id;
+      this.bookType = this.$route.query.type;
+      this.betterMoreList = this.$route.query.betterMoreList;
+      console.log(this.betterMoreList)
+      this.bookDetailInfo();
+    },
     components:{
       fineQuality,
     },
@@ -64,7 +83,32 @@
       },
       readBook(){
         this.$router.push({path:'/readNovel'});
-      }
+      },
+      goNovelMenu(){
+        this.$router.push({path:'/novelMenuList'});  
+      },
+      bookDetailInfo(){
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiDetail,
+          params:{id:this.bookId}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.bookDetailLists = res.data.novelItem;
+            this.chapterName = res.data.chapterName;
+            this.chapterSum = res.data.chapterSum;
+            this.novelType = res.data.novelType;
+            this.author = res.data.novelItem.author;
+            this.cover = res.data.novelItem.cover;
+            this.id = res.data.novelItem.id;
+            this.summary = res.data.novelItem.summary;
+            this.title = res.data.novelItem.title;
+            this.typename = res.data.novelItem.typename;
+            this.type = res.data.novelItem.type;
+          }
+        }).catch();
+      },
     }
   }
 </script>
@@ -100,12 +144,12 @@
 .bookDetail .topBanner .topTitle{
   font-size: 17px;
   font-weight: 700;
-  width: 100px;
+  width: 80%;
   height: 46px;
   text-align: center;
   position: absolute;
   top: 0;
-  right: 15px;
+  right: 30px;
   bottom: 0;
   left: 0;
   margin: auto;
@@ -164,8 +208,6 @@
   letter-spacing: 1px;
   font-size: 13px;
   text-indent: 24px;
-  height: 84px;
-  overflow: hidden;
   position: relative;
 }
 .bookDetail .detaiContent .novelText .btn{
@@ -202,7 +244,7 @@
   padding-right: 20px;
 }
 .bookDetail .detaiContent .aboutNovel .comRow .section{
-  font-size: 14px;
+  font-size: 12px;
   color: #999;
   padding-right: 15px;
 }

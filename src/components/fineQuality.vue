@@ -1,33 +1,13 @@
 <template>
   <div class="manContent">
       <div class="manTitle">
-        <span class="kind">{{$attrs.title}}</span>
+        <span class="kind">{{title}}</span>
         <span class="moreList" @click="moreList">更多></span>
       </div>
       <div class="manNovel">
-          <div class="novelWra" @click="goDetail">
-            <div class="novelPic"><img src="../assets/img/girl.png" alt=""></div>
-            <div class="novelName">我是书名</div>
-          </div>
-          <div class="novelWra">
-            <div class="novelPic"><img src="../assets/img/girl.png" alt=""></div>
-            <div class="novelName">我是书名</div>
-          </div>
-          <div class="novelWra">
-            <div class="novelPic"><img src="../assets/img/girl.png" alt=""></div>
-            <div class="novelName">我是书名</div>
-          </div>
-          <div class="novelWra">
-            <div class="novelPic"><img src="../assets/img/girl.png" alt=""></div>
-            <div class="novelName">我是书名</div>
-          </div>
-          <div class="novelWra">
-            <div class="novelPic"><img src="../assets/img/girl.png" alt=""></div>
-            <div class="novelName">我是书名</div>
-          </div>
-          <div class="novelWra">
-            <div class="novelPic"><img src="../assets/img/girl.png" alt=""></div>
-            <div class="novelName">我是书名</div>
+          <div class="novelWra" @click="goDetail(item.id,item.type)" v-for="item in listData">
+            <div class="novelPic"><img :src="item.cover" alt=""></div>
+            <div class="novelName">{{item.title}}</div>
           </div>
       </div>
       <div class="lineBg"></div>
@@ -37,16 +17,32 @@
   export default{
     name:'fineQuality',
     data(){
-      return {}
+      return {
+        listData:[],
+        title:'',
+        betterMoreList:[]
+      }
     },
     created(){
+      this.listData = this.$attrs.data.novelItemList;
+      this.title = this.$attrs.data.name;
     },
     methods:{
       moreList(){
         this.$router.push({path:'/moreList'});
       },
-      goDetail(){
-        this.$router.push({path:'/bookDetail'});
+      goDetail(id,type){
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiList,
+          params:{category:type}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.betterMoreList=res.data.novelList;
+            this.$router.push({path:'/bookDetail',query: {id: id,type:type,betterMoreList:this.betterMoreList}});
+          }
+        }).catch()
       }
     }
   }
