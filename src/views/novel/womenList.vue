@@ -1,6 +1,6 @@
 <template>
   <div class="manList">
-    <my-swiper></my-swiper>
+    <my-swiper :lists="sweiperList"></my-swiper>
     <div v-for="item in womenBookList">
         <new-book v-if="item.style==3" :data="item"></new-book>
         <fine-quality v-else-if="item.style==6" :data="item"></fine-quality>
@@ -20,7 +20,8 @@
     data(){
       return{
         gender:0,
-        womenBookList:[]
+        womenBookList:[],
+        sweiperList:[],
       }
     },
     components:{
@@ -42,6 +43,7 @@
         }).then(res=>{
           if(res.status==200){
             this.womenBookList = res.data.novelLists;
+            this.sweiperList = res.data.novelItemList;
           }
         }).catch()
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="manList">
-    <my-swiper></my-swiper>
+    <my-swiper :lists="sweiperList"></my-swiper>
     <div v-for="item in dataList">
         <new-book v-if="item.style==3" :data="item"></new-book>
         <fine-quality v-else-if="item.style==6" :data="item"></fine-quality>
@@ -24,7 +24,8 @@
         manNewBookList:[],
         manHotBookList:[],
         manBetterBookList:[],
-        manFreeBookList:[]
+        manFreeBookList:[],
+        sweiperList:[],
       }
     },
     components:{
@@ -45,9 +46,10 @@
           params:{gender:this.gender}
         }).then(res=>{
           if(res.status==200){
+            console.log(res);
             var data = res.data.novelLists;
+            this.sweiperList = res.data.novelItemList;
             this.dataList = res.data.novelLists;
-            console.log(this.dataList);
           }
         }).catch()
       },

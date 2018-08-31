@@ -1,7 +1,6 @@
 <template>
   <div class="assortmentList">
     <div class="assortmentCont">
-      <div class="lineBg"></div>
       <div class="assortment">
         <div class="gender">
           <span @click="changeSex(item,index)" v-for="(item,index) in genderLists" :class="{'Active': genderIndex == index}">{{item==1?'男生':'女生'}}</span>
@@ -31,121 +30,26 @@
           </transition> -->
         </div>
         <div class="completion">
-          <span @click="changeType(item,index)" v-for="(item,index) in typeLists" :class="{'Active': typeIndex == index}">{{item==0?'全部':(item==1?'连载':'完结')}}</span>
+          <span @click="changeType(item,index)" v-for="(item,index) in statusLists" :class="{'Active': typeIndex == index}">{{item==0?'全部':(item==1?'连载':'完结')}}</span>
         </div>
       </div>
       <div class="filament"></div>
       <div class="novelBooks">
-        <div class="novelCon clearfloat">
-          <div class="novelLeft">
-            <img src="../../assets/img/wanmeishijie .png" alt="">
+        <div class="novelCon clearfloat" v-for="item in serachLists">
+          <div class="novelLeft" @click="goDetail(item.id,item.type)">
+            <img :src="item.cover" alt="">
           </div>
           <div class="novelRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
+            <p class="bookname">{{item.title}}</p>
+            <div class="bookDescribed">{{item.summary}}</div>
             <div class="bookInfo clearfloat">
               <div class="author">
                 <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
+                <span class="man">作者：{{item.author}}</span>
               </div>
               <div class="described">
                 <span>分类</span>
-                <span>完结</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="novelCon clearfloat">
-          <div class="novelLeft">
-            <img src="../../assets/img/wanmeishijie .png" alt="">
-          </div>
-          <div class="novelRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookInfo clearfloat">
-              <div class="author">
-                <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
-              </div>
-              <div class="described">
-                <span>分类</span>
-                <span>完结</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="novelCon clearfloat">
-          <div class="novelLeft">
-            <img src="../../assets/img/wanmeishijie .png" alt="">
-          </div>
-          <div class="novelRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookInfo clearfloat">
-              <div class="author">
-                <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
-              </div>
-              <div class="described">
-                <span>分类</span>
-                <span>完结</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="novelCon clearfloat">
-          <div class="novelLeft">
-            <img src="../../assets/img/wanmeishijie .png" alt="">
-          </div>
-          <div class="novelRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookInfo clearfloat">
-              <div class="author">
-                <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
-              </div>
-              <div class="described">
-                <span>分类</span>
-                <span>完结</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="novelCon clearfloat">
-          <div class="novelLeft">
-            <img src="../../assets/img/wanmeishijie .png" alt="">
-          </div>
-          <div class="novelRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookInfo clearfloat">
-              <div class="author">
-                <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
-              </div>
-              <div class="described">
-                <span>分类</span>
-                <span>完结</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="novelCon clearfloat">
-          <div class="novelLeft">
-            <img src="../../assets/img/wanmeishijie .png" alt="">
-          </div>
-          <div class="novelRight">
-            <p class="bookname">完美世界</p>
-            <div class="bookDescribed">我是书的简介我是书的简介我是书的简介我是书的我是书的简介我是书的简介我是书的简介我是书的...</div>
-            <div class="bookInfo clearfloat">
-              <div class="author">
-                <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-                <span class="man">作者：辰东</span>
-              </div>
-              <div class="described">
-                <span>分类</span>
-                <span>完结</span>
+                <span>{{item.state==0?'全部':(item.state==1?'连载':'完结')}}</span>
               </div>
             </div>
           </div>
@@ -162,14 +66,18 @@ export default{
     return{
       show: false,
       cateGoryBookList:[],
-      defaultId:1,
-      genderLists:[],
-      statusLists:[],
-      typeLists:[],
-      channelLists:[],
-      genderIndex:0,
-      channelIndex:0,
-      typeIndex:0,
+      defaultId:1,//小说id
+      defaultType:'',//小说类型
+      defaultState:'',//小说状态
+      defaultPayState:'',//小说付费
+      genderLists:[],//导航性别列表
+      statusLists:[],//导航状态列表
+      typeLists:[],//导航付费列表
+      channelLists:[],//导航类型列表
+      genderIndex:0,//性别默认索引
+      channelIndex:0,//类型默认索引
+      typeIndex:0,//状态默认索引
+      serachLists:[],
     }
   },
   created(){
@@ -185,21 +93,53 @@ export default{
         if(res.status==200){
           console.log(res);
           this.genderLists = res.data.genderList;
-          this.statusLists = res.data.statusList;
-          this.typeLists = res.data.typeList;
+          this.statusLists = res.data.statusList;//小说状态
+          this.typeLists = res.data.typeList;//付费状态
           this.channelLists = res.data.channelList;
-          console.log(this.channelLists);
+          this.defaultId = res.data.genderList[0];//小说id
+          this.defaultType = res.data.channelList[0].key;//小说类型
+          this.defaultState = res.data.statusList[0];//小说状态
+          this.defaultPayState = res.data.typeList[0];//小说付费
+          this.othersNovelList(this.defaultType,this.defaultState,this.defaultPayState)
         }
       }).catch();
     },
+    /*改变性别*/
     changeSex(item,index){
+      this.channelIndex=0,//类型默认索引
+      this.typeIndex=0,//状态默认索引
+      this.defaultId = item;
       this.genderIndex = index;
+      this.cateGoryList();
     },
+    /*改变小说类型*/
     changeAssortment(item,index){
+      this.defaultType= item.key;
       this.channelIndex = index;
+      this.othersNovelList(this.defaultType,this.defaultState,this.defaultPayState)
     },
+    /*切换小说状态*/
     changeType(item,index){
+      this.defaultState = item;
       this.typeIndex=index;
+      console.log(this.defaultType,this.defaultState,this.defaultPayState);
+      this.othersNovelList(this.defaultType,this.defaultState,this.defaultPayState)
+    },
+    /*小说列表*/
+    othersNovelList(category,status,type){
+      this.$http({
+        method:'get',
+        url:this.apiUrl.novelApiList,
+        params:{category:category,status:status,type:type},
+      }).then(res=>{
+        if(res.status==200){
+          console.log(res);
+          this.serachLists = res.data.novelList.novelItemList;
+        }
+      }).catch()
+    },
+    goDetail(id,type){
+        this.$router.push({path:'/bookDetail',query: {id: id,type:type}});
     }
   }
 }
@@ -223,21 +163,20 @@ export default{
 .assortmentList .assortmentCont{
   padding: 0 15px;
 }
-.assortmentList .lineBg{
-  width: 100%;
-  height: 5px;
-  background: url('../../assets/img/linebg.png');
-}
 .assortmentList .filament{
   margin-top: 16px;
   width: 100%;
   border-bottom: 1px solid #e0e0ee;
 }
 .assortmentList .assortment .gender{
-  padding: 15px 0 8px 0;
+  display: -webkit-flex;
+  display: flex;
+  line-height: 14px;
+  padding: 16px 0 15px 0;
+  margin-right: 4px;
 }
 .assortmentList .assortment .gender span{
-    border: 1px solid transparent;
+  border: 1px solid transparent;
   border-radius: 14px;
   padding: 2px 6px;
 }
@@ -245,20 +184,28 @@ export default{
   display: -webkit-flex;
   display: flex;
   flex-wrap:wrap;
-  padding-bottom: 8px;
+  line-height: 14px;
 }
 .assortmentList .assortment .mold span{
   border: 1px solid transparent;
   border-radius: 14px;
   padding: 2px 6px;
+  margin-bottom: 15px;
+  margin-right: 4px;
 }
 .assortmentList .assortment .mold img{
   width: 16px;
 }
+.assortmentList .assortment .completion{
+  display: -webkit-flex;
+  display: flex;
+  line-height: 14px;
+}
 .assortmentList .assortment .completion span{
   padding: 2px 6px;
-    border: 1px solid transparent;
+  border: 1px solid transparent;
   border-radius: 14px;
+    margin-right: 4px;
 }
 .Active{
   border: 1px solid #ff4646 !important;
