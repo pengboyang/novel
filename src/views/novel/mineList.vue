@@ -36,8 +36,11 @@
         isFirstEnter: false, // 是否第一次进入，默认false
       }
     },
-    beforeCreate(){
+    beforeRouteEnter(to,from,next) {
       this.getCode();
+      next();
+    },
+    beforeCreate(){
     },
     created() {
       this.isFirstEnter = true;
