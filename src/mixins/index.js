@@ -80,7 +80,7 @@ var mixin = {
       }
     },
     /*登录*/
-    login() {
+    login(callback) {
       try {
         let query = this.getCode();
         this.$http({
@@ -93,6 +93,7 @@ var mixin = {
           var data = res.data;
           if (data.code == 1) {
             localStorage.setItem('uuid', data.uuid);
+            callback('success');
           }
         }).catch(error => {
           console.log(error);

@@ -74,21 +74,23 @@ router.beforeEach((to, from, next) => {
   if (!store.state.code&&!store.state.userCode) {
     try {
       let query = Mixin.methods.getCode();
-      Vue.$http({
-        method: 'get',
-        url: '/novel/user/login',
-        params: {
-          code: query.code,
-        }
-      }).then(res => {
-        console.log(res);
-        var data = res.data;
-        if (data.code == 1) {
-          localStorage.setItem('uuid', data.uuid);
-        }
-      }).catch(error => {
-        console.log(error);
-      });
+      if(!query.state){
+        Vue.$http({
+          method: 'get',
+          url: '/novel/user/login',
+          params: {
+            code: query.code,
+          }
+        }).then(res => {
+          console.log(res);
+          var data = res.data;
+          if (data.code == 1) {
+            localStorage.setItem('uuid', data.uuid);
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      }
     } catch (e) {
 
     }
