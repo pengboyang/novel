@@ -2,46 +2,46 @@
   <div class="manList">
     <my-swiper :lists="sweiperList"></my-swiper>
     <div v-for="item in womenBookList">
-        <new-book v-if="item.style==3" :data="item"></new-book>
-        <fine-quality v-else-if="item.style==6" :data="item"></fine-quality>
-        <free-week v-else-if="item.style==4" :data="item"></free-week>
+      <new-book v-if="item.style==3" :data="item"></new-book>
+      <fine-quality v-else-if="item.style==6" :data="item"></fine-quality>
+      <free-week v-else-if="item.style==4" :data="item"></free-week>
     </div>
     <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
   </div>
 </template>
 <script>
-  import 'swiper/dist/css/swiper.css'////这里注意具体看使用的版本是否需要引入样式，以及具体位置。
   import mySwiper from '../../components/mySwiper'
   import fineQuality from '../../components/fineQuality'
   import newBook from '../../components/newbook'
   import freeWeek from '../../components/freeWeek'
-  export default{
-    name:'manList',
-    data(){
-      return{
-        gender:0,
-        womenBookList:[],
-        sweiperList:[],
+
+  export default {
+    name: 'manList',
+    data() {
+      return {
+        gender: 0,
+        womenBookList: [],
+        sweiperList: [],
       }
     },
-    components:{
+    components: {
       mySwiper,
       fineQuality,
       newBook,
       freeWeek
     },
-    created(){
+    created() {
       this.gender = this.$route.query.id;
       this.womenPageList();
     },
-    methods:{
-      womenPageList(){
+    methods: {
+      womenPageList() {
         this.$http({
-          method:'get',
-          url:this.apiUrl.novelApiLibrary,
-          params:{gender:this.gender}
-        }).then(res=>{
-          if(res.status==200){
+          method: 'get',
+          url: this.apiUrl.novelApiLibrary,
+          params: {gender: this.gender}
+        }).then(res => {
+          if (res.status == 200) {
             this.womenBookList = res.data.novelLists;
             this.sweiperList = res.data.novelItemList;
           }

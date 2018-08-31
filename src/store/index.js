@@ -6,18 +6,32 @@ Vue.use(vuex);
 // import dingStatus from './dingStatus.js';
 
 export default new vuex.Store({
-    /*全局状态*/
-    state: {
+  /*全局状态*/
+  state: {
+    openId: '',
+    code: '',
+    userCode: '',
+    userInfo: {},
+  },
+  /*局部状态*/
+  modules: {
+    // ding:dingStatus
+  },
+  getters: {},
+  mutations: {
+    codeChange(state, info) {
+      state.code = info.val;
     },
-    /*局部状态*/
-    modules:{
-        // ding:dingStatus
+    userCodeChange(state, info) {
+      state.userCode = info.val;
     },
-    getters:{
-
+  },
+  actions: {
+    codeChange({commit}, info) {
+      commit('codeChange', info);
     },
-    mutations:{
+    userCodeChange({commit}, info) {
+      commit('userCodeChange', info);
     },
-    actions:{
-    }
+  }
 });

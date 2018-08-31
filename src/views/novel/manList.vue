@@ -2,11 +2,11 @@
   <div class="manList">
     <my-swiper :lists="sweiperList"></my-swiper>
     <div v-for="item in dataList">
-        <new-book v-if="item.style==3" :data="item"></new-book>
-        <fine-quality v-else-if="item.style==6" :data="item"></fine-quality>
-        <free-week v-else-if="item.style==4" :data="item"></free-week>
+      <new-book v-if="item.style==3" :data="item" :noType="item.type"></new-book>
+      <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type"></fine-quality>
+      <free-week v-else-if="item.style==4" :data="item" :noType="item.type"></free-week>
     </div>
-        <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
+    <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
   </div>
 </template>
 <script>
@@ -15,38 +15,38 @@
   import fineQuality from '../../components/fineQuality'
   import newBook from '../../components/newbook'
   import freeWeek from '../../components/freeWeek'
-  export default{
-    name:'manList',
-    data(){
-      return{
-        gender:0,
-        dataList:[],
-        manNewBookList:[],
-        manHotBookList:[],
-        manBetterBookList:[],
-        manFreeBookList:[],
-        sweiperList:[],
+
+  export default {
+    name: 'manList',
+    data() {
+      return {
+        gender: 0,
+        dataList: [],
+        manNewBookList: [],
+        manHotBookList: [],
+        manBetterBookList: [],
+        manFreeBookList: [],
+        sweiperList: [],
       }
     },
-    components:{
+    components: {
       mySwiper,
       fineQuality,
       newBook,
       freeWeek
     },
-    created(){
-      this.gender = this.$route.query.id
+    created() {
+      this.gender = this.$route.query.id;
       this.manPageList();
     },
-    methods:{
-      manPageList(){
+    methods: {
+      manPageList() {
         this.$http({
-          method:'get',
-          url:this.apiUrl.novelApiLibrary,
-          params:{gender:this.gender}
-        }).then(res=>{
-          if(res.status==200){
-            console.log(res);
+          method: 'get',
+          url: this.apiUrl.novelApiLibrary,
+          params: {gender: this.gender}
+        }).then(res => {
+          if (res.status == 200) {
             var data = res.data.novelLists;
             this.sweiperList = res.data.novelItemList;
             this.dataList = res.data.novelLists;

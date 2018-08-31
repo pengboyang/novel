@@ -1,41 +1,41 @@
 export default [
   {
-      path: '/',
-      name: 'index',
-      redirect: { path: '/novel/manList', query: {id:1}}
+    path: '/',
+    name: 'index',
+    redirect: {path: '/novel/manList', query: {id: 1}}
   },
   {
     meta: {
       title: '小说',
       keepAlive: false,
-      isBack:false,
+      isBack: false,
     },
     path: '/novel/',
     name: 'xiao',
     component: resolve => require(['views/index'], resolve),
-    children:[
+    children: [
       {
-        meta: {title: '男生列表', keepAlive:true,isBack:false,},
+        meta: {title: '男生列表', keepAlive: false, isBack: false,},
         path: 'manList',
-        name:'manList',
+        name: 'manList',
         component: resolve => require(['views/novel/manList'], resolve),
       },
       {
-        meta: {title: '女生列表', keepAlive:true,isBack:false,},
+        meta: {title: '女生列表', keepAlive: false, isBack: false,},
         path: 'womenList',
-        name:'womenList',
+        name: 'womenList',
         component: resolve => require(['views/novel/womenList'], resolve),
       },
       {
-        meta: {title: '分类列表', keepAlive:true,isBack:false,},
+        meta: {title: '分类列表', keepAlive: false, isBack: false,},
         path: 'assortmentList',
-        name:'assortmentList',
+        name: 'assortmentList',
         component: resolve => require(['views/novel/assortmentList'], resolve),
       },
       {
-        meta: {title: '我的', keepAlive:true,isBack:false,},
+        meta: {title: '我的', keepAlive: false, isBack: false,},
         path: 'mineList',
-        name:'mineList',
+        name: 'mineList',
         component: resolve => require(['views/novel/mineList'], resolve),
       },
     ]
@@ -44,7 +44,7 @@ export default [
     meta: {
       title: '更多列表',
       keepAlive: false,
-      isBack:false,
+      isBack: false,
     },
     path: '/moreList',
     name: 'moreList',
@@ -54,7 +54,7 @@ export default [
     meta: {
       title: '小说详情',
       keepAlive: false,
-      isBack:false,
+      isBack: false,
     },
     path: '/bookDetail',
     name: 'bookDetail',
@@ -64,7 +64,7 @@ export default [
     meta: {
       title: '小说正文',
       keepAlive: false,
-      isBack:false,
+      isBack: false,
     },
     path: '/readNovel',
     name: 'readNovel',
@@ -74,7 +74,7 @@ export default [
     meta: {
       title: '充值',
       keepAlive: false,
-      isBack:false,
+      isBack: false,
     },
     path: '/recharge',
     name: 'recharge',
@@ -84,7 +84,7 @@ export default [
     meta: {
       title: '客服',
       keepAlive: false,
-      isBack:false,
+      isBack: false,
     },
     path: '/customService',
     name: 'customService',
@@ -94,11 +94,11 @@ export default [
     meta: {
       title: '小说目录',
       keepAlive: false,
-      isBack:false,
+      isBack: false,
     },
     path: '/novelMenuList',
     name: 'novelMenuList',
     component: resolve => require(['views/more/novelMenuList'], resolve),
   },
-  
+
 ];
