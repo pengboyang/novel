@@ -1,8 +1,7 @@
 <template>
   <div class="bookDetail">
     <div class="topBanner">
-      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack"
-                                                                   src="../../assets/img/returnback.png" alt=""></div>
+      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="topTitle">{{title}}</div>
     </div>
     <div class="lineBg"></div>
@@ -141,7 +140,12 @@
         }).catch()
       },
       goDetail(id, type) {
-        this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
+        this.bookId =id;
+        this.bookType = type;
+        this.bookDetailInfo();
+        this.bookMoreList();
+
+        console.log(document.querySelector('.bookDetail').scrollTop);
       },
       moreList() {
         this.$router.push({path: '/moreList',query:{type:this.moreType}});
