@@ -78,10 +78,11 @@
         novelPrePage:'',
         novelNextPage:'',
         meuLists:[],
-        lastPage:0,
+        nextpage:0,
         chapterSum:0,
         balance:0,
         price:0,
+        hasmore:true
       }
     },
     watch:{
@@ -101,8 +102,6 @@
         }
     },
     created() {
-    },
-    created() {
       this.bookId = this.$route.query.id;
       this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
@@ -117,21 +116,20 @@
         this.popupVisible1 = true;
       },
       novMenuList(){
-        if(this.lastPage==this.chapterSum){
+        if(!this.hasmore){
           return false;
         }
         this.loading = true;
         this.$http({
           method:'get',
           url:this.apiUrl.novelApiCatalog,
-          params:{id:this.bookId,begin:this.lastPage}
+          params:{id:this.bookId,begin:this.nextpage}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
-            this.meuLists = res.data.catalogList.concat(this.meuLists);
-            this.lastPage = res.data.catalogList[res.data.catalogList.length-1].chapter;
+            this.meuLists = this.meuLists.concat(res.data.catalogList);
+            this.nextpage = res.data.nextpage;
+            this.hasmore = res.data.hasmore;
             this.loading = false;
-             console.log(this.lastPage)
           }
         }).catch();
       },
@@ -148,7 +146,6 @@
           params: {id: id, page: page}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;

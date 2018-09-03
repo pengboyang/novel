@@ -1,5 +1,5 @@
 <template>
-  <div class="novelMenuList">
+  <div class="novelMenuList"  ref="menuWrap">
     <div class="topBanner">
       <img @click="routeBack" class="returnBack" src="../../assets/img/returnback.png" alt="">
       <span class="topTitle">{{novelTitle}}</span>
@@ -20,8 +20,8 @@
       </div>
     </div>
     <div class="menuBottom">
-      <div>上一页</div>
-      <div>下一页</div>
+      <div @click="NovelMenuList(novelId,prepage,'')">上一页</div>
+      <div @click="NovelMenuList(novelId,nextpage,'')">下一页</div>
     </div>
   </div>
 </template>
@@ -33,45 +33,65 @@
         menuLists:[],
         novelId:'',
         page:'',
-        novelTitle:''
+        novelTitle:'',
+        nextpage:0,
+        prepage:0,
       }
     },
     created() {
       this.novelTitle = this.$route.query.title;
       this.novelId = this.$route.query.id;
       this.page = this.$route.query.begin;
-      this.NovelMenuList();
+      this.NovelMenuList(this.novelId,this.page,'');
     },
     methods: {
       routeBack() {
         this.$router.go(-1)
       },
-      NovelMenuList(){
+      NovelMenuList(id,page,sort){
+        if(page==-10){
+          return false;
+        }
         this.$http({
           method:'get',
           url:this.apiUrl.novelApiCatalog,
-          params:{id:this.novelId,begin:this.page}
+          params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);;
+            console.log(res);
+            this.$refs.menuWrap.scrollTop = 0;
             this.menuLists = res.data.catalogList;
+            this.nextpage = res.data.nextpage;
+            this.prepage = res.data.prepage;
           }
         }).catch();
       },
       goRead(id,page,title){
         this.$router.push({path: '/readNovel', query: { id:id,page: page,title:title}});
-      }
+      },
     }
   }
 </script>
 <style>
+  .novelMenuList{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
   .novelMenuList .topBanner {
     width: 100%;
     height: 46px;
     line-height: 46px;
     position: fixed;
-    left: 15px;
+    left: 0;
     top: 0;
+    z-index: 999;
+    padding-left: 15px;
     background: #fff;
   }
 
@@ -99,13 +119,17 @@
   }
 
   .novelMenuList .menus {
-    padding: 0 15px 51px 15px;
-    margin-top: 70px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 70px 15px 51px 15px;
   }
 
   .novelMenuList .menus .menuTop {
     display: -webkit-flex;
     display: flex;
+    margin-bottom: 20px;
   }
 
   .novelMenuList .menus .menuTop div {

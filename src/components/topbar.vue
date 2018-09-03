@@ -4,24 +4,9 @@
       <img class="logo" src="../assets/img/novelLogo.png" alt="">
     </div>
     <div class="topBar">
-      <div class="navBox">
-        <router-link :to="{path:'/novel/manList', query:{id:1}}">
-          <span class="icon icon-man">男生</span>
-        </router-link>
-      </div>
-      <div class="navBox">
-        <router-link :to="{path:'/novel/womenList', query:{id:2}}">
-          <span class="icon icon-women">女生</span>
-        </router-link>
-      </div>
-      <div class="navBox">
-        <router-link to="/novel/assortmentList">
-          <span class="icon icon-assortment">分类</span>
-        </router-link>
-      </div>
-      <div class="navBox">
-        <router-link to="/novel/mineList">
-          <span class="icon icon-mine">我的</span>
+      <div class="navBox" v-for="(item,index) in tabList">
+        <router-link :to="{path:item.path,query:{id:item.id}}">
+          <span class="icon icon-man">{{item.name}}</span>
         </router-link>
       </div>
     </div>
@@ -40,8 +25,32 @@
   export default {
     name: 'topBar',
     data() {
-      return {}
-    }
+      return {
+        tabList:[
+          {
+            name:'男生',
+            path:'/novel/manList',
+            id:1
+          },
+          {
+            name:'女生',
+            path:'/novel/womenList',
+            id:2
+          },
+          {
+            name:'分类',
+            path:'/novel/assortmentList',
+            id:''
+          },
+          {
+            name:'我的',
+            path:'/novel/mineList',
+            id:''
+          },
+        ],
+      }
+    },
+    
   }
 </script>
 
