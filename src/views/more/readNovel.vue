@@ -44,7 +44,13 @@
       <div class="page page-infinite-wrapper">
         <wv-group title="目录" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading"
                   infinite-scroll-distance="50" infinite-scroll-immediate-check="true">
-          <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">{{item.chapterTitle}}</div>
+          <!-- <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">{{item.chapterTitle}}</div> -->
+          <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">
+            <span class="text">{{item.chapterTitle}}</span>
+            <div class="btn" v-if="item.pay">
+              <img src="../../assets/img/lock.png" alt="">
+            </div>
+          </div>
         </wv-group>
         <p v-show="loading" class="loading-tips">
           <wv-spinner type="snake" color="#444" :size="24"/>
@@ -398,15 +404,35 @@
 
   .readNovel .page {
     width: 100%;
-    height: 300px;
+    height: 400px;
     overflow-y: auto;
   }
-
+  
   .readNovel .page .menuTitle {
-    line-height: 45px;
-    border-bottom: 1px solid #e0e0e0;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    line-height: 50px;
     padding: 0 15px;
+    border-bottom: 1px solid #e0e0ee;
   }
+
+  .readNovel .page .menuTitle .text {
+    padding-right: 25px;
+    vertical-align: middle;
+  }
+
+  .readNovel .page .menuTitle .btn {
+    flex: 1;
+    text-align: right;
+  }
+
+  .readNovel .page .menuTitle .btn img {
+    width: 16px;
+    height: auto;
+    vertical-align: middle;
+  }
+
   .novelActive{
     background: #999;
   }
