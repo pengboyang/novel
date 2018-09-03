@@ -28,7 +28,8 @@
           <span>自动购买下一章，以后不再提示</span>
         </div> -->
         <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div>
-        <div class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
+        <div v-if="!bought" class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
+        <div v-else class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn1.png" alt=""></div>
         <div class="payVip">
           <div>开通超级VIP,全站书籍免费看></div>
         </div>
@@ -44,7 +45,13 @@
       <div class="page page-infinite-wrapper">
         <wv-group title="目录" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading"
                   infinite-scroll-distance="50" infinite-scroll-immediate-check="true">
-          <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">{{item.chapterTitle}}</div>
+          <!-- <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">{{item.chapterTitle}}</div> -->
+          <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">
+            <span class="text">{{item.chapterTitle}}</span>
+            <div class="btn" v-if="item.pay">
+              <img src="../../assets/img/lock.png" alt="">
+            </div>
+          </div>
         </wv-group>
         <p v-show="loading" class="loading-tips">
           <wv-spinner type="snake" color="#444" :size="24"/>
@@ -78,10 +85,12 @@
         novelPrePage:'',
         novelNextPage:'',
         meuLists:[],
-        lastPage:0,
+        nextpage:0,
         chapterSum:0,
         balance:0,
         price:0,
+        hasmore:true,
+        bought:false,
       }
     },
     watch:{
@@ -101,8 +110,6 @@
         }
     },
     created() {
-    },
-    created() {
       this.bookId = this.$route.query.id;
       this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
@@ -117,21 +124,20 @@
         this.popupVisible1 = true;
       },
       novMenuList(){
-        if(this.lastPage==this.chapterSum){
+        if(!this.hasmore){
           return false;
         }
         this.loading = true;
         this.$http({
           method:'get',
           url:this.apiUrl.novelApiCatalog,
-          params:{id:this.bookId,begin:this.lastPage}
+          params:{id:this.bookId,begin:this.nextpage}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
-            this.meuLists = res.data.catalogList.concat(this.meuLists);
-            this.lastPage = res.data.catalogList[res.data.catalogList.length-1].chapter;
+            this.meuLists = this.meuLists.concat(res.data.catalogList);
+            this.nextpage = res.data.nextpage;
+            this.hasmore = res.data.hasmore;
             this.loading = false;
-             console.log(this.lastPage)
           }
         }).catch();
       },
@@ -145,7 +151,8 @@
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiContent,
-          params: {id: id, page: page}
+          params: {id: id, page: page},
+          headers:{'uuid':'LLuKA6iq'}
         }).then(res => {
           if (res.status == 200) {
             console.log(res);
@@ -156,6 +163,7 @@
             this.novelNextPage = res.data.nextpage;
             this.balance = res.data.balance;
             this.price = res.data.price;
+            this.bought = res.data.bought;
             if(!res.data.pay){
                 this.btnFlag = true;
                 this.vipRecharge = false;
@@ -174,7 +182,7 @@
         },3000)
       },
       rechargeGold(){
-        console.log(1);
+        this.$router.push({path: '/recharge'})
       },
       bigSize(){
         if(this.num>18){
@@ -401,15 +409,36 @@
 
   .readNovel .page {
     width: 100%;
-    height: 300px;
+    height: 400px;
     overflow-y: auto;
   }
-
+  
   .readNovel .page .menuTitle {
+    font-size: 14px;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
     line-height: 45px;
-    border-bottom: 1px solid #e0e0e0;
     padding: 0 15px;
+    border-bottom: 1px solid #e0e0ee;
   }
+
+  .readNovel .page .menuTitle .text {
+    padding-right: 25px;
+    vertical-align: middle;
+  }
+
+  .readNovel .page .menuTitle .btn {
+    flex: 1;
+    text-align: right;
+  }
+
+  .readNovel .page .menuTitle .btn img {
+    width: 16px;
+    height: auto;
+    vertical-align: middle;
+  }
+
   .novelActive{
     background: #999;
   }

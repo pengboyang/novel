@@ -16,6 +16,9 @@ var mixin = {
         novelApiList: '/novel/api/list',
         novelApiContent: '/novel/api/content',
         novelApiCatalog: '/novel/api/catalog',
+        novelCoinSurplus:'/novel/coin/surplus',
+        novelCoinBuy:'/novel/coin/buy',
+        novelCoinOrders:'/novel/coin/orders',
       }
     };
   },

@@ -109,7 +109,6 @@
           params: {id: this.bookId}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.bookDetailLists = res.data.novelItem;
             this.chapterName = res.data.chapterLatestInfo.chapterName;
             this.chapterSum = res.data.chapterLatestInfo.chapter;
@@ -145,7 +144,6 @@
         this.bookDetailInfo();
         this.bookMoreList();
         this.$refs.scroTops.scrollTop=0;
-        console.log(this.$refs.scroTops)
 
         // this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
       },

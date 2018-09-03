@@ -24,7 +24,6 @@
     watch: {
       lists: function (od, nw) {
         this.srcLists = od;
-        console.log(this.srcLists);
       }
     },
     created() {

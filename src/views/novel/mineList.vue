@@ -105,6 +105,18 @@
           console.log(error);
         });
       },
+      /*金币余额*/
+      goldBalance(){
+        this.$http({
+          method:'post',
+          url:this.apiUrl.novelCoinSurplus,
+          params:{}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+          }
+        }).catch();
+      }
     }
   }
 </script>
