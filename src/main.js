@@ -10,6 +10,7 @@ import 'swiper/dist/css/swiper.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import WeVue from 'we-vue'
 import 'we-vue/lib/style.css'
+import wx from 'weixin-jsapi'
 
 
 Vue.use(WeVue)
@@ -40,7 +41,7 @@ const router = new VueRouter({
 
 // ajax
 Vue.$http = Vue.prototype.$http = axios.create({
-  baseURL: 'http://dsp.i6bktq.cn:83',
+  baseURL: 'http://pay.55duanzi.com',
   withCredentials: true,// `withCredentials` 表示跨域请求时是否需要使用凭证
   timeout: 5000
 });
