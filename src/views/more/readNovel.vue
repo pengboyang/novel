@@ -28,7 +28,8 @@
           <span>自动购买下一章，以后不再提示</span>
         </div> -->
         <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div>
-        <div class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
+        <div v-if="!bought" class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
+        <div v-else class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn1.png" alt=""></div>
         <div class="payVip">
           <div>开通超级VIP,全站书籍免费看></div>
         </div>
@@ -88,7 +89,8 @@
         chapterSum:0,
         balance:0,
         price:0,
-        hasmore:true
+        hasmore:true,
+        bought:false,
       }
     },
     watch:{
@@ -149,9 +151,11 @@
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiContent,
-          params: {id: id, page: page}
+          params: {id: id, page: page},
+          headers:{'uuid':'LLuKA6iq'}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
@@ -159,6 +163,7 @@
             this.novelNextPage = res.data.nextpage;
             this.balance = res.data.balance;
             this.price = res.data.price;
+            this.bought = res.data.bought;
             if(!res.data.pay){
                 this.btnFlag = true;
                 this.vipRecharge = false;
@@ -177,7 +182,7 @@
         },3000)
       },
       rechargeGold(){
-        console.log(1);
+        this.$router.push({path: '/recharge'})
       },
       bigSize(){
         if(this.num>18){

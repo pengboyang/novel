@@ -40,18 +40,19 @@ const router = new VueRouter({
 
 // ajax
 Vue.$http = Vue.prototype.$http = axios.create({
-  baseURL: 'http://dsp.i6bktq.cn:83',
+  // baseURL: 'http://dsp.i6bktq.cn:83',
+  baseURL: 'http://pay.55duanzi.com',
   withCredentials: true,// `withCredentials` 表示跨域请求时是否需要使用凭证
   timeout: 5000
 });
 //拦截器（ajax请求前）
-Vue.prototype.$http.interceptors.request.use((config) => {
-  let uuid = localStorage.getItem('uuid') || '';
-  config.headers.uuid = uuid;
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
+// Vue.prototype.$http.interceptors.request.use((config) => {
+//   let uuid = localStorage.getItem('uuid') || '';
+//   config.headers.uuid = uuid;
+//   return config;
+// }, (error) => {
+//   return Promise.reject(error);
+// });
 //拦截器（ajax响应前）
 Vue.prototype.$http.interceptors.response.use(function (response) {
   // 对响应数据做点什么

@@ -8,7 +8,8 @@
     <div class="menus">
       <div class="menuTop">
         <div class="allList">共345章</div>
-        <div class="paixu"><img src="../../assets/img/paixu.png" alt=""></div>
+        <div v-if="sorts" class="paixu" @click="NovelMenuList(novelId,0,'desc')"><img src="../../assets/img/paixu.png" alt=""></div>
+        <div v-else-if="!sorts" class="paixu" @click="NovelMenuList(novelId,0,'')"><img src="../../assets/img/paixu.png" alt=""></div>
       </div>
       <div class="menWra">
         <div class="comRow" v-for="item in menuLists" @click="goRead(novelId,item.chapter,novelTitle)">
@@ -20,8 +21,8 @@
       </div>
     </div>
     <div class="menuBottom">
-      <div @click="NovelMenuList(novelId,prepage,'')">上一页</div>
-      <div @click="NovelMenuList(novelId,nextpage,'')">下一页</div>
+      <div @click="NovelMenuLists(novelId,prepage,desc)">上一页</div>
+      <div @click="NovelMenuLists(novelId,nextpage,desc)">下一页</div>
     </div>
   </div>
 </template>
@@ -36,19 +37,37 @@
         novelTitle:'',
         nextpage:0,
         prepage:0,
+        sorts:true,
+        desc:''
       }
     },
     created() {
       this.novelTitle = this.$route.query.title;
       this.novelId = this.$route.query.id;
       this.page = this.$route.query.begin;
-      this.NovelMenuList(this.novelId,this.page,'');
+      this.NovelMenuLists(this.novelId,this.page,'');
     },
     methods: {
       routeBack() {
         this.$router.go(-1)
       },
       NovelMenuList(id,page,sort){
+        this.sorts = !this.sorts;
+        this.desc = sort;
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiCatalog,
+          params:{id:id,begin:page,sort:sort}
+        }).then(res=>{
+          if(res.status==200){
+            this.$refs.menuWrap.scrollTop = 0;
+            this.menuLists = res.data.catalogList;
+            this.nextpage = res.data.nextpage;
+            this.prepage = res.data.prepage;
+          }
+        }).catch();
+      },
+      NovelMenuLists(id,page,sort){
         if(page==-10){
           return false;
         }
@@ -58,7 +77,6 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.$refs.menuWrap.scrollTop = 0;
             this.menuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;

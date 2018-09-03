@@ -9,13 +9,13 @@
     <div class="rechCont">
       <div class="text">请选择充值金额</div>
       <div class="rechargePic clearfloat">
-        <div class="wra clearfloat" v-for="(item,index) in priceItems" @click="exchange(item,index)" :class="{picActive: activeIndex == index}">
+        <div class="wra clearfloat" v-for="(item,index) in priceItems" @click="exchange(index,item.nums,item.bookNums)" :class="{picActive: activeIndex == index}">
           <div v-if="index==0">
-            <div class="price">￥{{item.nums}}</div>
+            <div class="price">￥{{item.nums}}.00</div>
             <div class="firstPrice"><div class="nums">{{item.bookNums}}书币</div><div class="present"><img :src="item.src" alt=""></div></div>
           </div>
           <div v-else>
-            <div class="price">￥{{item.nums}}</div>
+            <div class="price">￥{{item.nums}}.00</div>
             <div class="bookNums">{{item.bookNums}}书币</div>
             <div class="othersPrice"><img :src="item.src"  alt=""></div>
           </div>
@@ -34,8 +34,8 @@
       <div class="dialog">
         <div class="close" @click="CancelPayment"><img src="../../assets/img/x.png" alt=""></div>
         <div class="title">充值</div>
-        <div class="novelNumber">5000书币</div>
-        <div class="bookMoney">￥500</div>
+        <div class="novelNumber">{{bookMoney}}书币</div>
+        <div class="bookMoney">￥{{money}}</div>
         <div class="btn" @click="ConfirmPayment"><span>确认支付</span></div>
       </div>
     </div>
@@ -50,26 +50,28 @@
         priceItems:[
           {
             src:require('../../assets/img/priceOne.png'),
-            nums:'10.00',
+            nums:10.00,
             bookNums:'1000'
           },
           {
             src:require('../../assets/img/priceTwo.png'),
-            nums:'50.00',
+            nums:50.00,
             bookNums:'5000+3000'
           },
           {
             src:require('../../assets/img/priceThree.png'),
-            nums:'100.00',
+            nums:100.00,
             bookNums:'10000+8000'
           },
           {
             src:require('../../assets/img/priceFour.png'),
-            nums:'200.00',
+            nums:200.00,
             bookNums:'20000+20000'
           },
         ],
-        dialogFlag:false
+        dialogFlag:false,
+        money:'',
+        bookMoney:''
       }
     },
     created() {
@@ -78,7 +80,9 @@
       back() {
         this.$router.go(-1)
       },
-      exchange(item,index){
+      exchange(index,nums,boknums){
+        this.money=nums;
+        this.bookMoney=boknums;
         this.dialogFlag = true;
         this.activeIndex = index;
       },
