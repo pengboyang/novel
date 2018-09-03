@@ -92,9 +92,12 @@
       },
       ConfirmPayment(){
         let _this=this;
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
         this.$http({
           method: 'get',
           url: this.apiUrl.novelCoinOrders,
+          headers:{times: times, sign: md5},
           params: {total_fee: this.money}
         }).then(res => {
           if (res.status == 200) {
