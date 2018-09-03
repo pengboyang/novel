@@ -10,7 +10,8 @@ import 'swiper/dist/css/swiper.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import WeVue from 'we-vue'
 import 'we-vue/lib/style.css'
-
+var VueTouch = require('vue-touch')
+Vue.use(VueTouch, {name: 'v-touch'})
 
 Vue.use(WeVue)
 Vue.use(VueAwesomeSwiper)
@@ -46,13 +47,13 @@ Vue.$http = Vue.prototype.$http = axios.create({
   timeout: 5000
 });
 //拦截器（ajax请求前）
-// Vue.prototype.$http.interceptors.request.use((config) => {
-//   let uuid = localStorage.getItem('uuid') || '';
-//   config.headers.uuid = uuid;
-//   return config;
-// }, (error) => {
-//   return Promise.reject(error);
-// });
+Vue.prototype.$http.interceptors.request.use((config) => {
+  let uuid = localStorage.getItem('uuid') || '';
+  config.headers.uuid = uuid;
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
 //拦截器（ajax响应前）
 Vue.prototype.$http.interceptors.response.use(function (response) {
   // 对响应数据做点什么

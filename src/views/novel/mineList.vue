@@ -13,7 +13,7 @@
         <div class="comRow">
           <span class="leftImg"><img src="../../assets/img/bookGold.png" alt=""></span>
           <span class="text">余额</span>
-          <span class="text"><span class="gold">0</span>书币</span>
+          <span class="text"><span class="gold">{{coin}}</span>书币</span>
           <div class="btn" @click="goRecharge">
             <img src="../../assets/img/recharge.png" alt="">
           </div>
@@ -35,10 +35,12 @@
       return {
         isFirstEnter: false, // 是否第一次进入，默认false
         imgPath: require('../../assets/img/my-pic.png'),
-        nickName: ''
+        nickName: '',
+        coin:0
       }
     },
     created() {
+      this.goldBalance();
       if(!this.$store.state.userInfo.imgPath){
         this.getCode();
         if (this.$store.state.userCode) {
@@ -107,13 +109,16 @@
       },
       /*金币余额*/
       goldBalance(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
         this.$http({
           method:'post',
           url:this.apiUrl.novelCoinSurplus,
-          params:{}
+          headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
             console.log(res);
+            this.coin = res.data.coin;
           }
         }).catch();
       }
@@ -134,7 +139,7 @@
   .mineList .mineListCon .userInfo {
     display: flex;
     width: 100%;
-    /*align-items: center;*/
+    /* align-items: center; */
     padding-top: 20px;
     padding-bottom: 20px;
   }
