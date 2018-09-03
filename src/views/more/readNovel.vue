@@ -409,10 +409,11 @@
   }
   
   .readNovel .page .menuTitle {
+    font-size: 14px;
     display: -webkit-flex;
     display: flex;
     align-items: center;
-    line-height: 50px;
+    line-height: 45px;
     padding: 0 15px;
     border-bottom: 1px solid #e0e0ee;
   }
