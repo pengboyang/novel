@@ -29,7 +29,7 @@
         </div> -->
         <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div>
         <div v-if="!bought" class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
-        <div v-else class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn1.png" alt=""></div>
+        <div v-else class="payBtn" @click.stop="buyBooks"><img src="../../assets/img/payBtn1.png" alt=""></div>
         <div class="payVip">
           <div>开通超级VIP,全站书籍免费看></div>
         </div>
@@ -61,6 +61,7 @@
   </div>
 </template>
 <script>
+  import { Toast } from 'we-vue'
   export default {
     name: 'readNovel',
     data() {
@@ -91,6 +92,7 @@
         price:0,
         hasmore:true,
         bought:false,
+        currentpage:''
       }
     },
     watch:{
@@ -145,14 +147,15 @@
         this.novMenuList()
       },
       bookInfo(id,page) {
+        console.log(page);
         if(page==0){
           return false;
         }
+        console.log(page);
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiContent,
           params: {id: id, page: page},
-          headers:{'uuid':'LLuKA6iq'}
         }).then(res => {
           if (res.status == 200) {
             console.log(res);
@@ -164,6 +167,7 @@
             this.balance = res.data.balance;
             this.price = res.data.price;
             this.bought = res.data.bought;
+            this.currentpage = res.data.currentpage;
             if(!res.data.pay){
                 this.btnFlag = true;
                 this.vipRecharge = false;
@@ -183,6 +187,32 @@
       },
       rechargeGold(){
         this.$router.push({path: '/recharge'})
+      },
+      buyBooks(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method:'post',
+          url:this.apiUrl.novelCoinBuy,
+          data:{pk:this.bookId,startChapter:this.currentpage,endChapter:this.currentpage,coin:this.price},
+          headers:{times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            if(res.data.code==1){
+              this.bookInfo(this.bookId,this.currentpage);
+              Toast.success({
+                duration: 1000,
+                message: res.data.msg
+              })
+            }else{
+              Toast.fail({
+                duration: 1000,
+                message: res.data.msg
+              })
+            }
+          }
+        }).catch();
       },
       bigSize(){
         if(this.num>18){

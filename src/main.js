@@ -12,6 +12,8 @@ import WeVue from 'we-vue'
 import 'we-vue/lib/style.css'
 import wx from 'weixin-jsapi'
 
+var VueTouch = require('vue-touch')
+Vue.use(VueTouch, {name: 'v-touch'})
 
 Vue.use(WeVue)
 Vue.use(VueAwesomeSwiper)
