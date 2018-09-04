@@ -147,18 +147,15 @@
         this.novMenuList()
       },
       bookInfo(id,page) {
-        console.log(page);
         if(page==0){
           return false;
         }
-        console.log(page);
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiContent,
           params: {id: id, page: page},
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
@@ -198,7 +195,6 @@
           headers:{times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             if(res.data.code==1){
               this.bookInfo(this.bookId,this.currentpage);
               Toast.success({

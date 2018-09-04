@@ -1,33 +1,35 @@
 <template>
-  <div class="mineList">
-    <div class="mineListCon">
-      <div class="lineBg"></div>
-      <div class="userInfo">
-        <div class="uesrLogo"><img :src="imgPath" alt=""></div>
-        <div class="userName">
-          <div class="name">{{nickName}}</div>
-          <!-- <div class="vip"><img src="../../assets/img/vip.png" alt=""></div> -->
-        </div>
-      </div>
-      <div class="others">
-        <div class="comRow">
-          <span class="leftImg"><img src="../../assets/img/bookGold.png" alt=""></span>
-          <span class="text">余额</span>
-          <span class="text"><span class="gold">{{coin}}</span>书币</span>
-          <div class="btn" @click="goRecharge">
-            <img src="../../assets/img/recharge.png" alt="">
+  <v-touch v-on:swiperight="onSwipeRight">
+    <div class="mineList">
+      <div class="mineListCon">
+        <div class="lineBg"></div>
+        <div class="userInfo">
+          <div class="uesrLogo"><img :src="imgPath" alt=""></div>
+          <div class="userName">
+            <div class="name">{{nickName}}</div>
+            <!-- <div class="vip"><img src="../../assets/img/vip.png" alt=""></div> -->
           </div>
         </div>
-        <div class="comRow" @click="goService">
-          <span class="leftImg"><img src="../../assets/img/kefu.png" alt=""></span>
-          <span class="text">联系客服</span>
-          <div class="arrowBtn">
-            <img src="../../assets/img/rightJT.png" alt="">
+        <div class="others">
+          <div class="comRow">
+            <span class="leftImg"><img src="../../assets/img/bookGold.png" alt=""></span>
+            <span class="text">余额</span>
+            <span class="text"><span class="gold">{{coin}}</span>书币</span>
+            <div class="btn" @click="goRecharge">
+              <img src="../../assets/img/recharge.png" alt="">
+            </div>
+          </div>
+          <div class="comRow" @click="goService">
+            <span class="leftImg"><img src="../../assets/img/kefu.png" alt=""></span>
+            <span class="text">联系客服</span>
+            <div class="arrowBtn">
+              <img src="../../assets/img/rightJT.png" alt="">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </v-touch>
 </template>
 <script>
   export default {
@@ -122,6 +124,9 @@
             this.coin = res.data.coin;
           }
         }).catch();
+      },
+      onSwipeRight(){
+        this.$router.push({path:'/novel/assortmentList',query:{id:3}});
       }
     }
   }

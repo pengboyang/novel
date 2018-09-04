@@ -40,12 +40,12 @@
           {
             name:'分类',
             path:'/novel/assortmentList',
-            id:''
+            id:3
           },
           {
             name:'我的',
             path:'/novel/mineList',
-            id:''
+            id:4
           },
         ],
       }
