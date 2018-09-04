@@ -1,7 +1,9 @@
 <template>
   <div class="allView">
     <navbar class="topnav"></navbar>
-    <router-view class="wrapper"></router-view>
+    <transition :name="$store.state.transitionName">
+        <router-view class="wrapper"></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -12,6 +14,15 @@
     data() {
       return {
         wrapperHeight: 0
+      }
+    },
+    watch:{
+      '$route'(to,from){
+        if(to.query.id>from.query.id){
+          this.$store.state.transitionName = 'slide-left'
+        }else{
+          this.$store.state.transitionName = 'slide-right'
+        }
       }
     },
     components: {
@@ -43,6 +54,7 @@
     overflow-y: auto;
     z-index: 1;
     -webkit-overflow-scrolling: touch;
+    transition: all .8s cubic-bezier(.55, 0, .1, 1);
   }
   .novelCont{
     -webkit-overflow-scrolling: touch;
@@ -61,6 +73,20 @@
 
   .novelPic img {
     box-shadow: 0px 0px 5px #999;
+  }
+
+  .slide-left-enter,
+  .slide-right-leave-active {
+      opacity: 0;
+      -webkit-transform: translate(100%, 0);
+      transform: translate(100%, 0);
+  }
+ 
+  .slide-left-leave-active,
+  .slide-right-enter {
+      opacity: 0;
+      -webkit-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
   }
 </style>
 

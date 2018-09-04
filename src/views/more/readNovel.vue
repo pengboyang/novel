@@ -112,7 +112,6 @@
         }
     },
     created() {
-      localStorage.setItem('uuid', 'LLuKA6iq');
       this.bookId = this.$route.query.id;
       this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
@@ -148,19 +147,15 @@
         this.novMenuList()
       },
       bookInfo(id,page) {
-        console.log(page);
         if(page==0){
           return false;
         }
-        console.log(page);
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiContent,
           params: {id: id, page: page},
-          headers:{'uuid':'LLuKA6iq'}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
@@ -197,10 +192,9 @@
           method:'post',
           url:this.apiUrl.novelCoinBuy,
           data:{pk:this.bookId,startChapter:this.currentpage,endChapter:this.currentpage,coin:this.price},
-          headers:{uuid:'LLuKA6iq',times: times, sign: md5}
+          headers:{times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             if(res.data.code==1){
               this.bookInfo(this.bookId,this.currentpage);
               Toast.success({
