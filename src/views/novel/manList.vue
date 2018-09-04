@@ -1,5 +1,5 @@
 <template>
-  <v-touch v-on:swipeleft="onSwipeLeft">
+  <!--<v-touch v-on:swipeleft="onSwipeLeft">-->
     <div class="manList">
       <my-swiper :lists="sweiperList"></my-swiper>
       <div v-for="item in dataList">
@@ -9,7 +9,7 @@
       </div>
       <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
     </div>
-  </v-touch>
+  <!--</v-touch>-->
 </template>
 <script>
   import 'swiper/dist/css/swiper.css'////这里注意具体看使用的版本是否需要引入样式，以及具体位置。

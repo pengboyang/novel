@@ -1,5 +1,5 @@
 <template>
-  <v-touch v-on:swiperight="onSwipeRight">
+  <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
       <div class="mineListCon">
         <div class="lineBg"></div>
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-  </v-touch>
+  <!--</v-touch>-->
 </template>
 <script>
   export default {

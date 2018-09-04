@@ -1,5 +1,5 @@
 <template>
-  <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">
+  <!--<v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">-->
     <div class="assortmentList">
       <div class="assortmentCont">
         <div class="assortment">
@@ -62,7 +62,7 @@
       </div>
       <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
     </div>
-  </v-touch>
+  <!--</v-touch>-->
 </template>
 <script>
   export default {
