@@ -8,7 +8,7 @@
     <div class="lineBg"></div>
     <div class="serviceWra">
       <div class="serviceImg">
-        <img src="../../assets/img/service.png" alt="">
+        <img src="../../assets/img/cusService.jpeg" alt="">
         <div class="title">大蜜小说</div>
       </div>
     </div>
