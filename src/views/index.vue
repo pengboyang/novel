@@ -54,7 +54,7 @@
     overflow-y: auto;
     z-index: 1;
     -webkit-overflow-scrolling: touch;
-    transition: all .8s cubic-bezier(.55, 0, .1, 1);
+    transition: all .5s cubic-bezier(.55, 0, .1, 1);
   }
   .novelCont{
     -webkit-overflow-scrolling: touch;

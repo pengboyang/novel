@@ -1,5 +1,5 @@
 <template>
-  <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">
+  <!-- <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight"> -->
     <div class="assortmentList">
       <div class="assortmentCont">
         <div class="assortment">
@@ -52,7 +52,7 @@
                   <span class="man">作者：{{item.author}}</span>
                 </div>
                 <div class="described">
-                  <span>分类</span>
+                  <!-- <span>分类</span> -->
                   <span>{{item.state==0?'全部':(item.state==1?'连载':'完结')}}</span>
                 </div>
               </div>
@@ -62,7 +62,7 @@
       </div>
       <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
     </div>
-  </v-touch>
+  <!-- </v-touch> -->
 </template>
 <script>
   export default {
