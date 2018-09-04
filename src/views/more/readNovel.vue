@@ -1,6 +1,6 @@
 <template>
   <div class="readNovel">
-    <div class="topWra" :style="{background:color}">
+    <div class="topWra" :style="{background:color,color:colors}">
       <div class="topBaner">
         <div style="width:30px;height:100%;display:inline-block;" @click.stop="back"><img class="returnBack"
                                                                                      src="../../assets/img/returnback.png"
@@ -10,11 +10,12 @@
       <div class="setting">
         <img @click="bigSize" src="../../assets/img/big.png" alt="">
         <img @click="smallSize"  src="../../assets/img/small.png" alt="">
-        <img @click=""  src="../../assets/img/white.png" alt="">
+        <img v-if="dayFlag" @click="exchangeDay"  src="../../assets/img/white.png" alt="">
+        <img v-else-if="!dayFlag" @click="exchangeDays"  src="../../assets/img/black.png" alt="">
       </div>
       <div class="novelTitle">{{bookTitle}}</div>
     </div>
-    <div class="novelCont" @click="showBottom" :style="{fontSize:num+'px'}" ref="scroTop">
+    <div class="novelCont" @click="showBottom" :style="{fontSize:num+'px',background:color,color:colors}" ref="scroTop">
       <div class="novelText" v-html="novelStr"></div>
       <div class="chapter" v-if="btnFlag">
         <div v-bind:class="['novelbtn',PrenoPage ? 'novelActive' : 'novelActive1']" @click.stop="bookInfo(bookId,novelPrePage)">上一章</div>
@@ -66,8 +67,10 @@
     name: 'readNovel',
     data() {
       return {
+        dayFlag:true,
         num:16,
         color:'#f0ece9',
+        colors:'#000',
         botmFlag:false,
         btnFlag: false,
         vipRecharge:false,
@@ -221,7 +224,17 @@
           return false;
         }
         this.num--;
-      }
+      },
+      exchangeDay(){
+        this.dayFlag = false;
+        this.colors = '#6f6f6f';
+        this.color = '#1c1c1c';
+      },
+      exchangeDays(){
+        this.dayFlag = true;
+        this.color = '#f0ece9';
+        this.colors = '#000';
+      },
     }
   }
 </script>
@@ -267,7 +280,6 @@
     font-size: 18px;
     font-weight: 700;
     vertical-align: middle;
-    color: #000;
   }
 
   .readNovel .topWra .setting {
