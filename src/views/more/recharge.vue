@@ -36,7 +36,7 @@
         <div class="title">充值</div>
         <div class="novelNumber">{{bookMoney}}书币</div>
         <div class="bookMoney">￥{{money}}</div>
-        <div class="btn" @click="ConfirmPayment"><span>确认支付</span></div>
+        <div class="btn" @click="ConfirmPayment"><img src="../../assets/img/payBtnsss.png" alt=""></div>
       </div>
     </div>
   </div>
@@ -75,6 +75,7 @@
       }
     },
     created() {
+      console.log(this);
     },
     methods: {
       back() {
@@ -299,8 +300,8 @@
   }
 
   .recharge .layersBox .dialog{
-    width: 80%;
-    height: 220px;
+    width: 65%;
+    height: 210px;
     position: absolute;
     top: 0;
     right: 0;
@@ -308,7 +309,7 @@
     left: 0;
     margin:auto;
     background: #fff;
-    border-radius: 5px;
+    border-radius: 12px;
     padding: 0 35px;
   }
 
@@ -316,50 +317,53 @@
     width: 50px;
     height: 50px;
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 6px;
+    top: 2px;
   }
 
   .recharge .layersBox .close img{
-    width: 20px;
+    width: 25px;
     height: auto;
     vertical-align: middle;
-    padding-top: 5px;
-    padding-left: 5px;
+    padding-top: 6px;
+    padding-left: 10px;
   }
 
   .recharge .layersBox .dialog .title{
     width: 100%;
-    height: 38px;
-    line-height: 38px;
+    height: 40px;
+    line-height: 40px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e8e8e8;
   }
 
   .recharge .layersBox .dialog .novelNumber{
     text-align: center;
-    line-height: 40px;
+    line-height: 42px;
     color: #999;
+    font-size: 16px;
   }
 
   .recharge .layersBox .dialog .bookMoney{
-    font-size: 45px;
+    font-size: 42px;
     font-weight: 700;
     text-align: center;
+    padding-top: 5px;
   }
   .recharge .layersBox .dialog .btn{
-    margin-top: 25px;
     width: 100%;
-    text-align: center;
-    color: #ff4646;
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 
-  .btn span{
-    padding: 5px 10px;
-    border: 1px solid red;
-    border-radius: 12px;
-  }
+   .recharge .layersBox .dialog .btn img{
+     width: 100%;
+     height: auto;
+     vertical-align: middle;
+   }
+
 </style>
 

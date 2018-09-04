@@ -34,6 +34,12 @@
   }
 </script>
 <style>
+  .customService{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+  
   .serviceTop {
     width: 100%;
     height: 46px;

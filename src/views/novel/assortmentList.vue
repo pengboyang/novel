@@ -52,7 +52,7 @@
                   <span class="man">作者：{{item.author}}</span>
                 </div>
                 <div class="described">
-                  <span>分类</span>
+                  <!-- <span>分类</span> -->
                   <span>{{item.state==0?'全部':(item.state==1?'连载':'完结')}}</span>
                 </div>
               </div>

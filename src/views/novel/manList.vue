@@ -57,7 +57,9 @@
       },
       onSwipeLeft(){
         this.$router.push({path:'/novel/womenList',query:{id:2}});
-      }
+      },
+      a(){},
+      b(){},
     },
     mounted() {
     }

@@ -7,7 +7,7 @@
     <div class="lineBg"></div>
     <div class="menus">
       <div class="menuTop">
-        <div class="allList">共345章</div>
+        <div class="allList">共{{chapterSum}}章</div>
         <div v-if="sorts" class="paixu" @click="NovelMenuList(novelId,0,'desc')"><img src="../../assets/img/paixu.png" alt=""></div>
         <div v-else-if="!sorts" class="paixu" @click="NovelMenuList(novelId,0,'')"><img src="../../assets/img/paixu.png" alt=""></div>
       </div>
@@ -38,7 +38,8 @@
         nextpage:0,
         prepage:0,
         sorts:true,
-        desc:''
+        desc:'',
+        chapterSum:0
       }
     },
     created() {
@@ -81,6 +82,7 @@
             this.menuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;
             this.prepage = res.data.prepage;
+            this.chapterSum = res.data.chapterSum;
           }
         }).catch();
       },
