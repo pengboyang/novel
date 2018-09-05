@@ -5,8 +5,8 @@
                                                               alt=""></div>
       <div class="title">联系客服</div>
     </div>
-    <div class="lineBg"></div>
     <div class="serviceWra">
+      <div class="lineBg"></div>
       <div class="serviceImg">
         <img src="../../assets/img/cusService.jpeg" alt="">
         <div class="title">大蜜小说</div>

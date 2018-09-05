@@ -5,8 +5,8 @@
                                                               alt=""></div>
       <div class="title">书币充值</div>
     </div>
-    <div class="lineBg"></div>
     <div class="rechCont">
+      <div class="lineBg"></div>
       <div class="text">请选择充值金额</div>
       <div class="rechargePic clearfloat">
         <div class="wra clearfloat" v-for="(item,index) in priceItems" @click="exchange(index,item.nums,item.bookNums)" :class="{picActive: activeIndex == index}">

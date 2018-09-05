@@ -249,6 +249,7 @@
     width: 100%;
     height: auto;
     vertical-align: middle;
+    box-shadow: 0px 0px 5px #999;
   }
 
   .assortmentList .novelBooks .novelCon .novelRight {

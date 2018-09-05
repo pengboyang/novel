@@ -243,6 +243,9 @@
 
   .bookDetail .detaiContent .novelInfo .left img {
     width: 100%;
+    height: auto;
+    vertical-align: middle;
+    box-shadow: 0px 0px 5px #999;
   }
 
   .bookDetail .detaiContent .novelInfo .right {
@@ -401,6 +404,7 @@
     width: 100%;
     height: auto;
     vertical-align: middle;
+    box-shadow: 0px 0px 5px #999;
   }
 
   .bookDetail .detaiContent .newMore .manNovel .novelWra .novelName {

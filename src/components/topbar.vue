@@ -95,7 +95,7 @@
     justify-content: space-around;
     background: #fff;
     font-size: 14px;
-    margin-top: 20px;
+    margin-top: 14px;
     margin-left: 116px;
     margin-right: 15px;
   }
