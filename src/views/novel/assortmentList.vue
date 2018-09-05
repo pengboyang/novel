@@ -260,16 +260,16 @@
     font-size: 18px;
     line-height: 24px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #000;
   }
 
   .assortmentList .novelBooks .novelCon .novelRight .bookDescribed {
     font-size: 12px;
     color: #999;
-    margin-bottom: 8px;
-    line-height: 22px;
-    height: 70px;
+    margin-bottom: 12px;
+    line-height: 16px;
+    height: 50px;
     overflow: hidden;
     letter-spacing: 1px;
   }
@@ -277,7 +277,7 @@
   .assortmentList .novelBooks .novelCon .novelRight .bookInfo {
     font-size: 12px;
     color: #999;
-    line-height: 12px;
+    line-height: 14px;
   }
 
   .assortmentList .novelBooks .novelCon .novelRight .bookInfo .described {
@@ -292,6 +292,8 @@
   }
 
   .assortmentList .novelBooks .novelCon .novelRight .bookInfo .author {
+    width: 65%;
+    overflow: hidden;
     float: left;
   }
 
@@ -300,7 +302,7 @@
   }
 
   .assortmentList .novelBooks .novelCon .novelRight .bookInfo .author .icon img {
-    width: 8px;
+    width: 10px;
   }
 
   .assortmentList .novelBooks .novelCon .novelRight .bookInfo .author .man {

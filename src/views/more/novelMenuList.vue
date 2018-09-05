@@ -9,7 +9,7 @@
       <div class="menuTop">
         <div class="allList">共{{chapterSum}}章</div>
         <div v-if="sorts" class="paixu" @click="NovelMenuList(novelId,0,'desc')"><img src="../../assets/img/paixu.png" alt=""></div>
-        <div v-else-if="!sorts" class="paixu" @click="NovelMenuList(novelId,0,'')"><img src="../../assets/img/paixu.png" alt=""></div>
+        <div v-else-if="!sorts" class="paixu" @click="NovelMenuList(novelId,0,'')"><img src="../../assets/img/paixu1.png" alt=""></div>
       </div>
       <div class="menWra">
         <div class="comRow" v-for="item in menuLists" @click="goRead(novelId,item.chapter,novelTitle)">

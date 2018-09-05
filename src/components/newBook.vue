@@ -125,15 +125,15 @@
     font-size: 18px;
     line-height: 24px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   .newBook .books .content .bookRight .bookDescribed {
     font-size: 12px;
     color: #999;
-    margin-bottom: 8px;
-    line-height: 20px;
-    height: 64px;
+    margin-bottom: 12px;
+    line-height: 16px;
+    height: 50px;
     overflow: hidden;
     letter-spacing: 1px;
   }
@@ -156,7 +156,7 @@
   }
 
   .newBook .books .content .bookRight .bookInfo .author {
-    width: 96px;
+    width: 52%;
     overflow: hidden;
     float: left;
   }
@@ -166,7 +166,7 @@
   }
 
   .newBook .books .content .bookRight .bookInfo .author .icon img {
-    width: 8px;
+    width: 10px;
   }
 
   .newBook .books .content .bookRight .bookInfo .author .man {
