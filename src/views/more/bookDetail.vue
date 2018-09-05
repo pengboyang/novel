@@ -33,10 +33,10 @@
         </div>
         <div class="comRow">
             <span class="section">第<span class="gold">{{chapterSum}}</span>章</span>
-            <span class="section">{{chapterName}}</span>
-            <div class="centerBtn">
+            <span class="section" style="font-size:16px;color:#000;">{{chapterName}}</span>
+            <!-- <div class="centerBtn">
               <img src="../../assets/img/new.png" alt="">
-            </div>
+            </div> -->
         </div>
         <div class="comRow">
             <span class="section">更新于<span class="gold">{{utime}}</span></span>
