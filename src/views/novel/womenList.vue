@@ -1,5 +1,5 @@
 <template>
-  <!-- <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight"> -->
+  <!--<v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">-->
     <div class="manList">
       <my-swiper :lists="sweiperList"></my-swiper>
       <div v-for="item in womenBookList">
@@ -9,7 +9,7 @@
       </div>
       <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
     </div>
-  <!-- </v-touch> -->
+  <!--</v-touch>-->
 </template>
 <script>
   import mySwiper from '../../components/mySwiper'

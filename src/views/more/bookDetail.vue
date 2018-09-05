@@ -1,8 +1,7 @@
 <template>
   <div class="bookDetail" ref="scroTops">
     <div class="topBanner">
-      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack"
-                                                                   src="../../assets/img/returnback.png" alt=""></div>
+      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="topTitle">{{title}}</div>
     </div>
     <div class="lineBg"></div>
@@ -206,7 +205,7 @@
     text-align: center;
     position: absolute;
     top: 0;
-    right: 15px;
+    right: 0;
     bottom: 0;
     left: 0;
     margin: auto;

@@ -54,9 +54,10 @@
     overflow-y: auto;
     z-index: 1;
     -webkit-overflow-scrolling: touch;
-    transition: all .5s cubic-bezier(.55, 0, .1, 1);
+    transition: all .8s cubic-bezier(.55, 0, .1, 1);
+    /*touch-action: pan-y !important;*/
   }
-  .novelCont{
+  .moreList,.novelCont,.readNovel .page{
     -webkit-overflow-scrolling: touch;
   }
   .transparentBg {

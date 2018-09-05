@@ -8,7 +8,7 @@
     </div>
     <div class="lineBg"></div>
     <div class="comBooks">
-      <div class="novelCon clearfloat" v-for="item in moreLists"  @click="goNovelDetail(item.id,item.type)">
+      <div class="novelCon clearfloat" v-for="item in moreLists" @click="goNovelDetail(item.id,item.type)">
         <div class="novelLeft">
           <img :src="item.cover" alt="">
         </div>
@@ -36,33 +36,33 @@
     name: 'moreList',
     data() {
       return {
-        novelType:'',
-        novelTitle:'',
-        moreLists:[]
+        novelType: '',
+        novelTitle: '',
+        moreLists: []
       }
     },
     created() {
-      this.novelType=this.$route.query.type;
+      this.novelType = this.$route.query.type;
       this.novelMoreList();
     },
     methods: {
       routeBack() {
         this.$router.go(-1)
       },
-      novelMoreList(){
+      novelMoreList() {
         this.$http({
-          method:'get',
-          url:this.apiUrl.novelApiList,
-          params:{category:this.novelType}
-        }).then(res=>{
-          if(res.status==200){
+          method: 'get',
+          url: this.apiUrl.novelApiList,
+          params: {category: this.novelType}
+        }).then(res => {
+          if (res.status == 200) {
             this.moreLists = res.data.novelList.novelItemList;
             this.novelTitle = res.data.novelList.name;
           }
         }).catch();
       },
-      goNovelDetail(id, type){
-         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
+      goNovelDetail(id, type) {
+        this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
       }
     }
   }
@@ -90,8 +90,9 @@
     height: 46px;
     line-height: 46px;
     position: fixed;
-    left: 15px;
+    left: 0px;
     top: 0;
+    padding-left: 15px;
     background: #fff;
   }
 
@@ -110,7 +111,7 @@
     text-align: center;
     position: absolute;
     top: 0;
-    right: 30px;
+    right: 0;
     bottom: 0;
     left: 0;
     margin: auto;
@@ -187,7 +188,7 @@
   .comBooks .novelCon .novelRight .bookInfo .author {
     width: 96px;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
     float: left;
   }

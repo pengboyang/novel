@@ -1,7 +1,7 @@
 <template>
   <div class="novelMenuList"  ref="menuWrap">
     <div class="topBanner">
-      <img @click="routeBack" class="returnBack" src="../../assets/img/returnback.png" alt="">
+      <div style="width:46px;height:100%;display: inline-block;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <span class="topTitle">{{novelTitle}}</span>
     </div>
     <div class="lineBg"></div>
@@ -124,6 +124,13 @@
 
   .novelMenuList .topBanner .topTitle {
     font-size: 18px;
+    width:80%;
+    position:absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin:auto;
     font-weight: 700;
     vertical-align: middle;
     padding-left: 15px;

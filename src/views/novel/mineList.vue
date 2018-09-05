@@ -1,5 +1,5 @@
 <template>
-  <!-- <v-touch v-on:swiperight="onSwipeRight"> -->
+  <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
       <div class="mineListCon">
         <div class="lineBg"></div>
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-  <!-- </v-touch> -->
+  <!--</v-touch>-->
 </template>
 <script>
   export default {
@@ -77,7 +77,7 @@
             this.imgPath =this.$store.state.userInfo.imgPath= data.imagePath;
             this.nickName =this.$store.state.userInfo.nickName= data.nickName;
           } else if (data.code == 3) {
-            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fs.55duanzi.com%2fnovel%2fdist%2findex.html%23%2fnovel%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fdev.r8uk83.cn%2fnovel%2fdist%2findex.html%23%2fnovel%2fmineList%3fid%3d4&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
           } else if (data.code == 4) {
             this.login(data=> {
               if(data=='success'){
@@ -119,6 +119,7 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
+            console.log('金币');
             console.log(res);
             this.coin = res.data.coin;
           }

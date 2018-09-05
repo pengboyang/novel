@@ -92,6 +92,33 @@
         this.dialogFlag = false;
       },
       ConfirmPayment(){
+        let _this=this;
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.novelCoinOrders,
+          headers:{times: times, sign: md5},
+          params: {total_fee: this.money*100}
+        }).then(res => {
+          if (res.status == 200) {
+            console.log(res);
+            var data=res.data;
+            if(data.code=='SUCCESS'){
+              console.log(data.timeStamp);
+              wx.chooseWXPay({
+                timestamp: data.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
+                package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+                signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                paySign: data.paySign, // 支付签名
+                success: function (res) {
+                  _this.$router.push({path: '/novel/mineList'});
+                }
+              });
+            }
+          }
+        }).catch();
         this.activeIndex = -1;
         this.dialogFlag = false;
       }
