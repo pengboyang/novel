@@ -49,7 +49,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 115px;
+    padding-top: 70px;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1;

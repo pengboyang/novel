@@ -6,16 +6,16 @@
                                                                                      src="../../assets/img/returnback.png"
                                                                                      alt=""></div>
         <span class="title">{{bookName}}</span>
+        <div class="setting">
+          <img @click="bigSize" src="../../assets/img/big.png" alt="">
+          <img @click="smallSize"  src="../../assets/img/small.png" alt="">
+          <img class="days" v-if="dayFlag" @click="exchangeDay"  src="../../assets/img/white.png" alt="">
+          <img class="days" v-else-if="!dayFlag" @click="exchangeDays"  src="../../assets/img/black.png" alt="">
+        </div>
       </div>
-      <div class="setting">
-        <img @click="bigSize" src="../../assets/img/big.png" alt="">
-        <img @click="smallSize"  src="../../assets/img/small.png" alt="">
-        <img v-if="dayFlag" @click="exchangeDay"  src="../../assets/img/white.png" alt="">
-        <img v-else-if="!dayFlag" @click="exchangeDays"  src="../../assets/img/black.png" alt="">
-      </div>
-      <div class="novelTitle">{{bookTitle}}</div>
     </div>
     <div class="novelCont" @click="showBottom" :style="{fontSize:num+'px',background:color,color:colors}" ref="scroTop">
+      <div class="novelTitle">{{bookTitle}}</div>
       <div class="novelText" v-html="novelStr"></div>
       <div class="chapter" v-if="btnFlag">
         <div v-bind:class="['novelbtn',PrenoPage ? 'novelActive' : 'novelActive1']" @click.stop="bookInfo(bookId,novelPrePage)">上一章</div>
@@ -42,27 +42,46 @@
         <img class="right" src="../../assets/img/novelInfo.png" alt="">
       </div>
     </div>
-    <wv-popup :visible.sync="popupVisible1">
-      <div class="page page-infinite-wrapper">
-        <wv-group title="目录" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading"
-                  infinite-scroll-distance="50" infinite-scroll-immediate-check="true">
-          <!-- <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">{{item.chapterTitle}}</div> -->
-          <div class="menuTitle" v-for="item in meuLists" @click="bookInfo(bookId,item.chapter)">
-            <span class="text">{{item.chapterTitle}}</span>
-            <div class="btn" v-if="item.pay">
-              <img src="../../assets/img/lock.png" alt="">
-            </div>
+    <mt-popup
+      v-model="popupVisible1"
+      position="left"
+      :modal="false">
+        <div class="menuListTop">
+          <div style="width:30px;height:100%;display:inline-block;" @click.stop="hidePopUp"><img class="returnBack"
+                                                                                      src="../../assets/img/returnback.png"
+                                                                                      alt=""></div>
+          <span class="menuListTitle">{{bookName}}</span>
+        </div>
+        <div class="menuContent">
+          <div class="menuTop">
+            <div class="allList">共{{chapterSum}}章</div>
+            <div v-if="sorts" class="paixu" @click="novMenuLists(bookId,0,'desc')"><img src="../../assets/img/paixu.png" alt=""></div>
+            <div v-else-if="!sorts" class="paixu" @click="novMenuLists(bookId,0,'')"><img src="../../assets/img/paixu1.png" alt=""></div>
           </div>
-        </wv-group>
-        <p v-show="loading" class="loading-tips">
-          <wv-spinner type="snake" color="#444" :size="24"/>
-        </p>
-      </div>
-    </wv-popup>
+          <div class="page-infinite-wrapper">
+            <ul class="page-infinite-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+              <li v-for="item in meuLists" class="page-infinite-listitem">
+                  <div class="comRow" @click="bookInfo(bookId,item.chapter)">
+                    <span class="text">{{item.chapterTitle}}</span>
+                    <div class="btn" v-if="item.pay">
+                      <img src="../../assets/img/lock.png" alt="">
+                    </div>
+                  </div>
+              </li>
+            </ul>
+            <p v-show="loading" class="page-infinite-loading">
+              <mt-spinner type="fading-circle"></mt-spinner>
+              加载中...
+            </p>
+          </div>
+        </div>
+        <div class="menuModal" @click.stop="hidePopUp"></div>
+    </mt-popup>
   </div>
 </template>
 <script>
-  import { Toast } from 'we-vue'
+  import { Popup } from 'mint-ui';
+  import { InfiniteScroll } from 'mint-ui';
   export default {
     name: 'readNovel',
     data() {
@@ -95,7 +114,9 @@
         price:0,
         hasmore:true,
         bought:false,
-        currentpage:''
+        currentpage:'',
+        sorts:true,
+        desc:''
       }
     },
     watch:{
@@ -126,9 +147,12 @@
         this.$router.go(-1);
       },
       showToast() {
+        this.nextpage = 0;
+        this.meuLists=[];
         this.popupVisible1 = true;
+        this.botmFlag = false;
       },
-      novMenuList(){
+      novMenuList(id,page,sort){
         if(!this.hasmore){
           return false;
         }
@@ -136,7 +160,7 @@
         this.$http({
           method:'get',
           url:this.apiUrl.novelApiCatalog,
-          params:{id:this.bookId,begin:this.nextpage}
+          params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
             this.meuLists = this.meuLists.concat(res.data.catalogList);
@@ -146,8 +170,29 @@
           }
         }).catch();
       },
+      novMenuLists(id,page,sort){
+        if(!this.hasmore){
+          return false;
+        }
+        this.sorts = !this.sorts;
+        this.desc = sort;
+        this.loading = true;
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelApiCatalog,
+          params:{id:id,begin:page,sort:sort}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.meuLists = res.data.catalogList;
+            this.nextpage = res.data.nextpage;
+            this.hasmore = res.data.hasmore;
+            this.loading = false;
+          }
+        }).catch();
+      },
       loadMore() {
-        this.novMenuList()
+        this.novMenuList(this.bookId,this.nextpage,this.desc)
       },
       bookInfo(id,page) {
         if(page==0){
@@ -235,6 +280,9 @@
         this.color = '#f0ece9';
         this.colors = '#000';
       },
+      hidePopUp(){
+        this.popupVisible1 = false;
+      }
     }
   }
 </script>
@@ -252,7 +300,7 @@
 
   .readNovel .topWra {
     width: 100%;
-    height: 110px;
+    height: 46px;
     position: fixed;
     top:0;
     left:0;
@@ -265,8 +313,9 @@
     height: 46px;
     line-height: 46px;
     position: fixed;
-    left: 15px;
+    left: 0;
     top: 0;
+    padding-left: 15px;
   }
 
   .readNovel .topWra .topBaner .reBtn {
@@ -280,36 +329,46 @@
     font-size: 18px;
     font-weight: 700;
     vertical-align: middle;
+    width: 50%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .readNovel .topWra .setting {
-    height: 25px;
-    position: fixed;
+  .readNovel .topWra .topBaner .setting {
+    position: absolute;
     right: 15px;
-    top: 46px;
+    top: 0;
   }
 
   .readNovel .topWra .setting img {
-    width: 32px;
+    width: 26px;
     height: auto;
     vertical-align: middle;
+    padding: 0 2px;
   }
 
-  .readNovel .topWra .novelTitle {
-    width: 100%;
-    line-height: 24px;
-    position: fixed;
-    left: 15px;
-    top: 71px;
-    font-size: 16px;
-    font-weight: 700;
+  .readNovel .topWra .setting .days {
+    width: 42px;
+    height: auto;
+    vertical-align: middle;
   }
 
   .readNovel .novelCont {
     height:100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 110px 15px 60px;
+    padding: 46px 15px 60px;
+    font-size: 16px;
+    line-height: 32px;
+  }
+
+  .readNovel .novelCont .novelTitle {
+    width: 100%;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: 700;
   }
 
   .readNovel .novelCont .chapter {
@@ -440,41 +499,10 @@
     display: inline-block;
   }
 
-  .readNovel .loading-tips {
-    color: #222;
-    text-align: center;
-  }
-
   .readNovel .page {
     width: 100%;
     height: 400px;
     overflow-y: auto;
-  }
-  
-  .readNovel .page .menuTitle {
-    font-size: 14px;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    line-height: 45px;
-    padding: 0 15px;
-    border-bottom: 1px solid #e0e0ee;
-  }
-
-  .readNovel .page .menuTitle .text {
-    padding-right: 25px;
-    vertical-align: middle;
-  }
-
-  .readNovel .page .menuTitle .btn {
-    flex: 1;
-    text-align: right;
-  }
-
-  .readNovel .page .menuTitle .btn img {
-    width: 16px;
-    height: auto;
-    vertical-align: middle;
   }
 
   .novelActive{
@@ -483,5 +511,122 @@
   .novelActive1{
     background: #666;
   }
+
+  .readNovel .mint-popup-left{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+  }
+
+  .readNovel .menuListTop{
+    background: #fff;
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-left: 15px;
+    z-index: 3;
+  }
+
+  .readNovel .menuListTop .menuListTitle{
+    font-size: 18px;
+    font-weight: 700;
+    vertical-align: middle;
+    width: 80%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .readNovel .menuContent{
+    background: #fff;
+    width: 85%;
+    height: 100%;
+    padding-top: 46px;
+    position: absolute;
+    z-index: 2;
+    overflow-y: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .readNovel .menuModal{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  .readNovel .menuContent .menuTop {
+    display: -webkit-flex;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+ .readNovel .menuContent .menuTop div {
+    flex: 1;
+  }
+
+ .readNovel .menuContent .menuTop .allList {
+    color: #999;
+  }
+
+ .readNovel .menuContent .menuTop .paixu {
+    text-align: right;
+  }
+
+ .readNovel .menuContent .menuTop .paixu img {
+    width: 25px;
+    height: auto;
+    vertical-align: middle;
+  }
+ .readNovel .menuContent .comRow {
+    display: -webkit-flex;
+    display: flex;
+    line-height: 16px;
+    align-items: center;
+    padding-bottom: 19px;
+    padding-top: 20px;
+    border-bottom: 1px solid #e0e0ee;
+  }
+
+ .readNovel .menuContent .comRow .text {
+    vertical-align: middle;
+    width: 80%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+
+ .readNovel .menuContent .comRow .btn {
+    flex: 1;
+    text-align: right;
+  }
+
+ .readNovel .menuContent .comRow .btn img {
+    width: 16px;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  .readNovel .menuContent .page-infinite-loading {
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+  }
+
+  .readNovel .menuContent .page-infinite-loading div {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+  }
+
 </style>
 

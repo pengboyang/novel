@@ -10,9 +10,12 @@ import 'swiper/dist/css/swiper.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import WeVue from 'we-vue'
 import 'we-vue/lib/style.css'
+import 'mint-ui/lib/style.css'; 
+import MintUI from 'mint-ui'  
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
 
+Vue.use(MintUI) 
 Vue.use(WeVue)
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueRouter);
