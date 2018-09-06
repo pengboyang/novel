@@ -45,7 +45,7 @@
       <!-- <fine-quality :data="betterMoreList"></fine-quality> -->
       <div class="newMore">
         <div class="manTitle">
-          <span class="kind">{{title}}</span>
+          <span class="kind">精品推荐</span>
           <span class="moreList" @click="moreList">更多></span>
         </div>
         <div class="manNovel">
