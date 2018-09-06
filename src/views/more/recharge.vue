@@ -118,6 +118,8 @@
                   _this.$router.push({path: '/novel/mineList'});
                 }
               });
+            }else{
+              this.$router.push({path:'/novel/mineList',query:{id:4}});
             }
           }
         }).catch();
