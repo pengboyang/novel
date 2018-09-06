@@ -7,7 +7,7 @@
         <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type"></fine-quality>
         <free-week v-else-if="item.style==4" :data="item" :noType="item.type"></free-week>
       </div>
-      <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
+      <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
     </div>
   <!--</v-touch>-->
 </template>
