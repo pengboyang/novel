@@ -671,7 +671,7 @@
     width: 68% !important;
   }
   .page-infinite-wrapper{
-    margin-bottom: 50px;
+    margin-bottom: 50px !important;
   }
 
 </style>
