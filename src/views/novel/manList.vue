@@ -17,6 +17,7 @@
   import fineQuality from '../../components/fineQuality'
   import newBook from '../../components/newbook'
   import freeWeek from '../../components/freeWeek'
+  import { MessageBox } from 'mint-ui';
 
   export default {
     name: 'manList',
@@ -41,7 +42,7 @@
       this.gender = this.$route.query.id;
       this.manPageList();
       let query=this.getCode();
-      if(query.state=='follow'){
+      if(query&&query.state&&query.state=='follow'){
         this.login(data=> {
           if(data=='success'){
             this.follow();
@@ -77,7 +78,11 @@
           if (res.status == 200) {
             var data = res.data;
             if(data.code==1){
-
+              MessageBox({
+                title: '关注成功',
+                message: data.content,
+                confirmButtonText:'去看书'
+              });
             }
           }
         }).catch()

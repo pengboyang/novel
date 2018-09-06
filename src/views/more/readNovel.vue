@@ -82,6 +82,7 @@
 <script>
   import { Popup } from 'mint-ui';
   import { InfiniteScroll } from 'mint-ui';
+  import { MessageBox } from 'mint-ui';
   export default {
     name: 'readNovel',
     data() {
@@ -141,6 +142,7 @@
       this.bookName = this.$route.query.title;
       this.chapterSum = this.$route.query.allMenu;
       this.bookInfo(this.bookId,this.bookPage);
+      this.userSign();
     },
     methods: {
       back() {
@@ -282,6 +284,26 @@
       },
       hidePopUp(){
         this.popupVisible1 = false;
+      },
+      userSign(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelUserSign,
+          headers:{times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            if(res.data.code==1&&res.data.state==false){
+              MessageBox({
+                title: '签到成功',
+                message: res.data.content,
+                confirmButtonText:'去看书'
+              });
+            }
+          }
+        }).catch()
       }
     }
   }
@@ -627,6 +649,7 @@
       vertical-align: middle;
       margin-right: 5px;
   }
+
 
 </style>
 
