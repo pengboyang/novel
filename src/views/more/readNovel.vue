@@ -642,6 +642,7 @@
       text-align: center;
       height: 50px;
       line-height: 50px;
+      margin-bottom: 50px;
   }
 
   .readNovel .menuContent .page-infinite-loading div {
@@ -668,6 +669,9 @@
 
   .mint-msgbox{
     width: 68% !important;
+  }
+  .page-infinite-wrapper{
+    margin-bottom: 50px;
   }
 
 </style>
