@@ -19,6 +19,7 @@ var mixin = {
         novelCoinSurplus:'/novel/coin/surplus',
         novelCoinBuy:'/novel/coin/buy',
         novelCoinOrders:'/novel/coin/orders',
+        novelUserFollow:'/novel/user/follow',
       }
     };
   },
@@ -67,7 +68,7 @@ var mixin = {
         hasharr.forEach((item, index) => {
           query[item.split('=')[0]] = item.split('=')[1];
         });
-        if (query.state) {
+        if (query.state=='user') {
           store.dispatch({
             type: 'userCodeChange',
             val: query.code,

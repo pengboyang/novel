@@ -40,6 +40,14 @@
     created() {
       this.gender = this.$route.query.id;
       this.manPageList();
+      let query=this.getCode();
+      if(query.state=='follow'){
+        this.login(data=> {
+          if(data=='success'){
+            this.follow();
+          }
+        })
+      }
     },
     methods: {
       manPageList() {
@@ -58,8 +66,22 @@
       onSwipeLeft(){
         this.$router.push({path:'/novel/womenList',query:{id:2}});
       },
-      a(){},
-      b(){},
+      follow(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.novelUserFollow,
+          headers: {times: times, sign: md5}
+        }).then(res => {
+          if (res.status == 200) {
+            var data = res.data;
+            if(data.code==1){
+
+            }
+          }
+        }).catch()
+      },
     },
     mounted() {
     }
