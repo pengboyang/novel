@@ -88,7 +88,7 @@
     data() {
       return {
         dayFlag:true,
-        num:16,
+        num:18,
         color:'#f0ece9',
         colors:'#000',
         botmFlag:false,
@@ -261,13 +261,13 @@
         }).catch();
       },
       bigSize(){
-        if(this.num>18){
+        if(this.num>=22){
           return false;
         }
         this.num++;
       },
       smallSize(){
-        if(this.num<12){
+        if(this.num<=12){
           return false;
         }
         this.num--;
@@ -382,7 +382,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 46px 15px 60px;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 32px;
   }
 

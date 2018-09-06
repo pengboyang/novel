@@ -7,26 +7,28 @@
     </div>
     <div class="rechCont">
       <div class="lineBg"></div>
-      <div class="text">请选择充值金额</div>
-      <div class="rechargePic clearfloat">
-        <div class="wra clearfloat" v-for="(item,index) in priceItems" @click="exchange(index,item.nums,item.bookNums)" :class="{picActive: activeIndex == index}">
-          <div v-if="index==0">
-            <div class="price">￥{{item.nums}}.00</div>
-            <div class="firstPrice"><div class="nums">{{item.bookNums}}书币</div><div class="present"><img :src="item.src" alt=""></div></div>
+      <div class="wra">
+        <div class="text">请选择充值金额</div>
+        <div class="rechargePic clearfloat">
+          <div class="wra clearfloat" v-for="(item,index) in priceItems" @click="exchange(index,item.nums,item.bookNums)" :class="{picActive: activeIndex == index}">
+            <div v-if="index==0">
+              <div class="price">￥{{item.nums}}.00</div>
+              <div class="firstPrice"><div class="nums">{{item.bookNums}}书币</div><div class="present"><img :src="item.src" alt=""></div></div>
+            </div>
+            <div v-else>
+              <div class="price">￥{{item.nums}}.00</div>
+              <div class="bookNums">{{item.bookNums}}书币</div>
+              <div class="othersPrice"><img :src="item.src"  alt=""></div>
+            </div>
           </div>
-          <div v-else>
-            <div class="price">￥{{item.nums}}.00</div>
-            <div class="bookNums">{{item.bookNums}}书币</div>
-            <div class="othersPrice"><img :src="item.src"  alt=""></div>
-          </div>
+        </div> 
+        <div class="prompt">
+          <div>温馨提示</div>
+          <div>1、充值成功后将于10分钟内下发至您的帐户</div>
+          <div>2、充值的书币不能赠送他人、不提现、不退款</div>
+          <div>3、充值中遇到的问题，您可以至我们公众号下联系我方客服解决</div>
+          <div>4、充值比例为1元=100书币</div>
         </div>
-      </div> 
-      <div class="prompt">
-        <div>温馨提示</div>
-        <div>1、充值成功后将于10分钟内下发至您的帐户</div>
-        <div>2、充值的书币不能赠送他人、不提现、不退款</div>
-        <div>3、充值中遇到的问题，您可以至我们公众号下联系我方客服解决</div>
-        <div>4、充值比例为1元=100书币</div>
       </div>
     </div>
     <div class="layersBox" v-if="dialogFlag">
@@ -146,6 +148,7 @@
     top: 0;
     overflow-x: auto;
     overflow-y: auto;
+    background: #fff;
   }
 
   .rechargeTop {
@@ -184,9 +187,6 @@
   }
 
   .recharge .lineBg {
-    position: fixed;
-    left: 0;
-    top: 46px;
     width: 100%;
     height: 5px;
     background: url('../../assets/img/linebg.png');
@@ -195,12 +195,16 @@
   .recharge .rechCont {
     width: 100%;
     height: 100%;
-    padding: 0 15px;
     padding-top: 51px;
     position: absolute;
     left: 0;
     top: 0;
+    background: #fff;
   }
+
+   .recharge .rechCont .wra{
+    padding: 0 15px;
+   }
 
   .recharge .rechCont .text {
     line-height: 50px;

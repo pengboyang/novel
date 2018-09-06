@@ -101,6 +101,7 @@
     top: 0;
     overflow-x: hidden;
     overflow-y: auto;
+    background: #fff;
   }
 
   .novelMenuList .topBanner {
@@ -151,6 +152,7 @@
     left: 0;
     top: 0;
     padding: 70px 15px 51px 15px;
+    background: #fff;
   }
 
   .novelMenuList .menus .menuTop {
