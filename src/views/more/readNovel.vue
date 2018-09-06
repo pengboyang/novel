@@ -82,6 +82,7 @@
 <script>
   import { Popup } from 'mint-ui';
   import { InfiniteScroll } from 'mint-ui';
+  import { MessageBox } from 'mint-ui';
   export default {
     name: 'readNovel',
     data() {
@@ -141,6 +142,7 @@
       this.bookName = this.$route.query.title;
       this.chapterSum = this.$route.query.allMenu;
       this.bookInfo(this.bookId,this.bookPage);
+      this.userSign();
     },
     methods: {
       back() {
@@ -282,6 +284,26 @@
       },
       hidePopUp(){
         this.popupVisible1 = false;
+      },
+      userSign(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelUserSign,
+          headers:{times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            if(res.data.code==1&&res.data.state==false){
+              MessageBox({
+                title: '签到成功',
+                message: res.data.content,
+                confirmButtonText:'去看书'
+              });
+            }
+          }
+        }).catch()
       }
     }
   }
@@ -626,6 +648,26 @@
       display: inline-block;
       vertical-align: middle;
       margin-right: 5px;
+  }
+
+  .mint-msgbox-message{
+    color: #9d9d9d !important;
+    line-height: 26px !important;
+    font-size: 15px !important;
+  }
+
+  .mint-msgbox-title{
+    font-size: 17px !important;
+    font-weight: 700 !important;
+  }
+
+  .mint-msgbox-confirm{
+    color: #000 !important;
+    font-size: 16px !important;
+  }
+
+  .mint-msgbox{
+    width: 68% !important;
   }
 
 </style>
