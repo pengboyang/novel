@@ -96,6 +96,7 @@
     color: #9d9d9d !important;
     line-height: 26px !important;
     font-size: 15px !important;
+    text-align: left!important;
   }
 
   .mint-msgbox-title {
