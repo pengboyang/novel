@@ -11,10 +11,10 @@
           <img :src="novelPic" alt="">
         </div>
         <div class="right">
-          <p>{{title}}</p>
-          <div class="lei"><span>分类</span><span>{{typename}}</span></div>
-          <div class="ahtuor"><span>作者</span><span>{{author}}</span></div>
-          <div class="textNum">5币/千字</div>
+          <p class="rTitle">{{title}}</p>
+          <div class="lei"><span><img src="../../assets/img/leibie.png" alt=""></span><span>{{typename}}</span></div>
+          <div class="lei"><span><img src="../../assets/img/man.png" alt=""></span><span>{{author}}</span></div>
+          <div class="lei"><span><img src="../../assets/img/jiaqian.png" alt=""></span>5币/千字</div>
         </div>
       </div>
       <div class="novelText">
@@ -32,10 +32,10 @@
         </div>
         <div class="comRow">
             <span class="section">第<span class="gold">{{chapterSum}}</span>章</span>
-            <span class="section">{{chapterName}}</span>
-            <div class="centerBtn">
+            <span class="section" style="font-size:16px;color:#000;">{{chapterName}}</span>
+            <!-- <div class="centerBtn">
               <img src="../../assets/img/new.png" alt="">
-            </div>
+            </div> -->
         </div>
         <div class="comRow">
             <span class="section">更新于<span class="gold">{{utime}}</span></span>
@@ -45,7 +45,7 @@
       <!-- <fine-quality :data="betterMoreList"></fine-quality> -->
       <div class="newMore">
         <div class="manTitle">
-          <span class="kind">{{title}}</span>
+          <span class="kind">精品推荐</span>
           <span class="moreList" @click="moreList">更多></span>
         </div>
         <div class="manNovel">
@@ -55,7 +55,7 @@
           </div>
         </div>
       </div>
-      <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
+      <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
     </div>
   </div>
 </template>
@@ -236,46 +236,48 @@
   }
 
   .bookDetail .detaiContent .novelInfo .left {
-    width: 28%;
+    width: 35%;
     float: left;
-    padding-right: 16px;
+    margin-right: 20px;
   }
 
   .bookDetail .detaiContent .novelInfo .left img {
     width: 100%;
+    height: auto;
+    vertical-align: middle;
+    box-shadow: 0px 0px 5px #999;
   }
 
   .bookDetail .detaiContent .novelInfo .right {
-    width: 65%;
+    width: 50%;
     float: left;
     color: #999;
-    font-size: 14px;
   }
 
-  .bookDetail .detaiContent .novelInfo .right p {
+  .bookDetail .detaiContent .novelInfo .right .rTitle{
     font-size: 17px;
     font-weight: 700;
     color: #000;
+    margin-bottom: 20px;
   }
 
   .bookDetail .detaiContent .novelInfo .right .lei {
-    line-height: 24px;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 14px;
+    line-height: 13px;
+    margin-bottom: 12px;
+    align-items: center;
+  }
+
+  .bookDetail .detaiContent .novelInfo .right .lei img{
+    width: 14px;
+    height: auto;
+    vertical-align: middle;
   }
 
   .bookDetail .detaiContent .novelInfo .right .lei span {
     padding-right: 10px;
-  }
-
-  .bookDetail .detaiContent .novelInfo .right .ahtuor {
-    line-height: 24px;
-  }
-
-  .bookDetail .detaiContent .novelInfo .right span {
-    padding-right: 10px;
-  }
-
-  .bookDetail .detaiContent .novelInfo .right .textNum {
-    line-height: 24px;
   }
 
   .bookDetail .detaiContent .novelText {
@@ -402,6 +404,7 @@
     width: 100%;
     height: auto;
     vertical-align: middle;
+    box-shadow: 0px 0px 5px #999;
   }
 
   .bookDetail .detaiContent .newMore .manNovel .novelWra .novelName {

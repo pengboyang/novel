@@ -2,7 +2,7 @@
   <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
       <div class="mineListCon">
-        <div class="lineBg"></div>
+        <!--<div class="lineBg"></div>-->
         <div class="userInfo">
           <div class="uesrLogo"><img :src="imgPath" alt=""></div>
           <div class="userName">

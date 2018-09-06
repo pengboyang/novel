@@ -7,7 +7,7 @@
         <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type"></fine-quality>
         <free-week v-else-if="item.style==4" :data="item" :noType="item.type"></free-week>
       </div>
-      <wv-loadmore type="line" text="这就是我的底线"></wv-loadmore>
+      <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
     </div>
   <!--</v-touch>-->
 </template>
@@ -17,6 +17,7 @@
   import fineQuality from '../../components/fineQuality'
   import newBook from '../../components/newbook'
   import freeWeek from '../../components/freeWeek'
+  import { MessageBox } from 'mint-ui';
 
   export default {
     name: 'manList',
@@ -40,6 +41,14 @@
     created() {
       this.gender = this.$route.query.id;
       this.manPageList();
+      let query=this.getCode();
+      if(query&&query.state&&query.state=='follow'){
+        this.login(data=> {
+          if(data=='success'){
+            this.follow();
+          }
+        })
+      }
     },
     methods: {
       manPageList() {
@@ -58,8 +67,26 @@
       onSwipeLeft(){
         this.$router.push({path:'/novel/womenList',query:{id:2}});
       },
-      a(){},
-      b(){},
+      follow(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method: 'get',
+          url: this.apiUrl.novelUserFollow,
+          headers: {times: times, sign: md5}
+        }).then(res => {
+          if (res.status == 200) {
+            var data = res.data;
+            if(data.code==1){
+              MessageBox({
+                title: '关注成功',
+                message: data.content,
+                confirmButtonText:'去看书'
+              });
+            }
+          }
+        }).catch()
+      },
     },
     mounted() {
     }

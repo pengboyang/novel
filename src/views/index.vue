@@ -2,7 +2,7 @@
   <div class="allView">
     <navbar class="topnav"></navbar>
     <transition :name="$store.state.transitionName">
-        <router-view class="wrapper"></router-view>
+      <router-view class="wrapper"></router-view>
     </transition>
   </div>
 </template>
@@ -16,11 +16,11 @@
         wrapperHeight: 0
       }
     },
-    watch:{
-      '$route'(to,from){
-        if(to.query.id>from.query.id){
+    watch: {
+      '$route'(to, from) {
+        if (to.query.id > from.query.id) {
           this.$store.state.transitionName = 'slide-left'
-        }else{
+        } else {
           this.$store.state.transitionName = 'slide-right'
         }
       }
@@ -34,6 +34,7 @@
   .allView {
     width: 100%;
     height: 100%;
+    background: #fff;
   }
 
   .topnav {
@@ -49,7 +50,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 115px;
+    padding-top: 70px;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1;
@@ -57,9 +58,11 @@
     transition: all .8s cubic-bezier(.55, 0, .1, 1);
     /*touch-action: pan-y !important;*/
   }
-  .moreList,.novelCont,.readNovel .page{
+
+  .moreList, .novelCont, .readNovel .page {
     -webkit-overflow-scrolling: touch;
   }
+
   .transparentBg {
     background: rgba(255, 255, 255, 0);
   }
@@ -78,16 +81,37 @@
 
   .slide-left-enter,
   .slide-right-leave-active {
-      opacity: 0;
-      -webkit-transform: translate(100%, 0);
-      transform: translate(100%, 0);
+    opacity: 0;
+    -webkit-transform: translate(100%, 0);
+    transform: translate(100%, 0);
   }
- 
+
   .slide-left-leave-active,
   .slide-right-enter {
-      opacity: 0;
-      -webkit-transform: translate(-100%, 0);
+    opacity: 0;
+    -webkit-transform: translate(-100%, 0);
     transform: translate(-100%, 0);
+  }
+
+  .mint-msgbox-message {
+    color: #9d9d9d !important;
+    line-height: 26px !important;
+    font-size: 15px !important;
+    text-align: left!important;
+  }
+
+  .mint-msgbox-title {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+  }
+
+  .mint-msgbox-confirm {
+    color: #e6374a !important;
+    font-size: 16px !important;
+  }
+
+  .mint-msgbox {
+    width: 68% !important;
   }
 </style>
 

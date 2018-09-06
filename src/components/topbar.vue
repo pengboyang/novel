@@ -10,14 +10,14 @@
         </router-link>
       </div>
     </div>
-    <div class="search">
+    <!-- <div class="search">
       <div class="searchBox">
         <input type="text">
         <div class="searchBtn">
           <img src="../assets/img/searchBtn1.png" alt=""><span>|</span><span>搜索</span>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -59,7 +59,7 @@
   .comTop {
     box-sizing: border-box;
     width: 100%;
-    height: 115px;
+    height: 70px;
     position: fixed;
     left: 0;
     top: 0;
@@ -95,7 +95,7 @@
     justify-content: space-around;
     background: #fff;
     font-size: 14px;
-    margin-top: 20px;
+    margin-top: 14px;
     margin-left: 116px;
     margin-right: 15px;
   }
