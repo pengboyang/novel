@@ -153,6 +153,7 @@
       this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
       this.joinShelf = this.$route.query.joinShelf;
+      this.novelType = this.$route.query.novelType;
       this.bookInfo(this.bookId,this.bookPage);
       this.userSign();
     },
@@ -186,6 +187,7 @@
             });
             this.popupVisible = false;
             this.$router.go(-1);
+            // this.$router.push({path: '/bookDetail', query: {id: this.bookId,type:this.novelType}});
           }
         }).catch();
       },

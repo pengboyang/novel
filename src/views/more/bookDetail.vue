@@ -108,7 +108,7 @@
         this.$router.go(-1)
       },
       readBook() {
-        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,joinShelf:this.joinShelf}});
+        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,joinShelf:this.joinShelf,novelType:this.bookType}});
       },
       goNovelMenu() {
         this.$router.push({path: '/novelMenuList',query: {id: this.bookId,begin:0, title: this.title}});
@@ -157,8 +157,6 @@
         this.bookDetailInfo();
         this.bookMoreList();
         this.$refs.scroTops.scrollTop=0;
-
-        // this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
       },
       moreList() {
         this.$router.push({path: '/moreList',query:{type:this.moreType}});
@@ -173,7 +171,6 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.joinShelf = true;
             Toast({
               message: res.data.msg,
