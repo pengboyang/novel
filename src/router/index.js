@@ -26,18 +26,6 @@ export default [
         name: 'womenList',
         component: resolve => require(['views/novel/womenList'], resolve),
       },
-      {
-        meta: {title: '分类列表', keepAlive: false, isBack: false,},
-        path: 'assortmentList',
-        name: 'assortmentList',
-        component: resolve => require(['views/novel/assortmentList'], resolve),
-      },
-      {
-        meta: {title: '我的', keepAlive: false, isBack: false,},
-        path: 'mineList',
-        name: 'mineList',
-        component: resolve => require(['views/novel/mineList'], resolve),
-      },
     ]
   },
   {
@@ -100,5 +88,26 @@ export default [
     name: 'novelMenuList',
     component: resolve => require(['views/more/novelMenuList'], resolve),
   },
-
+  {
+    meta: {
+      title: '书架',
+      keepAlive: false,
+      isBack: false,
+    },
+    path: '/bookShelf',
+    name: 'bookShelf',
+    component: resolve => require(['views/more/bookShelf'], resolve),
+  },
+  {
+    meta: {title: '分类列表', keepAlive: false, isBack: false,},
+    path: '/assortmentList',
+    name: 'assortmentList',
+    component: resolve => require(['views/novel/assortmentList'], resolve),
+  },
+  {
+    meta: {title: '我的', keepAlive: false, isBack: false,},
+    path: '/mineList',
+    name: 'mineList',
+    component: resolve => require(['views/novel/mineList'], resolve),
+  },
 ];

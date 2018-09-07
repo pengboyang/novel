@@ -21,7 +21,17 @@
         <div>{{summary}}</div>
         <!-- <div class="btn"><img src="../../assets/img/moretext.png" alt=""></div> -->
       </div>
-      <div class="readBtn" @click="readBook"><img src="../../assets/img/readBtn.png" alt=""></div>
+      <div class="readBtn">
+        <div @click="goBookshelf" v-if="!joinShelf">
+          <img src="../../assets/img/jiarushujia.png" alt="">
+        </div>
+        <div v-else>
+          <img src="../../assets/img/huiseshujia.png" alt="">
+        </div>
+        <div  @click="readBook">
+          <img src="../../assets/img/readBtn.png" alt="">
+        </div>
+      </div>
       <div class="aboutNovel">
         <div class="comRow">
           <span class="menu">目录</span>
@@ -45,7 +55,7 @@
       <!-- <fine-quality :data="betterMoreList"></fine-quality> -->
       <div class="newMore">
         <div class="manTitle">
-          <span class="kind">{{title}}</span>
+          <span class="kind">{{typename}}</span>
           <span class="moreList" @click="moreList">更多></span>
         </div>
         <div class="manNovel">
@@ -61,7 +71,7 @@
 </template>
 <script>
   import fineQuality from '../../components/fineQuality'
-
+  import { Toast } from 'mint-ui';
   export default {
     name: 'bookDetail',
     data() {
@@ -80,7 +90,8 @@
         typename: '',
         utime: '',
         betterMoreList: [],
-        moreType:''
+        moreType:'',
+        joinShelf:false,
       }
     },
     created() {
@@ -97,7 +108,7 @@
         this.$router.go(-1)
       },
       readBook() {
-        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,allMenu:this.chapterSum}});
+        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,allMenu:this.chapterSum,joinShelf:this.joinShelf}});
       },
       goNovelMenu() {
         this.$router.push({path: '/novelMenuList',query: {id: this.bookId,begin:0, title: this.title}});
@@ -109,6 +120,7 @@
           params: {id: this.bookId}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.bookDetailLists = res.data.novelItem;
             this.chapterName = res.data.chapterLatestInfo.chapterName;
             this.chapterSum = res.data.chapterLatestInfo.chapter;
@@ -122,6 +134,7 @@
             this.title = res.data.novelItem.title;
             this.typename = res.data.novelItem.typename;
             this.type = res.data.novelItem.type;
+            this.joinShelf = res.data.joinShelf;
           }
         }).catch();
       },
@@ -150,6 +163,26 @@
       moreList() {
         this.$router.push({path: '/moreList',query:{type:this.moreType}});
       },
+      goBookshelf(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method:'post',
+          url:this.apiUrl.novelShelfAdd,
+          params:{pk:this.bookId},
+          headers: {times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.joinShelf = true;
+            Toast({
+              message: res.data.msg,
+              position: 'center',
+              duration: 2000
+            });
+          }
+        }).catch();
+      }
     }
   }
 </script>
@@ -301,16 +334,19 @@
   }
 
   .bookDetail .detaiContent .readBtn {
-    height: 36px;
     width: 100%;
     text-align: center;
     margin-top: 25px;
     margin-bottom: 25px;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
   }
 
   .bookDetail .detaiContent .readBtn img {
-    width: 54%;
-    margin: 0 auto;
+    width: 75%;
+    height: auto;
+    vertical-align: middle;
   }
 
   .bookDetail .detaiContent .aboutNovel .comRow {

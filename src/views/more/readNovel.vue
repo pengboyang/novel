@@ -77,12 +77,22 @@
         </div>
         <div class="menuModal" @click.stop="hidePopUp"></div>
     </mt-popup>
+    <mt-popup v-model="popupVisible" position="bottom">
+      <div class="shujiaBox">
+        <div class="like">喜欢就加入书架吧</div>
+        <div class="jiaru">
+          <div @click="returnback">不加入</div>
+          <div @click="bookStore">加入</div>
+        </div>
+      </div>
+    </mt-popup>
   </div>
 </template>
 <script>
   import { Popup } from 'mint-ui';
   import { InfiniteScroll } from 'mint-ui';
   import { MessageBox } from 'mint-ui';
+  import { Toast } from 'mint-ui';
   export default {
     name: 'readNovel',
     data() {
@@ -96,6 +106,7 @@
         vipRecharge:false,
         checked: true,
         popupVisible1: false,
+        popupVisible:false,
         list: [],
         loading: false,
         allLoaded: false,
@@ -117,7 +128,8 @@
         bought:false,
         currentpage:'',
         sorts:true,
-        desc:''
+        desc:'',
+        joinShelf:false
       }
     },
     watch:{
@@ -141,12 +153,42 @@
       this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
       this.chapterSum = this.$route.query.allMenu;
+      this.joinShelf = this.$route.query.joinShelf;
       this.bookInfo(this.bookId,this.bookPage);
       this.userSign();
     },
     methods: {
       back() {
-        this.$router.go(-1);
+        if(!this.joinShelf){
+          this.popupVisible = true;
+        }else{
+          this.$router.go(-1);
+        }
+      },
+      returnback(){
+          this.$router.go(-1);
+      },
+      bookStore(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method:'post',
+          url:this.apiUrl.novelShelfAdd,
+          params:{pk:this.bookId},
+          headers: {times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.joinShelf = true;
+            Toast({
+              message: res.data.msg,
+              position: 'center',
+              duration: 1000
+            });
+            this.popupVisible = false;
+            this.$router.go(-1);
+          }
+        }).catch();
       },
       showToast() {
         this.nextpage = 0;
@@ -158,7 +200,6 @@
         if(!this.hasmore){
           return false;
         }
-        this.loading = true;
         this.$http({
           method:'get',
           url:this.apiUrl.novelApiCatalog,
@@ -194,6 +235,7 @@
         }).catch();
       },
       loadMore() {
+        this.loading = true;
         this.novMenuList(this.bookId,this.nextpage,this.desc)
       },
       bookInfo(id,page) {
@@ -538,6 +580,46 @@
     width: 100%;
     height: 100%;
     background: transparent;
+  }
+
+  .readNovel .mint-popup-bottom{
+    width: 100%;
+    background: #fff;
+  }
+
+  .readNovel .shujiaBox{
+    width: 100%;
+    height: 150px;
+    text-align: center;
+  }
+
+  .readNovel .shujiaBox .like{
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .readNovel .shujiaBox .jiaru{
+    width: 100%;
+    height: 50px;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    line-height: 50px;
+    text-align: center;
+    box-shadow: 0 -2px 0 #e0e0e0;  
+  }
+
+  .readNovel .shujiaBox .jiaru div{
+    flex: 1;
+    font-size: 16px;
+  }
+
+  .readNovel .shujiaBox .jiaru div:last-child{
+    color: #fff;
+    background: #ff4646;
   }
 
   .readNovel .menuListTop{
