@@ -291,12 +291,12 @@
           if(res.status==200){
             if(res.data.code==1){
               this.bookInfo(this.bookId,this.currentpage);
-              Toast.success({
+              Toast({
                 duration: 1000,
                 message: res.data.msg
               })
             }else{
-              Toast.fail({
+              Toast({
                 duration: 1000,
                 message: res.data.msg
               })
