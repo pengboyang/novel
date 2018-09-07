@@ -2,7 +2,7 @@
   <div class="bookShelf">
     <div class="shelfTop">
       <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
-      <div class="topTitle">完美世界</div>
+      <div class="topTitle">我的书架</div>
     </div>
     <div class="shelfCont">
       <div class="shelfBtn">
