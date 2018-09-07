@@ -152,7 +152,6 @@
       this.bookId = this.$route.query.id;
       this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
-      this.chapterSum = this.$route.query.allMenu;
       this.joinShelf = this.$route.query.joinShelf;
       this.bookInfo(this.bookId,this.bookPage);
       this.userSign();
@@ -206,9 +205,11 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
+            // console.log(res);
             this.meuLists = this.meuLists.concat(res.data.catalogList);
             this.nextpage = res.data.nextpage;
             this.hasmore = res.data.hasmore;
+            this.chapterSum = res.data.chapterSum;
             this.loading = false;
           }
         }).catch();
@@ -248,6 +249,7 @@
           params: {id: id, page: page},
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;

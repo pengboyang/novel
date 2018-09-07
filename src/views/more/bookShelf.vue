@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="shelfWra">
-        <div class="novelWra" @click="choseEditBook(item.id)" v-for="item in bookShelfLists">
+        <div class="novelWra" @click="choseEditBook(item.id,item.title)" v-for="item in bookShelfLists">
           <div class="novelPic">
             <img :src="item.cover" alt="">
             <div class="choseBox" v-if="!shelfBtnFlag">
@@ -65,8 +65,7 @@
         this.shelfBtnFlag = true;
       },
       /*选择*/
-      choseEditBook(id){
-        console.log(id);
+      choseEditBook(id,title){
         if(!this.shelfBtnFlag){
               let idIndex = this.chooseBookList.indexOf(id)
               console.log(idIndex);
@@ -81,6 +80,8 @@
               if(this.chooseBookList.length==this.bookShelfLists.length){
                 this.allSelect = true;
               }
+        }else{
+          this.$router.push({path: '/readNovel', query: {id: id, page: 1, title: title,joinShelf:true}});
         }
       },
       /*书架列表*/

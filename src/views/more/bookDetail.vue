@@ -108,7 +108,7 @@
         this.$router.go(-1)
       },
       readBook() {
-        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,allMenu:this.chapterSum,joinShelf:this.joinShelf}});
+        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,joinShelf:this.joinShelf}});
       },
       goNovelMenu() {
         this.$router.push({path: '/novelMenuList',query: {id: this.bookId,begin:0, title: this.title}});
