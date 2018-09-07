@@ -178,7 +178,6 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.joinShelf = true;
             Toast({
               message: res.data.msg,
@@ -196,18 +195,16 @@
         this.meuLists=[];
         this.popupVisible1 = true;
         this.botmFlag = false;
+        this.hasmore = true;
       },
       novMenuList(id,page,sort){
-        if(!this.hasmore){
-          return false;
-        }
         this.$http({
           method:'get',
           url:this.apiUrl.novelApiCatalog,
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
-            // console.log(res);
+            console.log(res);
             this.meuLists = this.meuLists.concat(res.data.catalogList);
             this.nextpage = res.data.nextpage;
             this.hasmore = res.data.hasmore;
@@ -229,7 +226,6 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.meuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;
             this.hasmore = res.data.hasmore;
@@ -238,6 +234,9 @@
         }).catch();
       },
       loadMore() {
+        if(!this.hasmore){
+          return false;
+        }
         this.loading = true;
         this.novMenuList(this.bookId,this.nextpage,this.desc)
       },
@@ -251,7 +250,6 @@
           params: {id: id, page: page},
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
@@ -340,7 +338,6 @@
           headers:{times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             if(res.data.code==1&&res.data.state==false){
               MessageBox({
                 title: '签到成功',
@@ -755,9 +752,6 @@
 
   .mint-msgbox{
     width: 68% !important;
-  }
-  .page-infinite-wrapper{
-    margin-bottom: 50px !important;
   }
 
 </style>

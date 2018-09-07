@@ -68,7 +68,6 @@
       choseEditBook(id,title){
         if(!this.shelfBtnFlag){
               let idIndex = this.chooseBookList.indexOf(id)
-              console.log(idIndex);
               if (idIndex >= 0) {
                 // 如果已经包含了该id, 则去除(单选按钮由选中变为非选中状态)
                 this.chooseBookList.splice(idIndex, 1)
@@ -94,7 +93,6 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.bookShelfLists = res.data.list;
           }
         }).catch();
@@ -126,7 +124,6 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.numbers='(0)',
             this.bookShelfList();
           }

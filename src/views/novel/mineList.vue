@@ -48,13 +48,10 @@
     created() {
       this.goldBalance();
       if(!this.$store.state.userInfo.imgPath){
-        console.log(1);
         this.getCode();
         if (this.$store.state.userCode) {
-          console.log(2)
           this.authorlogin();
         } else {
-          console.log(2);
           this.getUser();
         }
       }else{
