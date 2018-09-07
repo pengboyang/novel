@@ -1,6 +1,10 @@
 <template>
   <!--<v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">-->
     <div class="assortmentList">
+      <div class="assortmentTop">
+        <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
+        <div class="topTitle">分类</div>
+      </div>
       <div class="assortmentCont">
         <div class="assortment">
           <div class="gender">
@@ -89,6 +93,9 @@
       this.cateGoryList();
     },
     methods: {
+      routeBack() {
+        this.$router.go(-1)
+      },
       cateGoryList() {
         this.$http({
           method: 'get',
@@ -171,8 +178,47 @@
     background: #fff;
   }
 
+  .assortmentList .assortmentTop {
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-left:15px;
+    background: #fff;
+    z-index: 999;
+    padding-left: 15px;
+    color: #000;
+  }
+
+  .assortmentList .assortmentTop .returnBack {
+    width: 12px;
+    height: auto;
+    vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .assortmentList .assortmentTop .topTitle {
+    font-size: 17px;
+    font-weight: 700;
+    width: 80%;
+    height: 46px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .assortmentList .assortmentCont {
-    padding: 0 15px;
+    padding: 46px 15px 0 15px;
   }
 
   .assortmentList .filament {
