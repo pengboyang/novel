@@ -1,8 +1,12 @@
 <template>
   <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
+      <div class="mineTop">
+          <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+                                                            alt=""></div>
+          <div class="title">我的</div>
+      </div>
       <div class="mineListCon">
-        <!--<div class="lineBg"></div>-->
         <div class="userInfo">
           <div class="uesrLogo"><img :src="imgPath" alt=""></div>
           <div class="userName">
@@ -56,6 +60,9 @@
       }
     },
     methods: {
+      back() {
+        this.$router.go(-1)
+      },
       goRecharge() {
         this.$router.push({path: '/recharge'});
       },
@@ -134,6 +141,41 @@
 <style>
   .mineList .mineListCon {
     padding: 0 20px;
+  }
+
+  .mineList .mineTop {
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    padding-left: 15px;
+    position: relative;
+    left: 0;
+    top: 0;
+    background: #fff;
+  }
+
+  .mineList .mineTop .returnBack {
+    width: 12px;
+    height: auto;
+    vertical-align: middle;
+    position: absolute;
+    left: 15px;
+    top: 13px;
+  }
+
+  .mineList .mineTop .title {
+    font-size: 17px;
+    font-weight: 700;
+    width: 100px;
+    height: 46px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    line-height: 46px;
+    text-align: center;
   }
 
   .mineList .mineListCon .lineBg {

@@ -37,16 +37,14 @@
             path:'/novel/womenList',
             id:2
           },
-          {
-            name:'分类',
-            path:'/novel/assortmentList',
-            id:3
-          },
-          {
-            name:'我的',
-            path:'/novel/mineList',
-            id:4
-          },
+          // {
+          //   name:'分类',
+          //   path:'/novel/assortmentList',
+          // },
+          // {
+          //   name:'我的',
+          //   path:'/novel/mineList',
+          // },
         ],
       }
     },
@@ -59,7 +57,7 @@
   .comTop {
     box-sizing: border-box;
     width: 100%;
-    height: 70px;
+    height: 56px;
     position: fixed;
     left: 0;
     top: 0;
@@ -96,8 +94,8 @@
     background: #fff;
     font-size: 14px;
     margin-top: 14px;
-    margin-left: 116px;
-    margin-right: 15px;
+    margin-left: 158px;
+    margin-right: 62px;
   }
 
   .comTop .topBar .navBox {

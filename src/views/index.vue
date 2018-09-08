@@ -16,12 +16,17 @@
         wrapperHeight: 0
       }
     },
-    watch: {
-      '$route'(to, from) {
-        if (to.query.id > from.query.id) {
-          this.$store.state.transitionName = 'slide-left'
-        } else {
-          this.$store.state.transitionName = 'slide-right'
+    watch:{
+      '$route'(to,from){
+        console.log(to);
+        if(to.query.id<3){
+          if(to.query.id>from.query.id){
+            this.$store.state.transitionName = 'slide-left'
+          }else{
+            this.$store.state.transitionName = 'slide-right'
+          }
+        }else{
+          this.$store.state.transitionName = ''
         }
       }
     },
@@ -50,7 +55,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 70px;
+    padding-top: 56px;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1;

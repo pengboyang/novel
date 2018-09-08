@@ -51,7 +51,7 @@
   }
 
   .manContent .manTitle {
-    padding: 22px 0 20px 0;
+    padding: 5px 0 20px 0;
   }
 
   .manContent .manTitle .kind {

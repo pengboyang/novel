@@ -20,7 +20,10 @@ var mixin = {
         novelCoinBuy:'/novel/coin/buy',
         novelCoinOrders:'/novel/coin/orders',
         novelUserFollow:'/novel/user/follow',
-        novelUserSign:'/novel/user/sign'
+        novelUserSign:'/novel/user/sign',
+        novelShelfAdd:'/novel/shelf/add',
+        novelShelfQuery:'/novel/shelf/query',
+        novelShelfDel:'/novel/shelf/del'
       }
     };
   },
