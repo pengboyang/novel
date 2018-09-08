@@ -173,6 +173,7 @@
 
   .bookShelf .shelfCont{
     padding: 46px 15px 70px 15px;
+    background:#fff;
   }
 
   .bookShelf .shelfCont .editBtn{

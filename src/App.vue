@@ -45,5 +45,6 @@
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
     box-sizing: border-box;
+    background: #fff;
   }
 </style>
