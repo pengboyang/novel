@@ -46,18 +46,22 @@
       }
     },
     created() {
-      this.goldBalance();
-      if(!this.$store.state.userInfo.imgPath){
-        this.getCode();
-        if (this.$store.state.userCode) {
-          this.authorlogin();
-        } else {
-          this.getUser();
+      this.login(data=> {
+        if(data=='success'){
+          this.goldBalance();
+          if(!this.$store.state.userInfo.imgPath){
+            this.getCode();
+            if (this.$store.state.userCode) {
+              this.authorlogin();
+            } else {
+              this.getUser();
+            }
+          }else{
+            this.imgPath=this.$store.state.userInfo.imgPath;
+            this.nickName=this.$store.state.userInfo.nickName;
+          }
         }
-      }else{
-        this.imgPath=this.$store.state.userInfo.imgPath;
-        this.nickName=this.$store.state.userInfo.nickName;
-      }
+      });
     },
     methods: {
       back() {
@@ -85,13 +89,6 @@
             this.nickName =this.$store.state.userInfo.nickName= data.nickName;
           } else if (data.code == 3) {
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fdev.r8uk83.cn%2fnovel%2fdist%2findex.html%23%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
-          } else if (data.code == 4) {
-            this.login(data=> {
-              if(data=='success'){
-                this.getUser();
-              }
-            })
-          } else {
           }
         }).catch(error => {
           console.log(error);
