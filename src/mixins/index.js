@@ -58,7 +58,7 @@ var mixin = {
     /*MD5*/
     getmd5(str) {
       var md5 = crypto.createHash('md5');
-      md5.update(str);
+      md5.update(str.toString());
       return md5.digest('hex');
     },
     /*获取code*/
@@ -91,6 +91,11 @@ var mixin = {
     /*登录*/
     login(callback) {
       try {
+        let uuid=localStorage.getItem('uuid');
+        if(uuid){
+          callback('success');
+          return false;
+        }
         let query = this.getCode();
         this.$http({
           method: 'get',

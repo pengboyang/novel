@@ -78,7 +78,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.keepAlive) {
     to.meta.isBack = true;
   }
-  if (!store.state.code&&!store.state.userCode) {
+  if (!store.state.code&&!store.state.userCode&&to.name!='mineList') {
     try {
       let query = Mixin.methods.getCode();
       if(!query.state){
@@ -89,7 +89,6 @@ router.beforeEach((to, from, next) => {
             code: query.code,
           }
         }).then(res => {
-          console.log(res);
           var data = res.data;
           if (data.code == 1) {
             localStorage.setItem('uuid', data.uuid);
