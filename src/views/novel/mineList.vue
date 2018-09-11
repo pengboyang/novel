@@ -63,6 +63,7 @@
           this.getUser();
         }
       }else{
+        console.log(1);
         this.imgPath=this.$store.state.userInfo.imgPath;
         this.nickName=this.$store.state.userInfo.nickName;
         this.switchValue=this.$store.state.userInfo.autoBuy;
@@ -146,6 +147,7 @@
         let times = Date.parse(new Date());
         let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
         let buys = !this.switchValue;
+        console.log(buys)
         this.$http({
           method:'post',
           url:this.apiUrl.novelUserAutobuy,
@@ -154,6 +156,7 @@
         }).then(res=>{
           if(res.status==200){
             console.log(res);
+            this.switchValue = this.$store.state.userInfo.autoBuy= buys;
             if(!buys){
               Toast({
                 message: '取消自动购买成功，付费章节将不自动扣除书币',
