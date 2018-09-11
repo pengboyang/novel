@@ -148,6 +148,7 @@
         }
     },
     created() {
+      // this.$store.state.bookPage = this.$route.query.page;
       this.bookId = this.$route.query.id;
       this.bookName = this.$route.query.title;
       this.joinShelf = this.$route.query.joinShelf;

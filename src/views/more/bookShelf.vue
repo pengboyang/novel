@@ -22,7 +22,7 @@
           </div>
           <div class="novelName">{{item.title}}</div>
         </div>
-        <div class="novelWra" @click="goMan">
+        <div class="novelWra" @click="goMan" v-if="shelfBtnFlag">
           <div class="novelPic"><img src="../../assets/img/kongbaibook.png" alt=""></div>
           <div class="novelName">去书城逛逛</div>
         </div>

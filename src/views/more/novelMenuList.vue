@@ -61,6 +61,7 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
+            console.log(res);
             this.$refs.menuWrap.scrollTop = 0;
             this.menuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;
@@ -78,6 +79,7 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
+            console.log(res);
             this.$refs.menuWrap.scrollTop = 0;
             this.menuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;
@@ -87,7 +89,8 @@
         }).catch();
       },
       goRead(id,page,title){
-        this.$router.push({path: '/readNovel', query: { id:id,page: page,title:title}});
+        this.$store.state.bookPage = page;
+        this.$router.push({path: '/readNovel', query: { id:id,title:title}});
       },
     }
   }
