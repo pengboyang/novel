@@ -111,7 +111,6 @@
         loading: false,
         allLoaded: false,
         bookId: '',
-        bookPage: '',
         novelStr: '',
         bookTitle: '',
         bookName: '',
@@ -126,10 +125,10 @@
         price:0,
         hasmore:true,
         bought:false,
-        currentpage:'',
+        currentpage:1,
         sorts:true,
         desc:'',
-        joinShelf:false
+        joinShelf:false,
       }
     },
     watch:{
@@ -150,11 +149,10 @@
     },
     created() {
       this.bookId = this.$route.query.id;
-      this.bookPage = this.$route.query.page;
       this.bookName = this.$route.query.title;
       this.joinShelf = this.$route.query.joinShelf;
       this.novelType = this.$route.query.novelType;
-      this.bookInfo(this.bookId,this.bookPage);
+      this.bookInfo(this.bookId,this.$store.state.bookPage);
       this.userSign();
     },
     methods: {
@@ -262,7 +260,7 @@
             this.balance = res.data.balance;
             this.price = res.data.price;
             this.bought = res.data.bought;
-            this.currentpage = res.data.currentpage;
+            this.currentpage = this.$store.state.bookPage= res.data.currentpage;
             this.checked = res.data.autoBuy;
             if(!res.data.pay){
                 this.btnFlag = true;
