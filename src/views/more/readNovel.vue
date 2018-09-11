@@ -24,10 +24,10 @@
       <div class="payNovel" v-if="vipRecharge">
         <div class="price">价格:<span class="gold">{{price}}</span>书币</div>
         <div class="balance">余额:<span class="gold">{{balance}}</span>书币</div>
-        <!-- <div class="payrule">
+        <div class="payrule" @click.stop="">
           <input id="radio" type="checkbox" v-model="checked" name="radio" value=""/>
           <span>自动购买下一章，以后不再提示</span>
-        </div> -->
+        </div>
         <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div>
         <div v-if="!bought" class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
         <div v-else class="payBtn" @click.stop="buyBooks"><img src="../../assets/img/payBtn1.png" alt=""></div>
@@ -39,7 +39,7 @@
     <div class="novelToast" v-if="botmFlag">
       <div class="btn">
         <img @click="showToast" class="left" src="../../assets/img/menu.png" alt="">
-        <img class="right" src="../../assets/img/novelInfo.png" alt="">
+        <img @click.stop="back" class="right" src="../../assets/img/novelInfo.png" alt="">
       </div>
     </div>
     <mt-popup
@@ -250,6 +250,7 @@
           params: {id: id, page: page},
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
@@ -259,6 +260,7 @@
             this.price = res.data.price;
             this.bought = res.data.bought;
             this.currentpage = res.data.currentpage;
+            this.checked = res.data.autoBuy;
             if(!res.data.pay){
                 this.btnFlag = true;
                 this.vipRecharge = false;
@@ -280,17 +282,19 @@
         this.$router.push({path: '/recharge'})
       },
       buyBooks(){
+        console.log(this.checked)
         let times = Date.parse(new Date());
         let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
         this.$http({
           method:'post',
           url:this.apiUrl.novelCoinBuy,
-          data:{pk:this.bookId,startChapter:this.currentpage,endChapter:this.currentpage,coin:this.price},
+          data:{pk:this.bookId,startChapter:this.currentpage,endChapter:this.currentpage,coin:this.price,autoBuy:this.checked},
           headers:{times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
             if(res.data.code==1){
               this.bookInfo(this.bookId,this.currentpage);
+              this.$store.state.userInfo.autoBuy = this.checked;
               Toast({
                 duration: 1000,
                 message: res.data.msg
@@ -725,7 +729,6 @@
       text-align: center;
       height: 50px;
       line-height: 50px;
-      margin-bottom: 50px;
   }
 
   .readNovel .menuContent .page-infinite-loading div {

@@ -36,8 +36,8 @@
       <div class="dialog">
         <div class="close" @click="CancelPayment"><img src="../../assets/img/x.png" alt=""></div>
         <div class="title">充值</div>
-        <div class="novelNumber">{{bookMoney}}书币</div>
-        <div class="bookMoney">￥{{money}}</div>
+        <div class="novelNumber">￥{{money}}</div>
+        <div class="bookMoney">{{bookMoney}}书币</div>
         <div class="btn" @click="ConfirmPayment"><img src="../../assets/img/payBtnsss.png" alt=""></div>
       </div>
     </div>
@@ -256,12 +256,10 @@
   }
 
   .recharge .rechCont .rechargePic .wra .firstPrice{
-    padding-top: 15px;
     font-size: 12px;
     line-height: 12px;
     color: #000;
     margin-top: 10px;
-    padding: 0 8px;
     display: -webkit-flex;
     display: flex;
     justify-content: space-around
@@ -316,7 +314,6 @@
     margin:auto;
     background: #fff;
     border-radius: 12px;
-    padding: 0 35px;
   }
 
   .recharge .layersBox .close{
@@ -353,7 +350,7 @@
   }
 
   .recharge .layersBox .dialog .bookMoney{
-    font-size: 42px;
+    font-size: 24px;
     font-weight: 700;
     text-align: center;
     padding-top: 5px;
