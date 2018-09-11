@@ -58,17 +58,17 @@
           {
             src:require('../../assets/img/priceTwo.png'),
             nums:50.00,
-            bookNums:'5000+3000'
+            bookNums:'8000'
           },
           {
             src:require('../../assets/img/priceThree.png'),
             nums:100.00,
-            bookNums:'10000+8000'
+            bookNums:'18000'
           },
           {
             src:require('../../assets/img/priceFour.png'),
             nums:200.00,
-            bookNums:'20000+20000'
+            bookNums:'40000'
           },
         ],
         dialogFlag:false,
@@ -115,7 +115,8 @@
                 signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                 paySign: data.paySign, // 支付签名
                 success: function (res) {
-                  _this.$router.push({path: '/novel/mineList'});
+                  // _this.$router.push({path: '/novel/mineList'});
+                  _this.$router.go(-1)
                 }
               });
             }else{
@@ -350,7 +351,7 @@
   }
 
   .recharge .layersBox .dialog .bookMoney{
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
     text-align: center;
     padding-top: 5px;

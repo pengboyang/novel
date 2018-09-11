@@ -39,7 +39,7 @@
     <div class="novelToast" v-if="botmFlag">
       <div class="btn">
         <img @click="showToast" class="left" src="../../assets/img/menu.png" alt="">
-        <img @click.stop="back" class="right" src="../../assets/img/novelInfo.png" alt="">
+        <img @click.stop="backDetail" class="right" src="../../assets/img/novelInfo.png" alt="">
       </div>
     </div>
     <mt-popup
@@ -164,6 +164,9 @@
         }else{
           this.$router.go(-1);
         }
+      },
+      backDetail() {
+          this.$router.go(-1);
       },
       returnback(){
           this.$router.go(-1);
@@ -294,7 +297,7 @@
           if(res.status==200){
             if(res.data.code==1){
               this.bookInfo(this.bookId,this.currentpage);
-              this.$store.state.userInfo.autoBuy = this.checked;
+              this.checked =this.$store.state.userInfo.autoBuy = this.checked
               Toast({
                 duration: 1000,
                 message: res.data.msg

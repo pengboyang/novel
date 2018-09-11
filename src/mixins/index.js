@@ -129,7 +129,7 @@ var mixin = {
       // 如果上面都执行了 页面都跳走了，这个也就不用管了
       setTimeout(() => {
         this.$router.push({path:'/'})
-      },500)
+      },1000)
     }
   }
 
