@@ -23,6 +23,11 @@
               <img src="../../assets/img/recharge.png" alt="">
             </div>
           </div>
+          <div class="comRow">
+            <span class="leftImg"><img src="../../assets/img/kefu.png" alt=""></span>
+            <span class="autobuy">自动购买</span>
+            <div  @click="autoBuy"><wv-switch v-model="switchValue"></wv-switch></div>
+          </div>
           <div class="comRow" @click="goService">
             <span class="leftImg"><img src="../../assets/img/kefu.png" alt=""></span>
             <span class="text">联系客服</span>
@@ -32,17 +37,20 @@
           </div>
         </div>
       </div>
+      <div v-if="switchValue" class="quxiaoPic"><img src="../../assets/img/quxiaoaotubuy.png" alt=""></div>
     </div>
   <!--</v-touch>-->
 </template>
 <script>
+  import { Switch } from 'we-vue'
   export default {
     data() {
       return {
         isFirstEnter: false, // 是否第一次进入，默认false
         imgPath: require('../../assets/img/my-pic.png'),
         nickName: '',
-        coin:0
+        coin:0,
+        switchValue:false
       }
     },
     created() {
@@ -57,6 +65,7 @@
       }else{
         this.imgPath=this.$store.state.userInfo.imgPath;
         this.nickName=this.$store.state.userInfo.nickName;
+        this.switchValue=this.$store.state.userInfo.autoBuy;
       }
     },
     methods: {
@@ -83,6 +92,7 @@
             localStorage.setItem('uuid', data.uuid);
             this.imgPath =this.$store.state.userInfo.imgPath= data.imagePath;
             this.nickName =this.$store.state.userInfo.nickName= data.nickName;
+            this.switchValue = this.$store.state.userInfo.autoBuy= data.autoBuy;
           } else if (data.code == 3) {
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fdev.r8uk83.cn%2fnovel%2fdist%2findex.html%23%2fnovel%2fmineList%3fid%3d4&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
           } else if (data.code == 4) {
@@ -106,7 +116,6 @@
             code: this.$store.state.userCode,
           }
         }).then(res => {
-          console.log(res);
           var data = res.data;
           if (data.code == 1) {
             this.imgPath =this.$store.state.userInfo.imgPath= data.imagePath;
@@ -126,14 +135,28 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log('金币');
-            console.log(res);
             this.coin = res.data.coin;
           }
         }).catch();
       },
       onSwipeRight(){
         this.$router.push({path:'/novel/assortmentList',query:{id:3}});
+      },
+      autoBuy(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        console.log(!this.switchValue);
+        let buys = !this.switchValue;
+        this.$http({
+          method:'post',
+          url:this.apiUrl.novelUserAutobuy,
+          params:{autoBuy:buys},
+          headers: {times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+          }
+        }).catch();
       }
     }
   }
@@ -261,6 +284,10 @@
     vertical-align: middle;
   }
 
+  .mineList .mineListCon .others .comRow .autobuy{
+    flex: 1;
+  }
+
   .mineList .mineListCon .others .comRow .btn {
     flex: 1;
     text-align: right;
@@ -285,6 +312,28 @@
 
   .userName {
     margin-left: 14px;
+  }
+  .weui-cell{
+    padding: 0 !important;
+  }
+  .wv-switch{
+    height: 25px !important;
+  }
+  .wv-switch .background, .wv-switch .thumb{
+     height: 23px !important;
+  }
+  .weui-cell:before{
+    border: none !important;
+  }
+  .quxiaoPic{
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 80px;
+  }
+  .quxiaoPic img{
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
   }
 </style>
 

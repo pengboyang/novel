@@ -14,7 +14,7 @@
           <p class="rTitle">{{title}}</p>
           <div class="lei"><span><img src="../../assets/img/leibie.png" alt=""></span><span>{{typename}}</span></div>
           <div class="lei"><span><img src="../../assets/img/man.png" alt=""></span><span>{{author}}</span></div>
-          <div class="lei"><span><img src="../../assets/img/jiaqian.png" alt=""></span>5币/千字</div>
+          <div class="lei"><span><img src="../../assets/img/jiaqian.png" alt=""></span>5书币/千字</div>
         </div>
       </div>
       <div class="novelText">
