@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="comRow">
-            <span class="leftImg"><img src="../../assets/img/kefu.png" alt=""></span>
+            <span class="leftImg"><img src="../../assets/img/autobuy.png" alt=""></span>
             <span class="autobuy">自动购买</span>
             <div  @click="autoBuy"><wv-switch v-model="switchValue"></wv-switch></div>
           </div>
