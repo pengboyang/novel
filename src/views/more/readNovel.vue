@@ -129,6 +129,7 @@
         sorts:true,
         desc:'',
         joinShelf:false,
+        obj:{}
       }
     },
     watch:{
@@ -147,13 +148,28 @@
             }
         }
     },
+    beforeRouteLeave (to, from, next) {
+        if(localStorage.getItem('novelInfo')!=null){
+            this.obj =  JSON.parse(localStorage.getItem('novelInfo'));
+        }
+        this.obj[this.bookId]=this.currentpage;
+        localStorage.setItem('novelInfo',JSON.stringify(this.obj));
+        next();
+    },
     created() {
-      // this.$store.state.bookPage = this.$route.query.page;
       this.bookId = this.$route.query.id;
       this.bookName = this.$route.query.title;
       this.joinShelf = this.$route.query.joinShelf;
       this.novelType = this.$route.query.novelType;
-      this.bookInfo(this.bookId,this.$store.state.bookPage);
+      if(localStorage.getItem('novelInfo')!=null){
+        if(JSON.parse(localStorage.getItem('novelInfo'))[this.$route.query.id]!=undefined){
+          this.bookInfo(this.$route.query.id,JSON.parse(localStorage.getItem('novelInfo'))[this.$route.query.id]);
+        }else{
+          this.bookInfo(this.$route.query.id,this.$route.query.page);
+        }
+      }else{
+        this.bookInfo(this.$route.query.id,this.$route.query.page);
+      }
       this.userSign();
     },
     methods: {
@@ -261,7 +277,7 @@
             this.balance = res.data.balance;
             this.price = res.data.price;
             this.bought = res.data.bought;
-            this.currentpage = this.$store.state.bookPage= res.data.currentpage;
+            this.currentpage = res.data.currentpage;
             this.checked = res.data.autoBuy;
             if(!res.data.pay){
                 this.btnFlag = true;

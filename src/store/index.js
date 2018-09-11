@@ -13,7 +13,6 @@ export default new vuex.Store({
     userCode: '',
     userInfo: {},
     transitionName:'slide-left',
-    bookPage:1
   },
   /*局部状态*/
   modules: {
