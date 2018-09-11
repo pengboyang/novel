@@ -37,12 +37,12 @@
           </div>
         </div>
       </div>
-      <div v-if="switchValue" class="quxiaoPic"><img src="../../assets/img/quxiaoaotubuy.png" alt=""></div>
     </div>
   <!--</v-touch>-->
 </template>
 <script>
   import { Switch } from 'we-vue'
+  import { Toast } from 'mint-ui';
   export default {
     data() {
       return {
@@ -145,7 +145,6 @@
       autoBuy(){
         let times = Date.parse(new Date());
         let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
-        console.log(!this.switchValue);
         let buys = !this.switchValue;
         this.$http({
           method:'post',
@@ -155,6 +154,13 @@
         }).then(res=>{
           if(res.status==200){
             console.log(res);
+            if(!buys){
+              Toast({
+                message: '取消自动购买成功，付费章节将不自动扣除书币',
+                position: 'bottom',
+                duration: 2000
+              });
+            }
           }
         }).catch();
       }
