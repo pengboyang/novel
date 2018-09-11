@@ -2,7 +2,7 @@
   <!--<v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">-->
     <div class="assortmentList">
       <div class="assortmentTop">
-        <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
+        <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
         <div class="topTitle">分类</div>
       </div>
       <div class="assortmentCont">

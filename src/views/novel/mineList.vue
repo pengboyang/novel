@@ -2,7 +2,7 @@
   <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
       <div class="mineTop">
-          <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+          <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png"
                                                             alt=""></div>
           <div class="title">我的</div>
       </div>
