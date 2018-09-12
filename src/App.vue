@@ -47,4 +47,5 @@
     box-sizing: border-box;
     background: #fff;
   }
+  #cnzz_stat_icon_1274762720{display: none;}
 </style>
