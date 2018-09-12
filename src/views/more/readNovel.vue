@@ -177,7 +177,7 @@
         if(!this.joinShelf){
           this.popupVisible = true;
         }else{
-          this.$router.go(-1);
+          this.topBack();
         }
       },
       backDetail() {
