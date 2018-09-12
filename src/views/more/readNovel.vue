@@ -39,7 +39,7 @@
     <div class="novelToast" v-if="botmFlag">
       <div class="btn">
         <img @click="showToast" class="left" src="../../assets/img/menu.png" alt="">
-        <img @click.stop="backDetail" class="right" src="../../assets/img/novelInfo.png" alt="">
+        <img @click.stop="topBack" class="right" src="../../assets/img/novelInfo.png" alt="">
       </div>
     </div>
     <mt-popup
@@ -81,7 +81,7 @@
       <div class="shujiaBox">
         <div class="like">喜欢就加入书架吧</div>
         <div class="jiaru">
-          <div @click="returnback">不加入</div>
+          <div @click="topBack">不加入</div>
           <div @click="bookStore">加入</div>
         </div>
       </div>
@@ -179,12 +179,6 @@
         }else{
           this.topBack();
         }
-      },
-      backDetail() {
-          this.$router.go(-1);
-      },
-      returnback(){
-          this.$router.go(-1);
       },
       bookStore(){
         let times = Date.parse(new Date());
