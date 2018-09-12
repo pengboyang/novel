@@ -39,7 +39,8 @@
         prepage:0,
         sorts:true,
         desc:'',
-        chapterSum:0
+        chapterSum:0,
+        obj:{}
       }
     },
     created() {
@@ -61,6 +62,7 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
+            console.log(res);
             this.$refs.menuWrap.scrollTop = 0;
             this.menuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;
@@ -78,6 +80,7 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
+            console.log(res);
             this.$refs.menuWrap.scrollTop = 0;
             this.menuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;
@@ -87,7 +90,12 @@
         }).catch();
       },
       goRead(id,page,title){
-        this.$router.push({path: '/readNovel', query: { id:id,page: page,title:title}});
+        if(localStorage.getItem('novelInfo')!=null){
+            this.obj =  JSON.parse(localStorage.getItem('novelInfo'));
+        }
+        this.obj[id]=page;
+        localStorage.setItem('novelInfo',JSON.stringify(this.obj));
+        this.$router.push({path: '/readNovel', query: { id:id,page:page,title:title}});
       },
     }
   }

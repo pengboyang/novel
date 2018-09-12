@@ -1,7 +1,7 @@
 <template>
   <div class="recharge">
     <div class="rechargeTop">
-      <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+      <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png"
                                                               alt=""></div>
       <div class="title">书币充值</div>
     </div>
@@ -36,8 +36,8 @@
       <div class="dialog">
         <div class="close" @click="CancelPayment"><img src="../../assets/img/x.png" alt=""></div>
         <div class="title">充值</div>
-        <div class="novelNumber">{{bookMoney}}书币</div>
-        <div class="bookMoney">￥{{money}}</div>
+        <div class="novelNumber">￥{{money}}</div>
+        <div class="bookMoney">{{bookMoney}}书币</div>
         <div class="btn" @click="ConfirmPayment"><img src="../../assets/img/payBtnsss.png" alt=""></div>
       </div>
     </div>
@@ -58,17 +58,17 @@
           {
             src:require('../../assets/img/priceTwo.png'),
             nums:50.00,
-            bookNums:'5000+3000'
+            bookNums:'8000'
           },
           {
             src:require('../../assets/img/priceThree.png'),
             nums:100.00,
-            bookNums:'10000+8000'
+            bookNums:'18000'
           },
           {
             src:require('../../assets/img/priceFour.png'),
             nums:200.00,
-            bookNums:'20000+20000'
+            bookNums:'40000'
           },
         ],
         dialogFlag:false,
@@ -80,9 +80,6 @@
       console.log(this);
     },
     methods: {
-      back() {
-        this.$router.go(-1)
-      },
       exchange(index,nums,boknums){
         this.money=nums;
         this.bookMoney=boknums;
@@ -115,7 +112,8 @@
                 signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                 paySign: data.paySign, // 支付签名
                 success: function (res) {
-                  _this.$router.push({path: '/novel/mineList'});
+                  // _this.$router.push({path: '/novel/mineList'});
+                  _this.$router.go(-1)
                 }
               });
             }else{
@@ -256,12 +254,10 @@
   }
 
   .recharge .rechCont .rechargePic .wra .firstPrice{
-    padding-top: 15px;
     font-size: 12px;
     line-height: 12px;
     color: #000;
     margin-top: 10px;
-    padding: 0 8px;
     display: -webkit-flex;
     display: flex;
     justify-content: space-around
@@ -316,7 +312,6 @@
     margin:auto;
     background: #fff;
     border-radius: 12px;
-    padding: 0 35px;
   }
 
   .recharge .layersBox .close{
@@ -353,7 +348,7 @@
   }
 
   .recharge .layersBox .dialog .bookMoney{
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 700;
     text-align: center;
     padding-top: 5px;

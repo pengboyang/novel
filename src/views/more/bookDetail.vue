@@ -14,7 +14,7 @@
           <p class="rTitle">{{title}}</p>
           <div class="lei"><span><img src="../../assets/img/leibie.png" alt=""></span><span>{{typename}}</span></div>
           <div class="lei"><span><img src="../../assets/img/man.png" alt=""></span><span>{{author}}</span></div>
-          <div class="lei"><span><img src="../../assets/img/jiaqian.png" alt=""></span>5币/千字</div>
+          <div class="lei"><span><img src="../../assets/img/jiaqian.png" alt=""></span>5书币/千字</div>
         </div>
       </div>
       <div class="novelText">
@@ -108,7 +108,7 @@
         this.$router.go(-1)
       },
       readBook() {
-        this.$router.push({path: '/readNovel', query: {id: this.bookId, page: 1, title: this.title,joinShelf:this.joinShelf,novelType:this.bookType}});
+        this.$router.push({path: '/readNovel', query: {id: this.bookId, title: this.title,page:1,joinShelf:this.joinShelf,novelType:this.bookType}});
       },
       goNovelMenu() {
         this.$router.push({path: '/novelMenuList',query: {id: this.bookId,begin:0, title: this.title}});

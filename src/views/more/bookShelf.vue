@@ -1,7 +1,7 @@
 <template>
   <div class="bookShelf">
     <div class="shelfTop">
-      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
+      <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="topTitle">我的书架</div>
     </div>
     <div class="shelfCont">
@@ -22,7 +22,7 @@
           </div>
           <div class="novelName">{{item.title}}</div>
         </div>
-        <div class="novelWra" @click="goMan">
+        <div class="novelWra" @click="goMan" v-if="shelfBtnFlag">
           <div class="novelPic"><img src="../../assets/img/kongbaibook.png" alt=""></div>
           <div class="novelName">去书城逛逛</div>
         </div>
@@ -52,9 +52,6 @@
       this.bookShelfList();
     },
     methods:{
-      routeBack() {
-        this.$router.go(-1)
-      },
       goMan(){
         this.$router.push({path:'/novel/manList',query:{id:1}});
       },

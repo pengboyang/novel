@@ -2,7 +2,7 @@
   <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
       <div class="mineTop">
-          <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+          <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png"
                                                             alt=""></div>
           <div class="title">我的</div>
       </div>
@@ -23,6 +23,11 @@
               <img src="../../assets/img/recharge.png" alt="">
             </div>
           </div>
+          <div class="comRow">
+            <span class="leftImg"><img src="../../assets/img/autobuy.png" alt=""></span>
+            <span class="autobuy">自动购买</span>
+            <div  @click="autoBuy"><wv-switch v-model="switchValue"></wv-switch></div>
+          </div>
           <div class="comRow" @click="goService">
             <span class="leftImg"><img src="../../assets/img/kefu.png" alt=""></span>
             <span class="text">联系客服</span>
@@ -36,13 +41,16 @@
   <!--</v-touch>-->
 </template>
 <script>
+  import { Switch } from 'we-vue'
+  import { Toast } from 'mint-ui';
   export default {
     data() {
       return {
         isFirstEnter: false, // 是否第一次进入，默认false
         imgPath: require('../../assets/img/my-pic.png'),
         nickName: '',
-        coin:0
+        coin:0,
+        switchValue:false
       }
     },
     created() {
@@ -59,6 +67,7 @@
           }else{
             this.imgPath=this.$store.state.userInfo.imgPath;
             this.nickName=this.$store.state.userInfo.nickName;
+            this.switchValue=this.$store.state.userInfo.autoBuy;
           }
         }
       });
@@ -87,6 +96,7 @@
             localStorage.setItem('uuid', data.uuid);
             this.imgPath =this.$store.state.userInfo.imgPath= data.imagePath;
             this.nickName =this.$store.state.userInfo.nickName= data.nickName;
+            this.switchValue = this.$store.state.userInfo.autoBuy= data.autoBuy;
           } else if (data.code == 3) {
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fs.55duanzi.com%2fnovel%2fdist%2findex.html%23%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
           }
@@ -103,7 +113,6 @@
             code: this.$store.state.userCode,
           }
         }).then(res => {
-          console.log(res);
           var data = res.data;
           if (data.code == 1) {
             this.imgPath =this.$store.state.userInfo.imgPath= data.imagePath;
@@ -123,14 +132,36 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log('金币');
-            console.log(res);
             this.coin = res.data.coin;
           }
         }).catch();
       },
       onSwipeRight(){
         this.$router.push({path:'/novel/assortmentList',query:{id:3}});
+      },
+      autoBuy(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        let buys = !this.switchValue;
+        console.log(buys)
+        this.$http({
+          method:'post',
+          url:this.apiUrl.novelUserAutobuy,
+          params:{autoBuy:buys},
+          headers: {times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.switchValue = this.$store.state.userInfo.autoBuy= buys;
+            if(!buys){
+              Toast({
+                message: '取消自动购买成功，付费章节将不自动扣除书币',
+                position: 'bottom',
+                duration: 2000
+              });
+            }
+          }
+        }).catch();
       }
     }
   }
@@ -258,6 +289,10 @@
     vertical-align: middle;
   }
 
+  .mineList .mineListCon .others .comRow .autobuy{
+    flex: 1;
+  }
+
   .mineList .mineListCon .others .comRow .btn {
     flex: 1;
     text-align: right;
@@ -282,6 +317,28 @@
 
   .userName {
     margin-left: 14px;
+  }
+  .weui-cell{
+    padding: 0 !important;
+  }
+  .wv-switch{
+    height: 25px !important;
+  }
+  .wv-switch .background, .wv-switch .thumb{
+     height: 23px !important;
+  }
+  .weui-cell:before{
+    border: none !important;
+  }
+  .quxiaoPic{
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 80px;
+  }
+  .quxiaoPic img{
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
   }
 </style>
 
