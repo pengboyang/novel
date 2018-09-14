@@ -1,14 +1,18 @@
 <template>
   <!--<v-touch v-on:swipeleft="onSwipeLeft">-->
-    <div class="manList">
-      <my-swiper :lists="sweiperList"></my-swiper>
-      <div v-for="item in dataList">
-        <new-book v-if="item.style==3" :data="item" :noType="item.type"></new-book>
-        <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type"></fine-quality>
-        <free-week v-else-if="item.style==4" :data="item" :noType="item.type"></free-week>
-      </div>
-      <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
+  <div class="manList">
+    <my-swiper :lists="sweiperList"></my-swiper>
+    <div v-for="item in dataList">
+      <new-book v-if="item.style==3" :data="item" :noType="item.type"></new-book>
+      <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type"></fine-quality>
+      <free-week v-else-if="item.style==4" :data="item" :noType="item.type"></free-week>
     </div>
+    <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
+    <div class="qrcode">
+      <p>扫描关注"大蜜小说"公众号，精彩小说看不停</p>
+      <img src="../../assets/img/qrcode.jpg"/>
+    </div>
+  </div>
   <!--</v-touch>-->
 </template>
 <script>
@@ -17,7 +21,7 @@
   import fineQuality from '../../components/fineQuality'
   import newBook from '../../components/newbook'
   import freeWeek from '../../components/freeWeek'
-  import { MessageBox } from 'mint-ui';
+  import {MessageBox} from 'mint-ui';
 
   export default {
     name: 'manList',
@@ -41,10 +45,10 @@
     created() {
       this.gender = this.$route.query.id;
       this.manPageList();
-      let query=this.getCode();
-      if(query&&query.state&&query.state=='follow'){
-        this.login(data=> {
-          if(data=='success'){
+      let query = this.getCode();
+      if (query && query.state && query.state == 'follow') {
+        this.login(data => {
+          if (data == 'success') {
             this.follow();
           }
         })
@@ -64,10 +68,10 @@
           }
         }).catch()
       },
-      onSwipeLeft(){
-        this.$router.push({path:'/novel/womenList',query:{id:2}});
+      onSwipeLeft() {
+        this.$router.push({path: '/novel/womenList', query: {id: 2}});
       },
-      follow(){
+      follow() {
         let times = Date.parse(new Date());
         let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
         this.$http({
@@ -77,11 +81,11 @@
         }).then(res => {
           if (res.status == 200) {
             var data = res.data;
-            if(data.code==1){
+            if (data.code == 1) {
               MessageBox({
                 title: '关注成功',
                 message: data.content,
-                confirmButtonText:'去看书'
+                confirmButtonText: '去看书'
               });
             }
           }
@@ -93,6 +97,9 @@
   }
 </script>
 <style>
-
+  .qrcode {
+    width: 100%;
+    text-align: center;
+  }
 </style>
 
