@@ -336,7 +336,7 @@
     margin-bottom: 25px;
     display: -webkit-flex;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   .bookDetail .detaiContent .readBtn img {

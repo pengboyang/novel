@@ -101,7 +101,7 @@
           method: 'get',
           url: this.apiUrl.novelCoinOrders,
           headers:{times: times, sign: md5},
-          params: {total_fee: this.money*100}
+          params: {total_fee: this.money*100,type:0}
         }).then(res => {
           if (res.status == 200) {
             console.log(res);
