@@ -110,4 +110,14 @@ export default [
     name: 'mineList',
     component: resolve => require(['views/novel/mineList'], resolve),
   },
+  {
+    meta: {
+      title: 'VIP',
+      keepAlive: false,
+      isBack: false,
+    },
+    path: '/supervip',
+    name: 'supervip',
+    component: resolve => require(['views/more/supervip'], resolve),
+  },
 ];

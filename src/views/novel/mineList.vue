@@ -6,21 +6,44 @@
                                                             alt=""></div>
           <div class="title">我的</div>
       </div>
+      <div class="bgLine"></div>
       <div class="mineListCon">
         <div class="userInfo">
           <div class="uesrLogo"><img :src="imgPath" alt=""></div>
           <div class="userName">
             <div class="name">{{nickName}}</div>
-            <!-- <div class="vip"><img src="../../assets/img/vip.png" alt=""></div> -->
+          </div>
+        </div>
+        <div class="userCenter">
+          <div class="wracon">
+            <div class="jinbi">{{coin}}</div>
+            <div class="jinbiBtom">
+              <img class="img" src="../../assets/img/jinbiyue.png" alt="">
+              <span>我的书币</span>
+            </div>
+          </div>
+          <div class="wracon">
+            <div class="jinbi">{{days}}</div>
+            <div class="jinbiBtom">
+              <img class="imgs" src="../../assets/img/chaojivip.png" alt="">
+              <span>vip剩余天数</span>
+            </div>
           </div>
         </div>
         <div class="others">
           <div class="comRow">
             <span class="leftImg"><img src="../../assets/img/bookGold.png" alt=""></span>
-            <span class="text">余额</span>
-            <span class="text"><span class="gold">{{coin}}</span>书币</span>
+            <span class="text">书币充值</span>
             <div class="btn" @click="goRecharge">
               <img src="../../assets/img/recharge.png" alt="">
+            </div>
+          </div>
+          <div class="comRow">
+            <span class="leftImg"><img src="../../assets/img/chaojivip.png" alt=""></span>
+            <span class="text">超级VIP</span>
+            <span class="textsmall">全站免费看</span>
+            <div class="btn" @click="goVip">
+              <img src="../../assets/img/jiaru.png" alt="">
             </div>
           </div>
           <div class="comRow">
@@ -50,7 +73,8 @@
         imgPath: require('../../assets/img/my-pic.png'),
         nickName: '',
         coin:0,
-        switchValue:false
+        switchValue:false,
+        days:0
       }
     },
     created() {
@@ -78,6 +102,9 @@
       },
       goRecharge() {
         this.$router.push({path: '/recharge'});
+      },
+      goVip(){
+        this.$router.push({path:'/supervip'});
       },
       goService() {
         this.$router.push({path: '/customService'});
@@ -132,7 +159,9 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
+            console.log(res)
             this.coin = res.data.coin;
+            this.days = res.data.days;
           }
         }).catch();
       },
@@ -206,6 +235,12 @@
     text-align: center;
   }
 
+  .mineList .bgLine{
+    width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+  }
+
   .mineList .mineListCon .lineBg {
     width: 100%;
     height: 5px;
@@ -215,20 +250,19 @@
   .mineList .mineListCon .userInfo {
     display: flex;
     width: 100%;
-    /* align-items: center; */
+    align-items: center;
     padding-top: 20px;
     padding-bottom: 20px;
   }
 
   .mineList .mineListCon .userInfo .uesrLogo {
-    width: 100px;
-    padding-right: 16px;
+    width: 74px;
     border-radius: 50%;
     overflow: hidden;
   }
 
   .mineList .mineListCon .userInfo .uesrLogo img {
-    width: 100px;
+    width: 100%;
     height: auto;
     vertical-align: middle;
   }
@@ -244,19 +278,61 @@
     font-size: 18px;
   }
 
-  .mineList .mineListCon .userInfo .userName .vip {
-    width: 105px;
+  .mineList .mineListCon .userCenter{
+    display: -webkit-flex;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    position: relative;
   }
 
-  .mineList .mineListCon .userInfo .userName .vip img {
-    width: 100%;
+  .mineList .mineListCon .userCenter:after{
+      background: #e0e0e0;  
+      content: "";  
+      height: 60%;  
+      position: absolute;  
+      top: 50%;
+      transform: translateY(-50%); 
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      width: 1px;  
+ }  
+
+  .mineList .mineListCon .userCenter .jinbi{
+    font-size: 28px;
+    color: #ff4646;
+    font-weight: 700;
+  }
+
+  .mineList .mineListCon .userCenter .jinbiBtom{
+    line-height: 20px;
+  }
+
+  .mineList .mineListCon .userCenter .jinbiBtom .img{
+    width: 20px;
     height: auto;
+    vertical-align: middle;
+  }
+
+  .mineList .mineListCon .userCenter .jinbiBtom .imgs{
+    width: 18px;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  .mineList .mineListCon .userCenter .jinbiBtom span{
+    font-size: 14px;
+    color: #666;
     vertical-align: middle;
   }
 
   .mineList .mineListCon .others {
     font-size: 16px;
-    color: #999;
+    color: #666;
   }
 
   .mineList .mineListCon .others .comRow {
@@ -272,6 +348,9 @@
   .mineList .mineListCon .others .comRow:last-child {
     border: none;
   }
+  .mineList .mineListCon .others .comRow:first-child {
+    border-top:1px solid #e0e0ee;
+  }
 
   .mineList .mineListCon .others .comRow .leftImg {
     width: 20px;
@@ -285,8 +364,14 @@
   }
 
   .mineList .mineListCon .others .comRow .text {
-    padding-right: 25px;
+    padding-right: 15px;
     vertical-align: middle;
+  }
+
+  .mineList .mineListCon .others .comRow .textsmall {
+    vertical-align: middle;
+    font-size: 12px;
+    color: #999;
   }
 
   .mineList .mineListCon .others .comRow .autobuy{
@@ -318,27 +403,34 @@
   .userName {
     margin-left: 14px;
   }
-  .weui-cell{
+  .mineList .weui-cell{
     padding: 0 !important;
   }
-  .wv-switch{
-    height: 25px !important;
+  .mineList .wv-switch{
+    height: 22px !important;
   }
-  .wv-switch .background, .wv-switch .thumb{
-     height: 23px !important;
+  .mineList .wv-switch .background, .wv-switch .thumb{
+     height: 20px !important;
   }
-  .weui-cell:before{
+  .mineList .weui-cell:before{
     border: none !important;
   }
-  .quxiaoPic{
-    width: 100%;
-    padding: 0 15px;
-    margin-top: 80px;
+  .mineList .wv-switch-on .thumb{
+    transform: translate3d(30px,0px,0px)!important;
   }
-  .quxiaoPic img{
-    width: 100%;
-    height: auto;
-    vertical-align: middle;
+  .mineList .wv-switch .thumb[data-v-7a6cd1bc]{
+    width: 23px !important;
+    background-color: #ff4646 !important;
+  }
+  .mineList .wv-switch.wv-switch-on[data-v-7a6cd1bc]{
+    background: pink!important;
+    border-color: pink!important;
+  }
+  .wv-switch .background[data-v-7a6cd1bc]{
+    width: 52px!important;
+  }
+  .wv-switch[data-v-7a6cd1bc]{
+    width: 54px!important;
   }
 </style>
 

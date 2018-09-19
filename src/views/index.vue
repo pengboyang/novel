@@ -18,7 +18,7 @@
     },
     watch:{
       '$route'(to,from){
-        console.log(to);
+        // console.log(to);
         if(to.query.id<3){
           if(to.query.id>from.query.id){
             this.$store.state.transitionName = 'slide-left'

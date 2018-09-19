@@ -64,6 +64,7 @@ var mixin = {
     },
     /*获取code*/
     getCode() {
+      console.log(1);
       try{
         let url = window.location.href;
         let baseurl = url.split('#')[0];
