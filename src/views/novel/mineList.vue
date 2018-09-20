@@ -125,7 +125,7 @@
             this.nickName =this.$store.state.userInfo.nickName= data.nickName;
             this.switchValue = this.$store.state.userInfo.autoBuy= data.autoBuy;
           } else if (data.code == 3) {
-            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fdev.r8uk83.cn%2fnovel%2fdist%2findex.html%23%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fiao55.top%2fnovel%2fdist%2findex.html%23%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
           }
         }).catch(error => {
           console.log(error);
