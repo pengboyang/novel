@@ -4,8 +4,8 @@
           <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
                                                             alt=""></div>
           <div class="title">超级VIP</div>
-          <div class="bgLine"></div>
       </div>
+      <div class="bgLine"></div>
       <div class="vipwra">
         <div class="userInfo">
           <div class="uesrLogo"><img :src="imgPath" alt=""></div>
@@ -137,6 +137,10 @@
   }
 </script>
 <style>
+  .vip{
+    height: 100%;
+    padding-top: 46px;
+  }
 .vip .vipTop {
     width: 100%;
     height: 46px;
@@ -178,7 +182,8 @@
     background: #e0e0e0;
   }
   .vip .vipwra{
-    padding: 50px 20px 50px 20px;
+    padding: 0px 20px 50px 20px;
+    background: #fff;
   }
   .vip .vipwra .userInfo {
     display: flex;
@@ -274,6 +279,9 @@
   .vip .vipwra .instruction div{
     font-size: 12px;
     padding-bottom: 5px;
+  }
+  .vipinfo{
+    background: #fff;
   }
   .vip .vipwra .vipinfo p{
     text-align: center;

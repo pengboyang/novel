@@ -43,9 +43,23 @@ export default function wxConfig({title = '', desc = '', link = '', imgUrl = ''}
             // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
             let isAppMsg = res.checkResult.updateAppMessageShareData;
             let isTimeLine = res.checkResult.updateTimelineShareData;
-            if (isAppMsg) {
+            let ua=navigator.userAgent;
+            let isAdr=ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1;
+            if (isAppMsg&&!isAdr) {
               console.log('new share');
               wx.updateAppMessageShareData({
+                title: title,
+                desc: desc,
+                link: link,
+                imgUrl: imgUrl,
+                success:function(){
+                  // console.log('分享成功');
+                },
+                complete: function (res) {
+                  // console.log('分享开始');
+                }
+              });
+              wx.updateTimelineShareData({
                 title: title,
                 desc: desc,
                 link: link,
@@ -60,6 +74,18 @@ export default function wxConfig({title = '', desc = '', link = '', imgUrl = ''}
             } else {
               console.log('old share');
               wx.onMenuShareAppMessage({
+                title: title,
+                desc: desc,
+                link: link,
+                imgUrl: imgUrl,
+                success:function(){
+                  // console.log('share success');
+                },
+                complete: function (res) {
+                  // console.log('share started');
+                }
+              });
+              wx.onMenuShareTimeline({
                 title: title,
                 desc: desc,
                 link: link,

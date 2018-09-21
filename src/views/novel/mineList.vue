@@ -196,6 +196,9 @@
   }
 </script>
 <style>
+  .mineList{
+    padding-top: 46px;
+  }
   .mineList .mineListCon {
     padding: 0 20px;
   }
@@ -205,7 +208,7 @@
     height: 46px;
     line-height: 46px;
     padding-left: 15px;
-    position: relative;
+    position: fixed;
     left: 0;
     top: 0;
     background: #fff;
