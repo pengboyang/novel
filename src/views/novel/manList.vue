@@ -2,7 +2,8 @@
   <!--<v-touch v-on:swipeleft="onSwipeLeft">-->
   <div>
     <div class="manList">
-      <my-swiper :lists="sweiperList"></my-swiper>
+      <!-- <my-swiper :lists="sweiperList"></my-swiper> -->
+      <my-swiper :gender="gender"></my-swiper>
       <div v-for="item in dataList">
         <new-book v-if="item.style==3" :data="item" :noType="item.type" :gender="gender"></new-book>
         <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type" :gender="gender"></fine-quality>
@@ -64,7 +65,7 @@
           params: {gender: this.gender}
         }).then(res => {
           if (res.status == 200) {
-            // console.log(res);
+            console.log(res);
             var data = res.data.novelLists;
             this.sweiperList = res.data.novelItemList;
             this.dataList = res.data.novelLists;
