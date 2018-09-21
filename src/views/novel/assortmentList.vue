@@ -140,7 +140,7 @@
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiList,
-          params: {category: category, status: status, type: type},
+          params: {category: category, status: status, type: type,begin:0},
         }).then(res => {
           if (res.status == 200) {
             this.serachLists = res.data.novelList.novelItemList;

@@ -63,7 +63,6 @@ var mixin = {
     },
     /*获取code*/
     getCode() {
-      console.log(1);
       try{
         let url = window.location.href;
         let baseurl = url.split('#')[0];
@@ -112,6 +111,14 @@ var mixin = {
 
       }
     },
+    /*判断男女*/
+    genders(id){
+      if(id==1){
+        this.noType = 'dssh';
+      }else{
+        this.noType = 'lmyq';
+      }
+    }
   }
 
 };
