@@ -113,6 +113,7 @@
         bookId: '',
         novelStr: '',
         bookTitle: '',
+        cover: '',
         bookName: '',
         PrenoPage:false,
         NextnoPage:false,
@@ -216,7 +217,6 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.meuLists = this.meuLists.concat(res.data.catalogList);
             this.nextpage = res.data.nextpage;
             this.hasmore = res.data.hasmore;
@@ -262,10 +262,10 @@
           params: {id: id, page: page},
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
+            this.cover = res.data.cover;
             this.novelPrePage = res.data.prepage;
             this.novelNextPage = res.data.nextpage;
             this.balance = res.data.balance;
@@ -281,6 +281,13 @@
                 this.vipRecharge = true;
             }
             this.popupVisible1 = false;
+            let _this=this;
+            this.$wxConfig({
+              title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起看《${this.bookName}》~`,
+              desc:this.novelStr,
+              link:location.href.split('#')[0]+'&toUrl='+encodeURIComponent(location.href.split('#')[1]),
+              imgUrl:this.cover
+            });
           }
         }).catch()
       },
@@ -294,7 +301,6 @@
         this.$router.push({path: '/recharge'})
       },
       buyBooks(){
-        console.log(this.checked)
         let times = Date.parse(new Date());
         let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
         this.$http({
