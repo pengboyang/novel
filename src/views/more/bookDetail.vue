@@ -152,7 +152,7 @@
         }).then(res => {
           if (res.status == 200) {
             var data = res.data.novelList.novelItemList;
-            this.betterMoreList = data.slice(0,21);
+            this.betterMoreList = data.slice(0,3);
             this.moreType = res.data.novelList.type
           }
         }).catch()

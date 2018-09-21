@@ -283,7 +283,7 @@
             this.popupVisible1 = false;
             let _this=this;
             this.$wxConfig({
-              title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起看《${this.bookTitle}》~`,
+              title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起看《${this.bookName}》~`,
               desc:this.novelStr,
               link:location.href.split('#')[0]+'&toUrl='+encodeURIComponent(location.href.split('#')[1]),
               imgUrl:this.cover
