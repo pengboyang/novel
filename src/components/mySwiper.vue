@@ -3,7 +3,7 @@
     <!-- <wv-swipe :autoplay="10000" :height="120" :prevent="true">
       <wv-swipe-item v-for="(item,index) in srcLists" :key="index"><img @click="goBookDetail(item.id,item.type)" style="width:100%;height:auto;vertical-align:middle" :src="item.cover" alt=""></wv-swipe-item>
     </wv-swipe> -->
-    <wv-swipe :autoplay="10000" :height="120" :prevent="true">
+    <wv-swipe :autoplay="10000" :prevent="true">
       <wv-swipe-item v-for="(item,index) in srcLists" :key="index"><img @click="govip" style="width:100%;height:auto;vertical-align:middle" :src="item.cover" alt=""></wv-swipe-item>
     </wv-swipe>
     <div class="secondTab">
@@ -95,7 +95,7 @@
   }
   
   .comSwiepr .secondTab{
-    margin-top: 30px;
+    margin-top: 15px;
     display: -webkit-flex;
     display: flex;
     text-align: center;
