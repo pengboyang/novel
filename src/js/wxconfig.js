@@ -1,7 +1,8 @@
 import Vue from 'vue'
+import store from '../store';
 
 export default function wxConfig({title = '', desc = '', link = '', imgUrl = ''} = {}) {
-  title = title || '您的好友DA蜜邀请您一起关注大蜜小说~'; // 分享标题
+  title = title || `您的好友${store.state.userInfo.nickName||'DA蜜'}邀请您一起关注大蜜小说~`; // 分享标题
   desc = desc || '关注DA蜜蜜~更多精品小说等你来撩~';// 分享描述
   link = link || location.href.split('#')[0];// 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
   imgUrl = imgUrl || 'http://iao55.top/novel/test/logo.jpg'; // 分享图标
@@ -50,10 +51,10 @@ export default function wxConfig({title = '', desc = '', link = '', imgUrl = ''}
                 link: link,
                 imgUrl: imgUrl,
                 success:function(){
-                  console.log('分享成功');
+                  // console.log('分享成功');
                 },
                 complete: function (res) {
-                  console.log('分享开始');
+                  // console.log('分享开始');
                 }
               });
             } else {
@@ -64,10 +65,10 @@ export default function wxConfig({title = '', desc = '', link = '', imgUrl = ''}
                 link: link,
                 imgUrl: imgUrl,
                 success:function(){
-                  console.log('share success');
+                  // console.log('share success');
                 },
                 complete: function (res) {
-                  console.log('share started');
+                  // console.log('share started');
                 }
               });
             }

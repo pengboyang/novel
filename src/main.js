@@ -74,12 +74,23 @@ Vue.prototype.$http.interceptors.response.use(function (response) {
 });
 
 router.beforeEach((to, from, next) => {
+  let query = Mixin.methods.getCode();
+  console.log(store.state.userInfo);
+  if(from.path==='/'&&to.path==='/novel/manList'&&query&&query.toUrl){
+    let obj=Mixin.methods.getQuery(decodeURIComponent(query.toUrl));
+    // console.log(obj);
+    //对title解码
+    if(obj&&obj.query&&obj.query.title)
+      obj.query.title=decodeURI(obj.query.title);
+    //根据hash跳转对应页面
+    if(obj&&obj.path&&obj.query)
+      router.push({path: obj.path, query: obj.query});
+  }
   if (to.meta.keepAlive) {
     to.meta.isBack = true;
   }
   if (!store.state.code&&!store.state.userCode&&to.name!='mineList') {
     try {
-      let query = Mixin.methods.getCode();
       if(!query.state){
         Vue.$http({
           method: 'get',

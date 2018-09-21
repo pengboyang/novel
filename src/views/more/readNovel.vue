@@ -113,6 +113,7 @@
         bookId: '',
         novelStr: '',
         bookTitle: '',
+        cover: '',
         bookName: '',
         PrenoPage:false,
         NextnoPage:false,
@@ -266,6 +267,7 @@
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
+            this.cover = res.data.cover;
             this.novelPrePage = res.data.prepage;
             this.novelNextPage = res.data.nextpage;
             this.balance = res.data.balance;
@@ -281,6 +283,13 @@
                 this.vipRecharge = true;
             }
             this.popupVisible1 = false;
+            let _this=this;
+            this.$wxConfig({
+              title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起看《${this.bookTitle}》~`,
+              desc:this.novelStr,
+              link:location.href.split('#')[0]+'&toUrl='+encodeURIComponent(location.href.split('#')[1]),
+              imgUrl:this.cover
+            });
           }
         }).catch()
       },

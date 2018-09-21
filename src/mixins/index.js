@@ -64,7 +64,6 @@ var mixin = {
     },
     /*获取code*/
     getCode() {
-      console.log(1);
       try{
         let url = window.location.href;
         let baseurl = url.split('#')[0];
@@ -86,6 +85,26 @@ var mixin = {
           });
         }
         return query;
+      }catch (e) {
+
+      }
+    },
+    /*获取query*/
+    getQuery(str) {
+      try{
+        str = str.split('?');
+        let path=str[0];
+        let hasharr=str[1].split('&');
+        let obj = {};
+        let query = {};
+        hasharr.forEach((item, index) => {
+          query[item.split('=')[0]] = item.split('=')[1];
+        });
+        obj={
+          path:path,
+          query:query,
+        };
+        return obj;
       }catch (e) {
 
       }
