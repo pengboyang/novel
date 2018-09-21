@@ -12,6 +12,7 @@
           <div class="uesrLogo"><img :src="imgPath" alt=""></div>
           <div class="userName">
             <div class="name">{{nickName}}</div>
+            <img @click="goVip" src="../../assets/img/vipkaitong.png" alt="">
           </div>
         </div>
         <div class="userCenter">
@@ -74,7 +75,9 @@
         nickName: '',
         coin:0,
         switchValue:false,
-        days:0
+        days:0,
+        viptype:0,
+        vipdate:''
       }
     },
     created() {
@@ -166,6 +169,8 @@
             console.log(res)
             this.coin = res.data.coin;
             this.days = res.data.days;
+            this.viptype = this.$store.state.viptype = res.data.type;
+            this.vipdate = this.$store.state.vipdate = res.data.date;
           }
         }).catch();
       },
@@ -280,6 +285,12 @@
     font-weight: 700;
     color: #000;
     font-size: 18px;
+  }
+
+  .mineList .mineListCon .userInfo .userName img{
+    width: 90px;
+    height: auto;
+    vertical-align: middle;
   }
 
   .mineList .mineListCon .userCenter{

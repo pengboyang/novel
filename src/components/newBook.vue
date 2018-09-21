@@ -39,7 +39,8 @@
       }
     },
     created() {
-      this.noType=this.$attrs.noType;
+      // this.noType=this.$attrs.noType;
+      this.genders(this.$attrs.gender)
       this.newBookList = this.$attrs.data.novelItemList;
       this.title = this.$attrs.data.name;
     },

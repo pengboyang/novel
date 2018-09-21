@@ -1,10 +1,10 @@
 <template>
   <div class="bookDetail" ref="scroTops">
     <div class="topBanner">
-      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
+      <div  class="returnBack" @click="routeBack"><img src="../../assets/img/returnback.png" alt=""></div>
       <div class="topTitle">{{title}}</div>
+      <div class="backman" @click="goManList"><img src="../../assets/img/backmine.png" alt=""></div>
     </div>
-    <div class="lineBg"></div>
     <div class="detaiContent">
       <div class="novelInfo clearfloat">
         <div class="left">
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="comRow">
-            <span class="section">第<span class="gold">{{chapterSum}}</span>章</span>
+            <span class="section">最新章节</span>
             <span class="section" style="font-size:16px;color:#000;">{{chapterName}}</span>
             <!-- <div class="centerBtn">
               <img src="../../assets/img/new.png" alt="">
@@ -178,6 +178,9 @@
             });
           }
         }).catch();
+      },
+      goManList(){
+        this.$router.push({path:'/novel/manList', query: {id: 1}});
       }
     }
   }
@@ -212,17 +215,23 @@
     position: fixed;
     left: 0;
     top: 0;
-    padding-left:15px;
     background: #fff;
     z-index: 999;
-    padding-left: 15px;
+    border-bottom: 4px solid #eee;
   }
 
   .bookDetail .topBanner .returnBack {
+    width: 46px;
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bookDetail .topBanner .returnBack img{
     width: 12px;
     height: auto;
-    vertical-align: middle;
-    display: inline-block;
     vertical-align: middle;
   }
 
@@ -243,13 +252,22 @@
     white-space: nowrap;
   }
 
-  .bookDetail .lineBg {
-    position: fixed;
-    left: 0;
-    top: 46px;
-    width: 100%;
-    height: 5px;
-    background: url('../../assets/img/linebg.png')
+  .bookDetail .topBanner .backman{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 54px;
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bookDetail .topBanner .backman img{
+    width: 28px;
+    height: auto;
+    vertical-align: middle;
   }
 
   .bookDetail .detaiContent {

@@ -25,7 +25,9 @@
       }
     },
     created() {
-      this.noType=this.$attrs.noType;
+      // console.log(this.$attrs.gender);
+      // this.noType=this.$attrs.noType;
+      this.genders(this.$attrs.gender)
       this.listData = this.$attrs.data.novelItemList;
       this.title = this.$attrs.data.name;
     },
