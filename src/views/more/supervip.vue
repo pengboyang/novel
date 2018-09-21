@@ -11,7 +11,8 @@
           <div class="uesrLogo"><img :src="imgPath" alt=""></div>
           <div class="userName">
             <div class="name">{{nickName}}</div>
-            <div class="date">2018-03-10 VIP到期</div>
+            <div v-if="$store.state.viptype==1" class="date">{{$store.state.vipdate}} VIP到期</div>
+            <div v-else-if="$store.state.viptype==2" class="date">您的VIP已到期</div>
           </div>
         </div>
         <div class="package">
@@ -42,7 +43,7 @@
           <div class="title">充值</div>
           <div class="novelNumber">{{bookDay}}超级VIP会员</div>
           <div class="bookMoney">￥{{money}}</div>
-          <div class="btn" @click="ConfirmPayment"><img src="../../assets/img/payBtnsss.png" alt=""></div>
+          <div class="btn" @click="ConfirmPayment"><img src="../../assets/img/vipPay.png" alt=""></div>
         </div>
       </div>
   </div>

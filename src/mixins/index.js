@@ -138,11 +138,11 @@ var mixin = {
       }
     },
     /*后退*/
-    topBack(){
+    topBack() {
       console.log(this.$store.state.userInfo);
-      let oldHash=window.location.hash;
+      let oldHash = window.location.hash;
       if (window.history.length <= 1) {
-        this.$router.push({path:'/'});
+        this.$router.push({path: '/'});
         return false
       } else {
         this.$router.go(-1);
@@ -150,10 +150,18 @@ var mixin = {
       //上面都没执行就说明卡在当前页不是最后一条， histroy记录数量大于1，又没有回退记录，只能返回首页，
       //如果上面都执行了 页面都跳走了，这个也就不用管了
       setTimeout(() => {
-        let newHash=window.location.hash;
-        if(oldHash==newHash)
-          this.$router.push({path:'/'})
-      },500)
+        let newHash = window.location.hash;
+        if (oldHash == newHash)
+          this.$router.push({path: '/'})
+      }, 500)
+    },
+    /*判断男女*/
+    genders(id){
+      if(id==1){
+        this.noType = 'dssh';
+      }else{
+        this.noType = 'lmyq';
+      }
     }
   }
 

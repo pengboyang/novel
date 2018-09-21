@@ -53,9 +53,10 @@
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiList,
-          params: {category: this.novelType}
+          params: {category: this.novelType,begin:0}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.moreLists = res.data.novelList.novelItemList;
             this.novelTitle = res.data.novelList.name;
           }

@@ -1,11 +1,13 @@
 <template>
   <!--<v-touch v-on:swipeleft="onSwipeLeft">-->
-  <div class="manList">
-    <my-swiper :lists="sweiperList"></my-swiper>
-    <div v-for="item in dataList">
-      <new-book v-if="item.style==3" :data="item" :noType="item.type"></new-book>
-      <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type"></fine-quality>
-      <free-week v-else-if="item.style==4" :data="item" :noType="item.type"></free-week>
+  <div>
+    <div class="manList">
+      <my-swiper :lists="sweiperList"></my-swiper>
+      <div v-for="item in dataList">
+        <new-book v-if="item.style==3" :data="item" :noType="item.type" :gender="gender"></new-book>
+        <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type" :gender="gender"></fine-quality>
+        <free-week v-else-if="item.style==4" :data="item" :noType="item.type" :gender="gender"></free-week>
+      </div>
     </div>
     <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
     <div class="qrcode">
