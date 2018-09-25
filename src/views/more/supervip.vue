@@ -1,7 +1,7 @@
 <template>
   <div class="vip">
       <div class="vipTop">
-          <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+          <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png"
                                                             alt=""></div>
           <div class="title">超级VIP</div>
       </div>
@@ -91,9 +91,6 @@
       this.nickName = this.$store.state.userInfo.nickName;
     },
     methods:{
-      back() {
-        this.$router.go(-1)
-      },
       ConfirmPayment(){
         let _this=this;
         let times = Date.parse(new Date());
