@@ -139,7 +139,6 @@ var mixin = {
     },
     /*后退*/
     topBack() {
-      console.log(this.$store.state.userInfo);
       let oldHash = window.location.hash;
       if (window.history.length <= 1) {
         this.$router.push({path: '/'});
