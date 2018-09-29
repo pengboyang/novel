@@ -469,6 +469,56 @@
     margin-top: 8px;
     margin-bottom: 10px;
   }
+  /*5*/
+  @media screen and (min-device-width: 300px) and (max-device-width: 373px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+            height: 128px;
+      }
+  }
+  /*6*/
+  @media screen and (min-device-width: 374px) and (max-device-width: 412px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+            height: 145px;
+      }
+  }
+  /*plus*/
+  @media screen and (min-device-width:413px) and (max-device-width: 767px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+            height: 155px;
+      }
+  }
+
+  /*ipad*/
+  @media screen and (min-device-width:768px) and (max-device-width: 1025px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+            height: 270px;
+      }
+  }
+  /*1280 1366*/
+  @media screen and (min-device-width: 1026px) and (max-device-width: 1367px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img{
+            height: 350px;
+      }
+  }
+  /*1920*/
+  @media screen and (min-device-width: 1368px) and (max-device-width: 1440px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+            height: 350px;
+      }
+  }
+  /**/
+  @media screen and (min-device-width: 1441px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+            height: 125px;
+      }
+  }
+
+  /*pc总体*/
+  @media screen and (min-device-width: 1026px) {
+      .bookDetail .detaiContent .newMore .manNovel .novelWra .novelPic img {
+            height: 480px;
+      }
+  }
 
 </style>
 

@@ -154,10 +154,10 @@
   }
 
   .moreList .comBooks .novelCon .novelRight .bookname {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     color: #000;
   }
 
@@ -206,6 +206,56 @@
 
   .moreList .comBooks .novelCon .novelRight .bookInfo .author .man {
     vertical-align: middle;
+  }
+    /*5*/
+  @media screen and (min-device-width: 300px) and (max-device-width: 373px) {
+       .moreList .comBooks .novelCon .novelLeft img {
+            height: 128px;
+      }
+  }
+  /*6*/
+  @media screen and (min-device-width: 374px) and (max-device-width: 412px) {
+       .moreList .comBooks .novelCon .novelLeft img {
+            height: 145px;
+      }
+  }
+  /*plus*/
+  @media screen and (min-device-width:413px) and (max-device-width: 767px) {
+       .moreList .comBooks .novelCon .novelLeft img {
+            height: 155px;
+      }
+  }
+
+  /*ipad*/
+  @media screen and (min-device-width:768px) and (max-device-width: 1025px) {
+       .moreList .comBooks .novelCon .novelLeft img {
+            height: 270px;
+      }
+  }
+  /*1280 1366*/
+  @media screen and (min-device-width: 1026px) and (max-device-width: 1367px) {
+       .moreList .comBooks .novelCon .novelLeft img{
+            height: 350px;
+      }
+  }
+  /*1920*/
+  @media screen and (min-device-width: 1368px) and (max-device-width: 1440px) {
+       .moreList .comBooks .novelCon .novelLeft img{
+            height: 350px;
+      }
+  }
+  /**/
+  @media screen and (min-device-width: 1441px) {
+       .moreList .comBooks .novelCon .novelLeft img {
+            height: 125px;
+      }
+  }
+
+  /*pc总体*/
+  @media screen and (min-device-width: 1026px) {
+       .moreList .comBooks .novelCon .novelLeft img {
+            height: 480px;
+      }
   }
 </style>
 
