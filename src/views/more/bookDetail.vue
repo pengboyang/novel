@@ -141,11 +141,12 @@
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiList,
-          params: {category: this.bookType,begin:0}
+          params: {category: this.bookType,begin:0,count:3}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             var data = res.data.novelList.novelItemList;
-            this.betterMoreList = data.slice(0,3);
+            this.betterMoreList = data;
             this.moreType = res.data.novelList.type
           }
         }).catch()

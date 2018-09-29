@@ -47,8 +47,8 @@ const router = new VueRouter({
 
 // ajax
 Vue.$http = Vue.prototype.$http = axios.create({
-  baseURL: 'http://novel.55duanzi.com',
-  // baseURL: 'http://pay.55duanzi.com',
+  // baseURL: 'http://novel.55duanzi.com',
+  baseURL: 'http://pay.55duanzi.com',
   withCredentials: true,// `withCredentials` 表示跨域请求时是否需要使用凭证
   timeout: 5000
 });
