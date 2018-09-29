@@ -55,7 +55,7 @@
       <!-- <fine-quality :data="betterMoreList"></fine-quality> -->
       <div class="newMore">
         <div class="manTitle">
-          <span class="kind">{{typename}}</span>
+          <span class="kind">精品推荐</span>
           <span class="moreList" @click="moreList">更多></span>
         </div>
         <div class="manNovel">
@@ -134,6 +134,13 @@
             this.typename = res.data.novelItem.typename;
             this.type = res.data.novelItem.type;
             this.joinShelf = res.data.joinShelf;
+            let _this=this;
+            this.$wxConfig({
+              title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起看《${this.title}》~`,
+              desc:this.summary,
+              link:location.href.split('#')[0]+'&toUrl='+encodeURIComponent(location.href.split('#')[1]),
+              imgUrl:this.novelPic
+            });
           }
         }).catch();
       },

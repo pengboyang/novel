@@ -19,6 +19,7 @@ var mixin = {
         novelCoinSurplus:'/novel/coin/surplus',
         novelCoinBuy:'/novel/coin/buy',
         novelCoinOrders:'/novel/coin/orders',
+        novelUserFollow:'/novel/user/follow',
         novelUserSign:'/novel/user/sign',
         novelShelfAdd:'/novel/shelf/add',
         novelShelfQuery:'/novel/shelf/query',
@@ -58,7 +59,7 @@ var mixin = {
     /*MD5*/
     getmd5(str) {
       var md5 = crypto.createHash('md5');
-      md5.update(str);
+      md5.update(str.toString());
       return md5.digest('hex');
     },
     /*获取code*/
@@ -72,7 +73,7 @@ var mixin = {
         hasharr.forEach((item, index) => {
           query[item.split('=')[0]] = item.split('=')[1];
         });
-        if (query.state) {
+        if (query&&query.state&&query.state=='user') {
           store.dispatch({
             type: 'userCodeChange',
             val: query.code,
@@ -88,9 +89,34 @@ var mixin = {
 
       }
     },
+    /*获取query*/
+    getQuery(str) {
+      try{
+        str = str.split('?');
+        let path=str[0];
+        let hasharr=str[1].split('&');
+        let obj = {};
+        let query = {};
+        hasharr.forEach((item, index) => {
+          query[item.split('=')[0]] = item.split('=')[1];
+        });
+        obj={
+          path:path,
+          query:query,
+        };
+        return obj;
+      }catch (e) {
+
+      }
+    },
     /*登录*/
     login(callback) {
       try {
+        let uuid=localStorage.getItem('uuid');
+        if(uuid){
+          callback('success');
+          return false;
+        }
         let query = this.getCode();
         this.$http({
           method: 'get',
@@ -110,6 +136,23 @@ var mixin = {
       } catch (e) {
 
       }
+    },
+    /*后退*/
+    topBack() {
+      let oldHash = window.location.hash;
+      if (window.history.length <= 1) {
+        this.$router.push({path: '/'});
+        return false
+      } else {
+        this.$router.go(-1);
+      }
+      //上面都没执行就说明卡在当前页不是最后一条， histroy记录数量大于1，又没有回退记录，只能返回首页，
+      //如果上面都执行了 页面都跳走了，这个也就不用管了
+      setTimeout(() => {
+        let newHash = window.location.hash;
+        if (oldHash == newHash)
+          this.$router.push({path: '/'})
+      }, 500)
     },
     /*判断男女*/
     genders(id){

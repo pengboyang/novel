@@ -2,7 +2,7 @@
   <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
       <div class="mineTop">
-          <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+          <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png"
                                                             alt=""></div>
           <div class="title">我的</div>
       </div>
@@ -82,20 +82,23 @@
       }
     },
     created() {
-      // localStorage.setItem('uuid','LLuKA6iq')
-      this.goldBalance();
-      if(!this.$store.state.userInfo.imgPath){
-        this.getCode();
-        if (this.$store.state.userCode) {
-          this.authorlogin();
-        } else {
-          this.getUser();
+      this.login(data=> {
+        if(data=='success'){
+          this.goldBalance();
+          if(!this.$store.state.userInfo.imgPath){
+            this.getCode();
+            if (this.$store.state.userCode) {
+              this.authorlogin();
+            } else {
+              this.getUser();
+            }
+          }else{
+            this.imgPath=this.$store.state.userInfo.imgPath;
+            this.nickName=this.$store.state.userInfo.nickName;
+            this.switchValue=this.$store.state.userInfo.autoBuy;
+          }
         }
-      }else{
-        this.imgPath=this.$store.state.userInfo.imgPath;
-        this.nickName=this.$store.state.userInfo.nickName;
-        this.switchValue=this.$store.state.userInfo.autoBuy;
-      }
+      });
     },
     methods: {
       back() {
@@ -126,14 +129,7 @@
             this.nickName =this.$store.state.userInfo.nickName= data.nickName;
             this.switchValue = this.$store.state.userInfo.autoBuy= data.autoBuy;
           } else if (data.code == 3) {
-            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fdev.r8uk83.cn%2fnovel%2fdist%2findex.html%23%2fnovel%2fmineList%3fid%3d4&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
-          } else if (data.code == 4) {
-            this.login(data=> {
-              if(data=='success'){
-                this.getUser();
-              }
-            })
-          } else {
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx30e74a0a5ca3c0bd&redirect_uri=http%3a%2f%2fiao55.top%2fnovel%2ftest%2findex.html%23%2fmineList&response_type=code&scope=snsapi_userinfo&state=user#wechat_redirect';
           }
         }).catch(error => {
           console.log(error);
@@ -209,6 +205,9 @@
   }
 </script>
 <style>
+  .mineList{
+    padding-top: 46px;
+  }
   .mineList .mineListCon {
     padding: 0 20px;
   }
@@ -253,7 +252,6 @@
     width: 100%;
     height: 4px;
     background: #e0e0e0;
-    margin-top: 50px;
   }
 
   /* .mineList .mineListCon .lineBg {

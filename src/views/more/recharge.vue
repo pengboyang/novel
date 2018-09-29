@@ -1,7 +1,7 @@
 <template>
   <div class="recharge">
     <div class="rechargeTop">
-      <div style="width:46px;height:100%;" @click="back"><img class="returnBack" src="../../assets/img/returnback.png"
+      <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png"
                                                               alt=""></div>
       <div class="title">书币充值</div>
     </div>
@@ -80,9 +80,6 @@
       console.log(this);
     },
     methods: {
-      back() {
-        this.$router.go(-1)
-      },
       exchange(index,nums,boknums){
         this.money=nums;
         this.bookMoney=boknums;
@@ -119,6 +116,8 @@
                   _this.$router.go(-1)
                 }
               });
+            }else{
+              this.$router.push({path:'/novel/mineList',query:{id:4}});
             }
           }
         }).catch();

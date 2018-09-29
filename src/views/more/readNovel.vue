@@ -39,7 +39,7 @@
     <div class="novelToast" v-if="botmFlag">
       <div class="btn">
         <img @click="showToast" class="left" src="../../assets/img/menu.png" alt="">
-        <img @click.stop="backDetail" class="right" src="../../assets/img/novelInfo.png" alt="">
+        <img @click.stop="topBack" class="right" src="../../assets/img/novelInfo.png" alt="">
       </div>
     </div>
     <mt-popup
@@ -81,7 +81,7 @@
       <div class="shujiaBox">
         <div class="like">喜欢就加入书架吧</div>
         <div class="jiaru">
-          <div @click="returnback">不加入</div>
+          <div @click="topBack">不加入</div>
           <div @click="bookStore">加入</div>
         </div>
       </div>
@@ -113,6 +113,7 @@
         bookId: '',
         novelStr: '',
         bookTitle: '',
+        cover: '',
         bookName: '',
         PrenoPage:false,
         NextnoPage:false,
@@ -177,7 +178,7 @@
         if(!this.joinShelf){
           this.popupVisible = true;
         }else{
-          this.$router.go(-1);
+          this.topBack();
         }
       },
       goVip(){
@@ -273,6 +274,7 @@
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
+            this.cover = res.data.cover;
             this.novelPrePage = res.data.prepage;
             this.novelNextPage = res.data.nextpage;
             this.balance = res.data.balance;
@@ -288,6 +290,13 @@
                 this.vipRecharge = true;
             }
             this.popupVisible1 = false;
+            let _this=this;
+            this.$wxConfig({
+              title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起看《${this.bookName}》~`,
+              desc:this.novelStr,
+              link:location.href.split('#')[0]+'&toUrl='+encodeURIComponent(location.href.split('#')[1]),
+              imgUrl:this.cover
+            });
           }
         }).catch()
       },
@@ -755,25 +764,6 @@
       margin-right: 5px;
   }
 
-  .mint-msgbox-message{
-    color: #9d9d9d !important;
-    line-height: 26px !important;
-    font-size: 15px !important;
-  }
-
-  .mint-msgbox-title{
-    font-size: 17px !important;
-    font-weight: 700 !important;
-  }
-
-  .mint-msgbox-confirm{
-    color: #000 !important;
-    font-size: 16px !important;
-  }
-
-  .mint-msgbox{
-    width: 68% !important;
-  }
 
 </style>
 

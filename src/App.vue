@@ -10,6 +10,7 @@
 </template>
 
 <script>
+  // import '@/js/vconsole.min.js';
   export default {
     name: 'App'
   }
@@ -45,5 +46,7 @@
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
     box-sizing: border-box;
+    background: #fff;
   }
+  #cnzz_stat_icon_1274762720{display: none;}
 </style>

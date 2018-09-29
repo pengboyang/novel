@@ -98,7 +98,7 @@
   }
   
   .comSwiepr .secondTab{
-    margin-top: 30px;
+    margin-top: 15px;
     display: -webkit-flex;
     display: flex;
     text-align: center;

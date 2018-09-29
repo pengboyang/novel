@@ -1,7 +1,7 @@
 <template>
   <div class="bookShelf">
     <div class="shelfTop">
-      <div style="width:46px;height:100%;" @click="routeBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
+      <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
       <div class="topTitle">我的书架</div>
     </div>
     <div class="shelfCont">
@@ -52,9 +52,6 @@
       this.bookShelfList();
     },
     methods:{
-      routeBack() {
-        this.$router.go(-1)
-      },
       goMan(){
         this.$router.push({path:'/novel/manList',query:{id:1}});
       },
@@ -173,6 +170,7 @@
 
   .bookShelf .shelfCont{
     padding: 46px 15px 70px 15px;
+    background:#fff;
   }
 
   .bookShelf .shelfCont .editBtn{
