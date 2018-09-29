@@ -95,5 +95,6 @@
       -webkit-transform: translate(-100%, 0);
     transform: translate(-100%, 0);
   }
+  
 </style>
 

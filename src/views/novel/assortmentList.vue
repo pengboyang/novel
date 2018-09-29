@@ -6,73 +6,66 @@
         <div class="topTitle">分类</div>
       </div>
       <div class="assortmentCont">
-        <div class="assortment">
-          <div class="gender">
-            <span @click="changeSex(item,index)" v-for="(item,index) in genderLists"
-                  :class="{'Active': genderIndex == index}">{{item==1?'男生':'女生'}}</span>
-          </div>
-          <div class="mold">
-            <span @click="changeAssortment(items,index)" v-for="(items,index) in channelLists"
-                  :class="{'Active': channelIndex == index}">{{items.value}}</span>
-            <!-- <span @click="show=!show"><img src="../../assets/img/bottomJT.png" alt=""></span>
-            <transition name="fade">
-              <div v-if="show">
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-                <span>玄幻仙侠</span>
-              </div>
-            </transition> -->
-          </div>
-          <div class="completion">
-            <span @click="changeType(item,index)" v-for="(item,index) in statusLists"
-                  :class="{'Active': typeIndex == index}">{{item==0?'全部':(item==1?'连载':'完结')}}</span>
-          </div>
-        </div>
-        <div class="filament"></div>
-        <div class="novelBooks">
-          <div class="novelCon clearfloat" v-for="item in serachLists"  @click="goDetail(item.id,item.type)">
-            <div class="novelLeft">
-              <img :src="item.cover" alt="">
+        <div class="page-infinite-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+          <div class="assortment">
+            <div class="gender">
+              <span @click="changeSex(item,index)" v-for="(item,index) in genderLists"
+                    :class="{'Active': genderIndex == index}">{{item==1?'男生':'女生'}}</span>
             </div>
-            <div class="novelRight">
-              <p class="bookname">{{item.title}}</p>
-              <div class="bookDescribed">{{item.summary}}</div>
-              <div class="bookInfo clearfloat">
-                <div class="author">
-                  <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-                  <span class="man">作者：{{item.author}}</span>
-                </div>
-                <div class="described">
-                  <!-- <span>分类</span> -->
-                  <span>{{item.state==0?'全部':(item.state==1?'连载':'完结')}}</span>
-                </div>
-              </div>
+            <div class="mold">
+              <span @click="changeAssortment(items,index)" v-for="(items,index) in channelLists"
+                    :class="{'Active': channelIndex == index}">{{items.value}}</span>
+            </div>
+            <div class="completion">
+              <span @click="changeType(item,index)" v-for="(item,index) in statusLists"
+                    :class="{'Active': typeIndex == index}">{{item==0?'全部':(item==1?'连载':'完结')}}</span>
             </div>
           </div>
+          <div class="filament"></div>
+          <ul class="page-infinite-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+            <li v-for="item in serachLists" class="page-infinite-listitem">
+              <div class="novelBooks">
+                <div class="novelCon clearfloat"  @click="goDetail(item.id,item.type)">
+                  <div class="novelLeft">
+                    <img :src="item.cover" alt="">
+                  </div>
+                  <div class="novelRight">
+                    <p class="bookname">{{item.title}}</p>
+                    <div class="bookDescribed">{{item.summary}}</div>
+                    <div class="bookInfo clearfloat">
+                      <div class="author">
+                        <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
+                        <span class="man">作者：{{item.author}}</span>
+                      </div>
+                      <div class="described">
+                        <!-- <span>分类</span> -->
+                        <span>{{item.state==0?'全部':(item.state==1?'连载':'完结')}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <p v-show="loading" class="page-infinite-loading">
+            <mt-spinner type="fading-circle"></mt-spinner>
+            加载中...
+          </p>
+          <wv-loadmore v-if="!hasmore" type="line" text="大蜜小说"></wv-loadmore>
         </div>
       </div>
-      <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
     </div>
   <!--</v-touch>-->
 </template>
 <script>
+  import { InfiniteScroll } from 'mint-ui';
   export default {
     name: 'assortmentList',
     data() {
       return {
+        loadBegin:false,
+        loading: false,
+        allLoaded: false,
         show: false,
         cateGoryBookList: [],
         defaultId: 1,//小说id
@@ -87,10 +80,16 @@
         channelIndex: 0,//类型默认索引
         typeIndex: 0,//状态默认索引
         serachLists: [],
+        wrapperHeight:0,
+        nextBegin:1,
+        hasmore:true
       }
     },
     created() {
       this.cateGoryList();
+    },
+    mounted(){
+      this.wrapperHeight = document.documentElement.clientHeight - 50;
     },
     methods: {
       routeBack() {
@@ -111,39 +110,53 @@
             this.defaultType = res.data.channelList[0].key;//小说类型
             this.defaultState = res.data.statusList[0];//小说状态
             this.defaultPayState = res.data.typeList[0];//小说付费
-            this.othersNovelList(this.defaultType, this.defaultState, this.defaultPayState)
           }
         }).catch();
       },
       /*改变性别*/
       changeSex(item, index) {
         this.channelIndex = 0,//类型默认索引
-          this.typeIndex = 0,//状态默认索引
-          this.defaultId = item;
+        this.typeIndex = 0,//状态默认索引
+        this.serachLists = [];
+        this.nextBegin =1;
+        this.hasmore = true;
+        this.defaultId = item;
         this.genderIndex = index;
         this.cateGoryList();
       },
       /*改变小说类型*/
       changeAssortment(item, index) {
+        this.hasmore = true;
+        this.serachLists = [];
+        this.nextBegin =1;
         this.defaultType = item.key;
         this.channelIndex = index;
-        this.othersNovelList(this.defaultType, this.defaultState, this.defaultPayState)
       },
       /*切换小说状态*/
       changeType(item, index) {
+        this.hasmore = true;
+        this.serachLists = [];
+        this.nextBegin =1;
         this.defaultState = item;
         this.typeIndex = index;
-        this.othersNovelList(this.defaultType, this.defaultState, this.defaultPayState)
       },
       /*小说列表*/
-      othersNovelList(category, status, type) {
+      othersNovelList(category, status, type,begin) {
+        if(!this.hasmore){
+          this.loading = false;
+          return false;
+        }
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiList,
-          params: {category: category, status: status, type: type,begin:0},
+          params: {category: category, status: status, type: type,begin:begin},
         }).then(res => {
           if (res.status == 200) {
-            this.serachLists = res.data.novelList.novelItemList;
+            console.log(res);
+            this.serachLists = this.serachLists.concat(res.data.novelList.novelItemList);
+            this.nextBegin = res.data.novelList.nextBegin;
+            this.hasmore = res.data.novelList.hasMore;
+            this.loading = false;
           }
         }).catch()
       },
@@ -156,6 +169,10 @@
       onSwipeRight(){
         this.$router.push({path:'/novel/womenList',query:{id:2}});
       },
+      loadMore(){
+          this.loading = true;
+          this.othersNovelList(this.defaultType, this.defaultState, this.defaultPayState,this.nextBegin);
+      }
     }
   }
 </script>
@@ -365,5 +382,71 @@
   {
     opacity: 0;
   }
+     /*5*/
+  @media screen and (min-device-width: 300px) and (max-device-width: 373px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img {
+            height: 128px;
+      }
+  }
+  /*6*/
+  @media screen and (min-device-width: 374px) and (max-device-width: 412px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img {
+            height: 145px;
+      }
+  }
+  /*plus*/
+  @media screen and (min-device-width:413px) and (max-device-width: 767px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img {
+            height: 155px;
+      }
+  }
+
+  /*ipad*/
+  @media screen and (min-device-width:768px) and (max-device-width: 1025px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img {
+            height: 270px;
+      }
+  }
+  /*1280 1366*/
+  @media screen and (min-device-width: 1026px) and (max-device-width: 1367px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img{
+            height: 350px;
+      }
+  }
+  /*1920*/
+  @media screen and (min-device-width: 1368px) and (max-device-width: 1440px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img{
+            height: 350px;
+      }
+  }
+  /**/
+  @media screen and (min-device-width: 1441px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img {
+            height: 125px;
+      }
+  }
+
+  /*pc总体*/
+  @media screen and (min-device-width: 1026px) {
+       .assortmentList .novelBooks .novelCon .novelLeft img {
+            height: 480px;
+      }
+  }
+      .page-infinite-wrapper {
+        margin-top: -1px;
+        overflow: scroll;
+    }
+
+    .page-infinite-loading {
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .page-infinite-loading div {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
 </style>
 
