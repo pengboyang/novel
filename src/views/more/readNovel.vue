@@ -31,7 +31,7 @@
         <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div>
         <div v-if="!bought" class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
         <div v-else class="payBtn" @click.stop="buyBooks"><img src="../../assets/img/payBtn1.png" alt=""></div>
-        <div class="payVip">
+        <div class="payVip" @click.stop="goVip">
           <div>开通超级VIP,全站书籍免费看></div>
         </div>
       </div>
@@ -179,6 +179,9 @@
         }else{
           this.$router.go(-1);
         }
+      },
+      goVip(){
+        this.$router.push({path:'/supervip'});
       },
       backDetail() {
           this.$router.go(-1);

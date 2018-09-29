@@ -123,6 +123,7 @@
     line-height: 40px;
     color: #999;
     font-size: 16px;
+    text-align: center;
   }
 
   .customService .serviceCon .ruleLabel {

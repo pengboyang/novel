@@ -237,6 +237,57 @@
     box-shadow: 0px 0px 5px #999;
   }
 
+  /*5*/
+  @media screen and (min-device-width: 300px) and (max-device-width: 373px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 128px;
+      }
+  }
+  /*6*/
+  @media screen and (min-device-width: 374px) and (max-device-width: 412px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 145px;
+      }
+  }
+  /*plus*/
+  @media screen and (min-device-width:413px) and (max-device-width: 767px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 155px;
+      }
+  }
+
+  /*ipad*/
+  @media screen and (min-device-width:768px) and (max-device-width: 1025px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 270px;
+      }
+  }
+  /*1280 1366*/
+  @media screen and (min-device-width: 1026px) and (max-device-width: 1367px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 350px;
+      }
+  }
+  /*1920*/
+  @media screen and (min-device-width: 1368px) and (max-device-width: 1440px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 350px;
+      }
+  }
+  /**/
+  @media screen and (min-device-width: 1441px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 125px;
+      }
+  }
+
+  /*pc总体*/
+  @media screen and (min-device-width: 1026px) {
+      .bookShelf .shelfCont .shelfWra .novelWra .novelPic img {
+            height: 480px;
+      }
+  }
+
   .bookShelf .shelfCont .shelfWra .novelWra .novelPic .choseBox{
     width: 100%;
     height: 100%;

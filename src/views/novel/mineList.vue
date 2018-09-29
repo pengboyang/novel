@@ -61,6 +61,7 @@
           </div>
         </div>
       </div>
+      <div class="shareRk"><img @click="goShareInfo" src="../../assets/img/loopfuckpic.png" alt=""></div>
     </div>
   <!--</v-touch>-->
 </template>
@@ -200,6 +201,9 @@
             }
           }
         }).catch();
+      },
+      goShareInfo(){
+        this.$router.push({path:'/sharecon'})
       }
     }
   }
@@ -214,10 +218,11 @@
     height: 46px;
     line-height: 46px;
     padding-left: 15px;
-    position: relative;
+    position: fixed;
     left: 0;
     top: 0;
     background: #fff;
+    z-index: 999;
   }
 
   .mineList .mineTop .returnBack {
@@ -248,13 +253,14 @@
     width: 100%;
     height: 4px;
     background: #e0e0e0;
+    margin-top: 50px;
   }
 
-  .mineList .mineListCon .lineBg {
+  /* .mineList .mineListCon .lineBg {
     width: 100%;
     height: 5px;
     background: url('../../assets/img/linebg.png');
-  }
+  } */
 
   .mineList .mineListCon .userInfo {
     display: flex;
@@ -361,7 +367,7 @@
   }
 
   .mineList .mineListCon .others .comRow:last-child {
-    border: none;
+    /* border: none; */
   }
   .mineList .mineListCon .others .comRow:first-child {
     border-top:1px solid #e0e0ee;
@@ -446,6 +452,17 @@
   }
   .wv-switch[data-v-7a6cd1bc]{
     width: 54px!important;
+  }
+  .mineList .shareRk{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 150px;
+  }
+  .mineList .shareRk img{
+    width: 80%;
+    height: auto;
+    vertical-align: middle;
   }
 </style>
 

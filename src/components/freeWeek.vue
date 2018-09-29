@@ -3,7 +3,7 @@
     <div class="manTitle">
       <span class="kind">{{title}}</span>
       <!--<span class="timer"><span class="hour">04</span>时<span class="minute">04</span>分<span class="second">10</span>秒</span>-->
-      <span class="moreList" @click="freeMoreList">更多></span>
+      <!-- <span class="moreList" @click="freeMoreList">更多></span> -->
     </div>
     <div class="freeNovel">
         <div class="novelWra" v-for="item in freeBookList" @click="goDetail(item.id,item.type)">
@@ -125,6 +125,57 @@
     height: auto;
     vertical-align: middle;
     box-shadow: 0px 0px 5px #999;
+  }
+
+  /*5*/
+  @media screen and (min-device-width: 300px) and (max-device-width: 373px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 128px;
+      }
+  }
+  /*6*/
+  @media screen and (min-device-width: 374px) and (max-device-width: 412px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 145px;
+      }
+  }
+  /*plus*/
+  @media screen and (min-device-width:413px) and (max-device-width: 767px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 155px;
+      }
+  }
+
+  /*ipad*/
+  @media screen and (min-device-width:768px) and (max-device-width: 1025px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 270px;
+      }
+  }
+  /*1280 1366*/
+  @media screen and (min-device-width: 1026px) and (max-device-width: 1367px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 350px;
+      }
+  }
+  /*1920*/
+  @media screen and (min-device-width: 1368px) and (max-device-width: 1440px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 350px;
+      }
+  }
+  /**/
+  @media screen and (min-device-width: 1441px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 125px;
+      }
+  }
+
+  /*pc总体*/
+  @media screen and (min-device-width: 1026px) {
+      .freeWeek .freeNovel .novelWra .novelPic img {
+            height: 480px;
+      }
   }
 
   .freeWeek .freeNovel .novelWra .novelPrice .costPrice {
