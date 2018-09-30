@@ -64,7 +64,7 @@
     /*touch-action: pan-y !important;*/
   }
 
-  .moreList, .novelCont, .readNovel .page ,.touchBox,.vip{
+  .moreList, .novelCont, .readNovel .page ,.touchBox,.vip,.page-infinite-wrapper{
     -webkit-overflow-scrolling: touch;
   }
 

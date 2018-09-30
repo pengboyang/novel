@@ -435,7 +435,8 @@
   }
       .page-infinite-wrapper {
         margin-top: -1px;
-        overflow: scroll;
+        overflow-y: auto;
+        overflow-x: auto;
     }
 
     .page-infinite-loading {
