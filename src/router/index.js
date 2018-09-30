@@ -120,4 +120,14 @@ export default [
     name: 'supervip',
     component: resolve => require(['views/more/supervip'], resolve),
   },
+  {
+    meta: {
+      title: 'sharecon',
+      keepAlive: false,
+      isBack: false,
+    },
+    path: '/sharecon',
+    name: 'sharecon',
+    component: resolve => require(['views/more/sharecon'], resolve),
+  },
 ];

@@ -2,8 +2,8 @@
   <!--<v-touch v-on:swipeleft="onSwipeLeft">-->
   <div>
     <div class="manList">
-      <!-- <my-swiper :lists="sweiperList"></my-swiper> -->
-      <my-swiper :gender="gender"></my-swiper>
+      <my-swiper :lists="sweiperList" :gender="gender"></my-swiper>
+      <!-- <my-swiper :gender="gender"></my-swiper> -->
       <div v-for="item in dataList">
         <new-book v-if="item.style==3" :data="item" :noType="item.type" :gender="gender"></new-book>
         <fine-quality v-else-if="item.style==6" :data="item" :noType="item.type" :gender="gender"></fine-quality>
