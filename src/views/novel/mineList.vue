@@ -61,7 +61,7 @@
           </div>
         </div>
       </div>
-      <div class="shareRk"><img @click="goShareInfo" src="../../assets/img/loopfuckpic.png" alt=""></div>
+      <!--<div class="shareRk"><img @click="goShareInfo" src="../../assets/img/loopfuckpic.png" alt=""></div>-->
     </div>
   <!--</v-touch>-->
 </template>
