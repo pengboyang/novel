@@ -437,6 +437,7 @@
         margin-top: -1px;
         overflow-y: auto;
         overflow-x: auto;
+        padding-bottom: 10px;
     }
 
     .page-infinite-loading {
