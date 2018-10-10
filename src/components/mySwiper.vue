@@ -43,7 +43,7 @@
         // this.srcLists = od;
           if(this.$attrs.gender==1){
             this.srcLists =[{cover:require('../assets/img/man.jpg')},...od,]
-          }else{
+          }else if(this.$attrs.gender==2){
             this.srcLists =[{cover:require('../assets/img/girl.jpg')},...od,]
           }
       }

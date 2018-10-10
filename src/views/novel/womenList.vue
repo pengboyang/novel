@@ -1,6 +1,6 @@
 <template>
   <!--<v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">-->
-    <div class="manList">
+    <div class="manList girl">
       <my-swiper :lists="sweiperList" :gender="gender"></my-swiper>
       <!-- <my-swiper :gender="gender"></my-swiper> -->
       <div v-for="item in womenBookList">
@@ -19,7 +19,7 @@
   import freeWeek from '../../components/freeWeek'
 
   export default {
-    name: 'manList',
+    name: 'womenList',
     data() {
       return {
         gender: 0,
@@ -33,6 +33,14 @@
       newBook,
       freeWeek
     },
+    // beforeRouteLeave (to, from, next) {
+    //   sessionStorage.setItem("womenList", $('.girl').scrollTop());
+    //   next();
+    // },
+    activated(){
+      let scrollTop = sessionStorage.getItem('womenList');
+      $('.girl').scrollTop(parseInt(scrollTop));
+    },
     created() {
       this.gender = this.$route.query.id;
       this.womenPageList();
@@ -45,7 +53,6 @@
           params: {gender: this.gender}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res)
             this.womenBookList = res.data.novelLists;
             this.sweiperList = res.data.novelItemList;
           }

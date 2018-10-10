@@ -1,6 +1,6 @@
 <template>
   <div id="content">
-    <div class="returnBack" @click="back"><img src="../../assets/img/returnback.png" alt=""></div>
+    <div class="returnBack" @click="back"><img src="../../assets/img/shareback.png" alt=""></div>
     <div class="top"><img src="../../assets/img/laqitop.jpg" alt=""><div class="clickBtn" @click="showShareBox"></div></div>
     <div class="reward">
       <div class="huojiangNums">已有<span>1000</span>位好友被成功邀请,已瓜分<span>30000</span>书币</div>

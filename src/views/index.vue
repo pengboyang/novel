@@ -2,7 +2,13 @@
   <div class="allView">
     <navbar class="topnav"></navbar>
     <transition :name="$store.state.transitionName">
-      <router-view class="wrapper"></router-view>
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive" class="wrapper">
+        </router-view>
+      </keep-alive>
+    </transition>
+    <transition :name="$store.state.transitionName">
+          <router-view class="wrapper" v-if="!$route.meta.keepAlive"></router-view>
     </transition>
   </div>
 </template>
@@ -60,7 +66,6 @@
     overflow-y: auto;
     z-index: 1;
     -webkit-overflow-scrolling: touch;
-    transition: all .8s cubic-bezier(.55, 0, .1, 1);
     /*touch-action: pan-y !important;*/
   }
 
@@ -84,18 +89,33 @@
     box-shadow: 0px 0px 5px #999;
   }
 
-  .slide-left-enter,
-  .slide-right-leave-active {
-    opacity: 0;
-    -webkit-transform: translate(100%, 0);
-    transform: translate(100%, 0);
+  .slide-right-enter-active,
+  .slide-right-leave-active,
+  .slide-left-enter-active,
+  .slide-left-leave-active {
+    will-change: transform;
+    transition: all 500ms;
+    position: absolute;
   }
 
-  .slide-left-leave-active,
   .slide-right-enter {
     opacity: 0;
-    -webkit-transform: translate(-100%, 0);
-    transform: translate(-100%, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  .slide-right-leave-active {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  .slide-left-enter {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  .slide-left-leave-active {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
   }
 
   .mint-msgbox-message {
