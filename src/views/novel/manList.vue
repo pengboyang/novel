@@ -1,6 +1,6 @@
 <template>
   <!--<v-touch v-on:swipeleft="onSwipeLeft">-->
-  <div>
+  <div class="boy">
     <div class="manList">
       <my-swiper :lists="sweiperList" :gender="gender"></my-swiper>
       <!-- <my-swiper :gender="gender"></my-swiper> -->
@@ -45,6 +45,14 @@
       newBook,
       freeWeek
     },
+    // beforeRouteLeave (to, from, next) {
+    //   sessionStorage.setItem("manList", $('.wrapper').scrollTop());
+    //   next();
+    // },
+    activated(){
+      let scrollTops = sessionStorage.getItem('manList');
+      $('.wrapper').scrollTop(parseInt(scrollTops));
+    },
     created() {
       this.gender = this.$route.query.id;
       this.manPageList();
@@ -65,7 +73,6 @@
           params: {gender: this.gender}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             var data = res.data.novelLists;
             this.sweiperList = res.data.novelItemList;
             this.dataList = res.data.novelLists;

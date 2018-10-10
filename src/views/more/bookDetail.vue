@@ -42,7 +42,7 @@
         </div>
         <div class="comRow">
             <span class="section">最新章节</span>
-            <span class="section" style="font-size:16px;color:#000;">{{chapterName}}</span>
+            <span class="section" style="font-size:14px;color:#000;">{{chapterName}}</span>
             <!-- <div class="centerBtn">
               <img src="../../assets/img/new.png" alt="">
             </div> -->
@@ -92,13 +92,37 @@
         betterMoreList: [],
         moreType:'',
         joinShelf:false,
+        isFirstEnter:false
       }
     },
+    beforeRouteEnter(to, from, next) {
+      if(from.name=='readNovel'){
+          to.meta.isBack=true;
+      }
+      next();
+    },
+    activated() {
+      if(!this.$route.meta.isBack || this.isFirstEnter){
+          this.title = ''
+          this.typename = ''
+          this.author = ''
+          this.novelPic = ''
+          this.summary = ''
+          this.betterMoreList = [];
+          // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
+          // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需获取新数据
+          this.bookId = this.$route.query.id;
+          this.bookType = this.$route.query.type;
+          this.bookDetailInfo();
+          this.bookMoreList();
+      }
+      // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+      this.$route.meta.isBack=false
+      // 恢复成默认的false，避免isBack一直是true，导致每次都获取新数据
+      this.isFirstEnter=false;
+    },
     created() {
-      this.bookId = this.$route.query.id;
-      this.bookType = this.$route.query.type;
-      this.bookDetailInfo();
-      this.bookMoreList();
+      this.isFirstEnter=true;
     },
     components: {
       fineQuality,
@@ -151,7 +175,6 @@
           params: {category: this.bookType,begin:0,count:3}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             var data = res.data.novelList.novelItemList;
             this.betterMoreList = data;
             this.moreType = res.data.novelList.type

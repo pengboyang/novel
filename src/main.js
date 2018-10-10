@@ -13,6 +13,7 @@ import 'we-vue/lib/style.css'
 import 'mint-ui/lib/style.css';
 import MintUI from 'mint-ui'
 import wxConfig from '@/js/wxconfig.js';
+import $ from 'jquery';
 
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
@@ -27,7 +28,7 @@ Vue.config.productionTip = false;
 // Vue.config.debug = true;/*异常捕捉*/
 
 const router = new VueRouter({
-  routes
+  routes,
 });
 
 //系统错误捕获
@@ -46,8 +47,8 @@ const router = new VueRouter({
 
 // ajax
 Vue.$http = Vue.prototype.$http = axios.create({
-  // baseURL: 'http://novel.55duanzi.com',
-  baseURL: 'http://pay.55duanzi.com',
+  baseURL: 'http://novel.55duanzi.com',
+  // baseURL: 'http://pay.55duanzi.com',
   withCredentials: true,// `withCredentials` 表示跨域请求时是否需要使用凭证
   timeout: 5000
 });
@@ -75,7 +76,24 @@ Vue.prototype.$http.interceptors.response.use(function (response) {
 
 router.beforeEach((to, from, next) => {
   let query = Mixin.methods.getCode();
-  console.log(store.state.userInfo);
+  // console.log(store.state.userInfo);
+  // 记录列表页滚动条位置
+    // 记录列表页滚动条位置
+  if(from.meta.title=="男生列表"){
+      sessionStorage.setItem("manList", $('.boy').scrollTop());
+  }
+  if(from.meta.title=="女生列表"){
+      sessionStorage.setItem("womenList", $('.girl').scrollTop());
+  }
+  if(from.meta.title=="分类列表"){
+      sessionStorage.setItem("assortmentCont", $('.assortmentCont .page-infinite-wrapper').scrollTop());
+  }
+  if(from.meta.title=="更多列表"){
+      sessionStorage.setItem("comBooks", $('.comBooks .page-infinite-wrapper').scrollTop());
+  }
+  if(from.meta.title=="小说目录"){
+      sessionStorage.setItem("novelMenuList", $('.novelMenuList').scrollTop());
+  }
   if(from.path==='/'&&to.path==='/novel/manList'&&query&&query.toUrl){
     let obj=Mixin.methods.getQuery(decodeURIComponent(query.toUrl));
     // console.log(obj);
@@ -87,7 +105,7 @@ router.beforeEach((to, from, next) => {
       router.push({path: obj.path, query: obj.query});
   }
   if (to.meta.keepAlive) {
-    to.meta.isBack = true;
+    // to.meta.isBack = true;
   }
   if (!store.state.code&&!store.state.userCode&&to.name!='mineList') {
     try {

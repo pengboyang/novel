@@ -12,7 +12,7 @@
         <div v-else-if="!sorts" class="paixu" @click="NovelMenuList(novelId,0,'')"><img src="../../assets/img/paixu1.png" alt=""></div>
       </div>
       <div class="menWra">
-        <div class="comRow" v-for="item in menuLists" @click="goRead(novelId,item.chapter,novelTitle)">
+        <div class="comRow" :class="{active:activeIndex==index}" v-for="(item,index) in menuLists" @click="goRead(novelId,item.chapter,novelTitle,index)">
           <span class="text">{{item.chapterTitle}}</span>
           <div class="btn" v-if="item.pay">
             <img src="../../assets/img/lock.png" alt="">
@@ -40,8 +40,13 @@
         sorts:true,
         desc:'',
         chapterSum:0,
-        obj:{}
+        obj:{},
+        activeIndex:-1
       }
+    },
+    activated(){
+      let scrollTops = sessionStorage.getItem('novelMenuList');
+      $('.novelMenuList').scrollTop(parseInt(scrollTops));
     },
     created() {
       this.novelTitle = this.$route.query.title;
@@ -70,6 +75,7 @@
         }).catch();
       },
       NovelMenuLists(id,page,sort){
+        this.activeIndex = -1;
         if(page==-10){
           return false;
         }
@@ -87,7 +93,8 @@
           }
         }).catch();
       },
-      goRead(id,page,title){
+      goRead(id,page,title,index){
+        this.activeIndex = index;
         if(localStorage.getItem('novelInfo')!=null){
             this.obj =  JSON.parse(localStorage.getItem('novelInfo'));
         }
@@ -231,6 +238,9 @@
   .novelMenuList .menuBottom div {
     flex: 1;
     text-align: center;
+  }
+  .active{
+    color: red;
   }
 
 </style>

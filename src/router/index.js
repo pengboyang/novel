@@ -15,13 +15,13 @@ export default [
     component: resolve => require(['views/index'], resolve),
     children: [
       {
-        meta: {title: '男生列表', keepAlive: false, isBack: false,},
+        meta: {title: '男生列表', keepAlive: true, isBack: false,},
         path: 'manList',
         name: 'manList',
         component: resolve => require(['views/novel/manList'], resolve),
       },
       {
-        meta: {title: '女生列表', keepAlive: false, isBack: false,},
+        meta: {title: '女生列表', keepAlive: true, isBack: false,},
         path: 'womenList',
         name: 'womenList',
         component: resolve => require(['views/novel/womenList'], resolve),
@@ -31,7 +31,7 @@ export default [
   {
     meta: {
       title: '更多列表',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/moreList',
@@ -41,7 +41,7 @@ export default [
   {
     meta: {
       title: '小说详情',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/bookDetail',
@@ -61,7 +61,7 @@ export default [
   {
     meta: {
       title: '充值',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/recharge',
@@ -71,7 +71,7 @@ export default [
   {
     meta: {
       title: '客服',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/customService',
@@ -81,7 +81,7 @@ export default [
   {
     meta: {
       title: '小说目录',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/novelMenuList',
@@ -91,7 +91,7 @@ export default [
   {
     meta: {
       title: '书架',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/bookShelf',
@@ -99,13 +99,13 @@ export default [
     component: resolve => require(['views/more/bookShelf'], resolve),
   },
   {
-    meta: {title: '分类列表', keepAlive: false, isBack: false,},
+    meta: {title: '分类列表', keepAlive: true, isBack: false,},
     path: '/assortmentList',
     name: 'assortmentList',
     component: resolve => require(['views/novel/assortmentList'], resolve),
   },
   {
-    meta: {title: '我的', keepAlive: false, isBack: false,},
+    meta: {title: '我的', keepAlive: true, isBack: false,},
     path: '/mineList',
     name: 'mineList',
     component: resolve => require(['views/novel/mineList'], resolve),
@@ -113,7 +113,7 @@ export default [
   {
     meta: {
       title: 'VIP',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/supervip',
@@ -123,7 +123,7 @@ export default [
   {
     meta: {
       title: 'sharecon',
-      keepAlive: false,
+      keepAlive: true,
       isBack: false,
     },
     path: '/sharecon',
