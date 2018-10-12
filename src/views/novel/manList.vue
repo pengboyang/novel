@@ -56,6 +56,7 @@
     created() {
       this.gender = this.$route.query.id;
       this.manPageList();
+      console.log('test')
       let query = this.getCode();
       if (query && query.state && query.state == 'follow') {
         this.login(data => {
