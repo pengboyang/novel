@@ -57,7 +57,7 @@
           <div class="tit"><img src="../../assets/img/huodong.png" alt=""></div>
           <div class="inpconmen">
             <div class="inpLable">输入邀请码</div>
-            <div class="inpText"><input type="text" v-model="inputCode"></div>
+            <div class="inpText"><input id="inputId" @click="gotoView" type="text" v-model="inputCode"></div>
             <div @click="exchangeCode" class="inpBtn"><img src="../../assets/img/inpduihuan.png" alt=""></div>
           </div>
           <div class="inpconmen">
@@ -164,6 +164,9 @@
             }
           }
         }).catch();
+      },
+      gotoView(){  
+        document.querySelector('#inputId').scrollIntoView();
       }
     }
   }
