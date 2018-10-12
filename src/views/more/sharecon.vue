@@ -356,6 +356,7 @@
       vertical-align: top;
       text-align: center;
       color: #fff;
+      user-select: auto;
     }
     #content .inviteCode .inviteCodeWra .inpWra .inpconmen .inpBtn img{
       width: 60px;
