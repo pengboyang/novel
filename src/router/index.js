@@ -122,7 +122,7 @@ export default [
   },
   {
     meta: {
-      title: 'sharecon',
+      title: '分享赚红包',
       keepAlive: true,
       isBack: false,
     },
