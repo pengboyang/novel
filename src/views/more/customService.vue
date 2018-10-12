@@ -112,7 +112,7 @@
     position: absolute;
     width: 100%;
     left: 0;
-    bottom: 20px;
+    bottom: 0px;
     margin: auto;
     text-align: center;
     font-size: 16px;

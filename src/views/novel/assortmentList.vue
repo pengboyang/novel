@@ -85,6 +85,7 @@
         nextBegin:1,
         hasmore:true,
         backTopShow: false,
+        loadFlag:false
       }
     },
     activated(){
@@ -108,6 +109,7 @@
           params: {gender: this.defaultId}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.genderLists = res.data.genderList;
             this.statusLists = res.data.statusList;//小说状态
             this.typeLists = res.data.typeList;//付费状态
@@ -116,6 +118,7 @@
             this.defaultType = res.data.channelList[0].key;//小说类型
             this.defaultState = res.data.statusList[0];//小说状态
             this.defaultPayState = res.data.typeList[0];//小说付费
+            this.loadFlag = true
           }
         }).catch();
       },
@@ -158,6 +161,7 @@
           params: {category: category, status: status, type: type,begin:begin},
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.serachLists = this.serachLists.concat(res.data.novelList.novelItemList);
             this.nextBegin = res.data.novelList.nextBegin;
             this.hasmore = res.data.novelList.hasMore;
@@ -175,8 +179,10 @@
         this.$router.push({path:'/novel/womenList',query:{id:2}});
       },
       loadMore(){
+        if(this.loadFlag){
           this.loading = true;
           this.othersNovelList(this.defaultType, this.defaultState, this.defaultPayState,this.nextBegin);
+        }
       },
       gotop() {
         $('.assortmentCont .page-infinite-wrapper').animate({scrollTop:0}, 500);

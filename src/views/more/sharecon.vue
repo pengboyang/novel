@@ -130,7 +130,7 @@
             this.$wxConfig({
               title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起抢百万现金红包~`,
               // desc:this.novelStr,
-              link:'http://s.55duanzi.com/novel/static/shareindex.html'+'&toUrl='+ _this.erweimaLink,
+              link:'http://s.55duanzi.com/novel/static/shareindex.html'+'?toUrl='+ _this.erweimaLink,
               imgUrl:'http://s.55duanzi.com/novel/static/img/sharelogo.jpg'
             });
           }
