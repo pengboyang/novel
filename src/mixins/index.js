@@ -24,7 +24,9 @@ var mixin = {
         novelShelfAdd:'/novel/shelf/add',
         novelShelfQuery:'/novel/shelf/query',
         novelShelfDel:'/novel/shelf/del',
-        novelUserAutobuy:'/novel/user/autobuy'
+        novelUserAutobuy:'/novel/user/autobuy',
+        novelUserGetQrcode:'/novel/user/getqrcode',
+        novelUserCodeExchange:'/novel/user/codeexchange'
       }
     };
   },

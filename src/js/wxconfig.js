@@ -5,7 +5,7 @@ export default function wxConfig({title = '', desc = '', link = '', imgUrl = ''}
   title = title || `您的好友${store.state.userInfo.nickName||'DA蜜'}邀请您一起关注大蜜小说~`; // 分享标题
   desc = desc || '关注DA蜜蜜~更多精品小说等你来撩~';// 分享描述
   link = link || location.href.split('#')[0];// 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-  imgUrl = imgUrl || 'http://iao55.top/novel/test/logo.jpg'; // 分享图标
+  imgUrl = imgUrl || 'http://s.55duanzi.com/novel/dist/logo.jpg'; // 分享图标
   Vue.$http({
     method: 'get',
     url: '/novel/wechat/configSign',

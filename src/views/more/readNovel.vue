@@ -52,7 +52,7 @@
                                                                                       alt=""></div>
           <span class="menuListTitle">{{bookName}}</span>
         </div>
-        <div class="menuContent">
+        <div class="menuContent" @scroll="menusPosition">
           <div class="menuTop">
             <div class="allList">共{{chapterSum}}章</div>
             <div v-if="sorts" class="paixu" @click="novMenuLists(bookId,0,'desc')"><img src="../../assets/img/paixu.png" alt=""></div>
@@ -213,11 +213,12 @@
         }).catch();
       },
       showToast() {
-        this.nextpage = 0;
-        this.meuLists=[];
+        // this.nextpage = 0;
+        // this.meuLists=[];
         this.popupVisible1 = true;
         this.botmFlag = false;
-        this.hasmore = true;
+        // this.hasmore = true;
+         console.log($('.menuContent').scrollTop())
       },
       novMenuList(id,page,sort){
         this.$http({
@@ -271,6 +272,7 @@
           params: {id: id, page: page},
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
@@ -378,6 +380,11 @@
             }
           }
         }).catch()
+      },
+      menusPosition(){
+        console.log($('.menuContent').scrollTop())
+        // console.log($('.comRow').outerHeight())
+        
       }
     }
   }

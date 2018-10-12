@@ -49,23 +49,23 @@
           </div>
       </div>
     </div>
-    <!-- <div class="inviteCode">
+    <div class="inviteCode">
       <div class="inviteCodeWra">
         <img src="../../assets/img/laxin02.jpg" alt="">
         <div class="inpWra">
           <div class="tit"><img src="../../assets/img/huodong.png" alt=""></div>
           <div class="inpconmen">
             <div class="inpLable">输入邀请码</div>
-            <div class="inpText"><input type="text"></div>
-            <div class="inpBtn"><img src="../../assets/img/inpduihuan.png" alt=""></div>
+            <div class="inpText"><input type="text" v-model="inputCode"></div>
+            <div @click="exchangeCode" class="inpBtn"><img src="../../assets/img/inpduihuan.png" alt=""></div>
           </div>
           <div class="inpconmen">
             <div class="inpLable">我的邀请码</div>
-            <div class="inpTextDiv">ABNUGUGU</div>
+            <div class="inpTextDiv">{{myInviteCode}}</div>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
     <div class="instruction">
       <img src="../../assets/img/laxin04.jpg" alt="">
     </div>
@@ -76,11 +76,15 @@
 </template>
 <script>
   import Swiper from 'swiper';
+  import { Toast } from 'mint-ui';
   export default{
     name:'sharecon',
     data(){
       return{
         shareLc : false,
+        myInviteCode: '',
+        inputCode:'',
+        erweimaLink:''
       }
     },
     mounted(){
@@ -96,6 +100,9 @@
         observeParents:true,
       })
     },
+    created(){
+      this.getcode();
+    },
     methods:{
       back() {
         this.$router.go(-1)
@@ -105,6 +112,57 @@
       },
       hideShareBox(){
         this.shareLc = false;
+      },
+      getcode(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelUserGetQrcode,
+          params:{},
+          headers: {times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.myInviteCode = res.data.inviteCode;
+            this.erweimaLink = res.data.qrcode;
+            let _this=this;
+            this.$wxConfig({
+              title:`您的好友${_this.$store.state.userInfo.nickName||'DA蜜'}邀请您来大蜜小说一起抢百万现金红包~`,
+              // desc:this.novelStr,
+              link:'http://s.55duanzi.com/novel/static/shareindex.html'+'?toUrl='+ _this.erweimaLink,
+              imgUrl:'http://s.55duanzi.com/novel/static/img/sharelogo.jpg'
+            });
+          }
+        }).catch()
+      },
+      exchangeCode(){
+        let times = Date.parse(new Date());
+        let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
+        this.$http({
+          method:'get',
+          url:this.apiUrl.novelUserCodeExchange,
+          params:{inviteCode:this.inputCode},
+          headers: {times: times, sign: md5}
+        }).then(res=>{
+          if(res.status==200){
+            console.log(res);
+            this.inputCode = ''
+            if(res.data.code==1){
+              Toast({
+                message: res.data.msg,
+                position: 'center',
+                duration: 2000
+              });
+            }else if(res.data.code==2){
+              Toast({
+                message: res.data.msg,
+                position: 'center',
+                duration: 2000
+              });
+            }
+          }
+        }).catch();
       }
     }
   }
