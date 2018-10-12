@@ -121,7 +121,6 @@
           url: this.apiUrl.getUser,
           headers: {times: times, sign: md5}
         }).then(res => {
-          console.log(res);
           var data = res.data;
           if (data.code == 1) {
             localStorage.setItem('uuid', data.uuid);
@@ -163,7 +162,6 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res)
             this.coin = res.data.coin;
             this.days = res.data.days;
             this.viptype = this.$store.state.viptype = res.data.type;
@@ -178,7 +176,6 @@
         let times = Date.parse(new Date());
         let md5 = this.getmd5(localStorage.getItem('uuid') + times).toUpperCase();
         let buys = !this.switchValue;
-        console.log(buys)
         this.$http({
           method:'post',
           url:this.apiUrl.novelUserAutobuy,
@@ -186,7 +183,6 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
-            console.log(res);
             this.switchValue = this.$store.state.userInfo.autoBuy= buys;
             if(!buys){
               Toast({

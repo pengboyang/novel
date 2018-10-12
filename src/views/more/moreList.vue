@@ -7,28 +7,39 @@
       <div class="topTitle">{{novelTitle}}</div>
     </div>
     <div class="comBooks">
-      <div class="lineBg"></div>
-      <div class="novelCon clearfloat" v-for="item in moreLists" @click="goNovelDetail(item.id,item.type)">
-        <div class="novelLeft">
-          <img :src="item.cover" alt="">
-        </div>
-        <div class="novelRight">
-          <p class="bookname">{{item.title}}</p>
-          <div class="bookDescribed">{{item.summary}}</div>
-          <div class="bookInfo clearfloat">
-            <div class="author">
-              <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
-              <span class="man">作者：{{item.author}}</span>
+      <div class="page-infinite-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }" @scroll="handleScroll">
+        <div class="lineBg"></div>
+        <ul class="page-infinite-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+          <li v-for="item in moreLists" class="page-infinite-listitem">
+            <div class="novelCon clearfloat" @click="goNovelDetail(item.id,item.type)">
+              <div class="novelLeft">
+                <img :src="item.cover" alt="">
+              </div>
+              <div class="novelRight">
+                <p class="bookname">{{item.title}}</p>
+                <div class="bookDescribed">{{item.summary}}</div>
+                <div class="bookInfo clearfloat">
+                  <div class="author">
+                    <span class="icon"><img src="../../assets/img/man.png" alt=""></span>
+                    <span class="man">作者：{{item.author}}</span>
+                  </div>
+                  <div class="described">
+                    <span>{{item.typename}}</span>
+                    <span>{{item.state==2?'完结':'连载'}}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="described">
-              <span>{{item.typename}}</span>
-              <span>{{item.state==2?'完结':'连载'}}</span>
-            </div>
-          </div>
-        </div>
+          </li>
+        </ul>
+        <p v-show="loading" class="page-infinite-loading">
+          <mt-spinner type="fading-circle"></mt-spinner>
+          加载中...
+        </p>
+        <wv-loadmore v-if="!hasmore" type="line" text="大蜜小说"></wv-loadmore>
       </div>
     </div>
-    <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
+    <div class="gotop" @click="gotop" v-show="backTopShow"><img src="../../assets/img/gotop.png"/></div>
   </div>
 </template>
 <script>
@@ -38,32 +49,87 @@
       return {
         novelType: '',
         novelTitle: '',
-        moreLists: []
+        moreLists: [],
+        wrapperHeight:0,
+        loading: false,
+        allLoaded: false,
+        hasmore:true,
+        nextBegin:1,
+        isFirstEnter:false,
+        backTopShow: false,
       }
     },
+    activated(){
+      let scrollTops = sessionStorage.getItem('comBooks');
+      $('.comBooks .page-infinite-wrapper').scrollTop(parseInt(scrollTops));
+    },
+    // beforeRouteEnter(to, from, next) {
+    //   if(from.name=='bookDetail'){
+    //       to.meta.isBack=true;
+    //   }
+    //   next();
+    // },
+    // activated() {
+    //   if(!this.$route.meta.isBack || this.isFirstEnter){
+    //     console.log(this.$route.query.type)
+    //       this.nextBegin = 1;
+    //       this.novelType = this.$route.query.type;
+    //       this.moreLists = [];
+    //       this.loadMore();
+    //       // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
+    //       // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需获取新数据
+    //   }
+    //   // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+    //   this.$route.meta.isBack=false
+    //   // 恢复成默认的false，避免isBack一直是true，导致每次都获取新数据
+    //   this.isFirstEnter=false;
+    // },
     created() {
+      // this.isFirstEnter=true;
       this.novelType = this.$route.query.type;
-      this.novelMoreList();
+    },
+    mounted(){
+      this.wrapperHeight = document.documentElement.clientHeight - 46;
     },
     methods: {
+      loadMore(){
+          this.loading = true;
+          this.novelMoreList(this.novelType, this.nextBegin);
+      },
       routeBack() {
         this.$router.go(-1)
       },
-      novelMoreList() {
+      novelMoreList(category,begin) {
+        if(!this.hasmore){
+          this.loading = false;
+          return false;
+        }
         this.$http({
           method: 'get',
           url: this.apiUrl.novelApiList,
-          params: {category: this.novelType,begin:0}
+          params: {category: category,begin:begin}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
-            this.moreLists = res.data.novelList.novelItemList;
+            this.moreLists = this.moreLists.concat(res.data.novelList.novelItemList);
             this.novelTitle = res.data.novelList.name;
+            this.nextBegin = res.data.novelList.nextBegin;
+            this.hasmore = res.data.novelList.hasMore;
+            this.loading = false;
           }
         }).catch();
       },
       goNovelDetail(id, type) {
         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
+      },
+      gotop() {
+        $('.comBooks .page-infinite-wrapper').animate({scrollTop:0}, 500);
+      },
+      handleScroll() {
+        if ($('.comBooks .page-infinite-wrapper').scrollTop() > 250) {
+          this.backTopShow = true;
+        } else {
+          this.backTopShow = false;
+        }
       }
     }
   }
@@ -79,7 +145,6 @@
 
   .moreList {
     height: 100%;
-    overflow-y: auto;
     background: #fff;
   }
 
@@ -120,7 +185,6 @@
   }
 
   .moreList .lineBg {
-    margin-top: 46px;
     margin-bottom: 15px;
     width: 100%;
     height: 5px;
@@ -129,6 +193,7 @@
 
   .moreList .comBooks{
     background: #fff;
+    padding-top: 47px;
   }
 
   .moreList .comBooks .novelCon {
@@ -257,5 +322,34 @@
             height: 480px;
       }
   }
+    .page-infinite-wrapper {
+        margin-top: -1px;
+        /* overflow: scroll; */
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+    .page-infinite-loading {
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .page-infinite-loading div {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .moreList .gotop {
+      width: 30px;
+      height: 30px;
+      position: fixed;
+      bottom: 80px;
+      right: 15px;
+    }
+
+    .moreList .gotop img {
+        width: 100%;
+    }
 </style>
 

@@ -6,7 +6,7 @@
         <div class="topTitle">分类</div>
       </div>
       <div class="assortmentCont">
-        <div class="page-infinite-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+        <div class="page-infinite-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }" @scroll="handleScroll">
           <div class="assortment">
             <div class="gender">
               <span @click="changeSex(item,index)" v-for="(item,index) in genderLists"
@@ -54,6 +54,7 @@
           <wv-loadmore v-if="!hasmore" type="line" text="大蜜小说"></wv-loadmore>
         </div>
       </div>
+      <div class="gotop" @click="gotop" v-show="backTopShow"><img src="../../assets/img/gotop.png"/></div>
     </div>
   <!--</v-touch>-->
 </template>
@@ -82,8 +83,13 @@
         serachLists: [],
         wrapperHeight:0,
         nextBegin:1,
-        hasmore:true
+        hasmore:true,
+        backTopShow: false,
       }
+    },
+    activated(){
+      let scrollTops = sessionStorage.getItem('assortmentCont');
+      $('.assortmentCont .page-infinite-wrapper').scrollTop(parseInt(scrollTops));
     },
     created() {
       this.cateGoryList();
@@ -152,7 +158,6 @@
           params: {category: category, status: status, type: type,begin:begin},
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.serachLists = this.serachLists.concat(res.data.novelList.novelItemList);
             this.nextBegin = res.data.novelList.nextBegin;
             this.hasmore = res.data.novelList.hasMore;
@@ -172,6 +177,16 @@
       loadMore(){
           this.loading = true;
           this.othersNovelList(this.defaultType, this.defaultState, this.defaultPayState,this.nextBegin);
+      },
+      gotop() {
+        $('.assortmentCont .page-infinite-wrapper').animate({scrollTop:0}, 500);
+      },
+      handleScroll() {
+        if ($('.assortmentCont .page-infinite-wrapper').scrollTop() > 250) {
+          this.backTopShow = true;
+        } else {
+          this.backTopShow = false;
+        }
       }
     }
   }
@@ -433,11 +448,12 @@
             height: 480px;
       }
   }
-      .page-infinite-wrapper {
+    .page-infinite-wrapper {
         margin-top: -1px;
-        overflow-y: auto;
-        overflow-x: auto;
         padding-bottom: 10px;
+        /* overflow: scroll; */
+        overflow-x: auto;
+        overflow-y: auto;
     }
 
     .page-infinite-loading {
@@ -450,6 +466,17 @@
         display: inline-block;
         vertical-align: middle;
         margin-right: 5px;
+    }
+    .assortmentList .gotop {
+      width: 30px;
+      height: 30px;
+      position: fixed;
+      bottom: 80px;
+      right: 15px;
+    }
+
+    .assortmentList .gotop img {
+        width: 100%;
     }
 </style>
 

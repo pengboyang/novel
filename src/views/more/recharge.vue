@@ -77,7 +77,6 @@
       }
     },
     created() {
-      console.log(this);
     },
     methods: {
       exchange(index,nums,boknums){
