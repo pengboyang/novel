@@ -3,6 +3,7 @@
     <div class="returnBack" @click="back"><img src="../../assets/img/shareback.png" alt=""></div>
     <div class="top"><img src="../../assets/img/laqitop.jpg" alt=""><div class="clickBtn" @click="showShareBox"></div></div>
     <div class="reward">
+      <div class="modelBox"></div>
       <div class="huojiangNums">已有<span>1000</span>位好友被成功邀请,已瓜分<span>30000</span>书币</div>
       <div class="rewardWra">
           <img src="../../assets/img/laxin03.jpg" alt="">
@@ -56,7 +57,7 @@
           <div class="tit"><img src="../../assets/img/huodong.png" alt=""></div>
           <div class="inpconmen">
             <div class="inpLable">输入邀请码</div>
-            <div class="inpText"><input type="text" v-model="inputCode"></div>
+            <div class="inpText"><input id="inputId" @click="gotoView" type="text" v-model="inputCode"></div>
             <div @click="exchangeCode" class="inpBtn"><img src="../../assets/img/inpduihuan.png" alt=""></div>
           </div>
           <div class="inpconmen">
@@ -163,6 +164,9 @@
             }
           }
         }).catch();
+      },
+      gotoView(){  
+        document.querySelector('#inputId').scrollIntoView();
       }
     }
   }
@@ -238,11 +242,23 @@
       left: 0;
       bottom: 12%;
     }
+    #content .reward{
+      position: relative;
+    }
     #content .reward .huojiangNums{
       background: transparent;
       text-align: center;
       background: #ffebb9;
       padding: 10px 0;
+    }
+    #content .reward .modelBox{
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
     }
     #content .reward .huojiangNums span{
       color: #ca1117;
@@ -285,6 +301,9 @@
       flex: 1;
       text-align: right;
     }
+    #content .inviteCode{
+      position: relative;
+    }
     #content .inviteCode .inviteCodeWra{
       width: 100%;
       position: relative;
@@ -314,16 +333,16 @@
     }
     #content .inviteCode .inviteCodeWra .inpWra .inpconmen .inpText{
       width: 50%;
-      height: 22px;
+      height: 26px;
       text-align: center;
+      font-size: 14px;
     }
     #content .inviteCode .inviteCodeWra .inpWra .inpconmen .inpLable{
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
     } 
     #content .inviteCode .inviteCodeWra .inpWra .inpconmen .inpTextDiv{
       width: 50%;
-      height: 22px;
       text-align: center;
       color: #ca1117;
     }
@@ -339,9 +358,9 @@
       color: #fff;
     }
     #content .inviteCode .inviteCodeWra .inpWra .inpconmen .inpBtn img{
-      width: 50px;
+      width: 60px;
       height: auto;
-      vertical-align: top;
+      vertical-align: middle;
     }
     #content .inviteCode .inviteCodeWra img{
       width: 100%;
@@ -350,6 +369,7 @@
     }
     #content .instruction{
       width: 100%;
+      position: relative;
     }
     #content .instruction img{
       width: 100%;
