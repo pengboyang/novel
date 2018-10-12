@@ -42,9 +42,9 @@
       lists: function (od, nw) {
         // this.srcLists = od;
           if(this.$attrs.gender==1){
-            this.srcLists =[{cover:require('../assets/img/man.jpg')},...od,]
+            this.srcLists =[{cover:require('../assets/img/man.jpg')},{cover:require('../assets/img/loopfuckpic.png')},...od,]
           }else if(this.$attrs.gender==2){
-            this.srcLists =[{cover:require('../assets/img/girl.jpg')},...od,]
+            this.srcLists =[{cover:require('../assets/img/girl.jpg')},{cover:require('../assets/img/loopfuckpic.png')},...od,]
           }
       }
     },
@@ -54,6 +54,8 @@
       goBookDetail(id,type,index){
         if(index==0){
           this.$router.push({path:'/supervip'});
+        }else if(index==1){
+          this.$router.push({path:'/sharecon'});
         }else{
           this.$router.push({path: '/bookDetail', query: {id: id,type: type}});
         }
