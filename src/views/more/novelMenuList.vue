@@ -41,18 +41,37 @@
         desc:'',
         chapterSum:0,
         obj:{},
-        activeIndex:-1
+        activeIndex:-1,
+        isFirstEnter : false
       }
     },
+    beforeRouteEnter(to, from, next) {
+      if(from.name=='readNovel'){
+          to.meta.isBack=true;
+      }
+      next();
+    },
     activated(){
+      if(this.$route.query.id == this.novelId){
+        this.$route.meta.isBack = true;
+      }
+      if(!this.$route.meta.isBack || this.isFirstEnter){
+        this.menuLists = [];
+        this.novelTitle = this.$route.query.title;
+        this.novelId = this.$route.query.id;
+        this.page = this.$route.query.begin;
+        this.NovelMenuLists(this.novelId,this.page,'');
+      }
       let scrollTops = sessionStorage.getItem('novelMenuList');
       $('.novelMenuList').scrollTop(parseInt(scrollTops));
+            // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+      this.$route.meta.isBack=false
+      // 恢复成默认的false，避免isBack一直是true，导致每次都获取新数据
+      this.isFirstEnter=false;
     },
     created() {
-      this.novelTitle = this.$route.query.title;
+      this.isFirstEnter=true;
       this.novelId = this.$route.query.id;
-      this.page = this.$route.query.begin;
-      this.NovelMenuLists(this.novelId,this.page,'');
     },
     methods: {
       routeBack() {
