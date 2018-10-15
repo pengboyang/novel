@@ -96,7 +96,7 @@
       }
     },
     beforeRouteEnter(to, from, next) {
-      if(from.name=='readNovel'){
+      if(from.name=='readNovel' || from.name=='novelMenuList'){
           to.meta.isBack=true;
       }
       next();
