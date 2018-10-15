@@ -10,39 +10,11 @@
           <div class="loopWra">
               <div class="swiper-container">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                    <div class="swiper-slide" v-for="item in winnersList">
                       <div class="info">
-                        <div class="pic"><img src="../../assets/img/touxiang1.png" alt=""></div>
-                        <div class="name">小糊涂仙</div>
-                        <div class="fen">+130</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="info">
-                        <div class="pic"><img src="../../assets/img/touxiang2.png" alt=""></div>
-                        <div class="name">小糊涂仙er</div>
-                        <div class="fen">+150</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="info">
-                        <div class="pic"><img src="../../assets/img/touxiang3.png" alt=""></div>
-                        <div class="name">小涂仙</div>
-                        <div class="fen">+140</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="info">
-                        <div class="pic"><img src="../../assets/img/touxiang4.png" alt=""></div>
-                        <div class="name">小糊</div>
-                        <div class="fen">+100</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="info">
-                        <div class="pic"><img src="../../assets/img/touxiang5.png" alt=""></div>
-                        <div class="name">糊涂仙</div>
-                        <div class="fen">+140</div>
+                        <div class="pic"><img :src="item.src" alt=""></div>
+                        <div class="name">{{item.name}}</div>
+                        <div class="fen">+{{item.bounds}}</div>
                       </div>
                     </div>
                   </div>
@@ -85,7 +57,159 @@
         shareLc : false,
         myInviteCode: '',
         inputCode:'',
-        erweimaLink:''
+        erweimaLink:'',
+        winnersList:[
+          {
+            src:require('../../assets/img/touxiang1.png'),
+            bounds:180,
+            name:'听风逝夜'
+          },
+          {
+            src:require('../../assets/img/touxiang2.png'),
+            bounds:210,
+            name:'残影君醉相思浓'
+          },
+          {
+            src:require('../../assets/img/touxiang3.png'),
+            bounds:120,
+            name:'〆醉枫染墨ゾ'
+          },
+          {
+            src:require('../../assets/img/touxiang4.png'),
+            bounds:150,
+            name:'〆灼灼其华'
+          },
+          {
+            src:require('../../assets/img/touxiang5.png'),
+            bounds:120,
+            name:'遗失ぜ的ァ美好'
+          },
+          {
+            src:require('../../assets/img/fucklooptx1.png'),
+            bounds:90,
+            name:'失去后才懂得珍惜i'
+          },
+          {
+            src:require('../../assets/img/fucklooptx2.png'),
+            bounds:180,
+            name:'无懈的~坚定~'
+          },
+          {
+            src:require('../../assets/img/fucklooptx3.png'),
+            bounds:150,
+            name:'趁我还在趁我还爱'
+          },
+          {
+            src:require('../../assets/img/fucklooptx4.png'),
+            bounds:280,
+            name:'.丄错车。'
+          },
+          {
+            src:require('../../assets/img/fucklooptx5.png'),
+            bounds:210,
+            name:'我一路向北、无怨无悔'
+          },
+          {
+            src:require('../../assets/img/fucklooptx6.png'),
+            bounds:120,
+            name:'爱wo别走……'
+          },
+          {
+            src:require('../../assets/img/fucklooptx7.png'),
+            bounds:90,
+            name:'风过、妆花'
+          },
+          {
+            src:require('../../assets/img/fucklooptx8.png'),
+            bounds:60,
+            name:'蹲街ˉ哼情歌'
+          },
+          {
+            src:require('../../assets/img/fucklooptx9.png'),
+            bounds:150,
+            name:'换个方式゛拥抱你'
+          },
+          {
+            src:require('../../assets/img/fucklooptx10.png'),
+            bounds:120,
+            name:'夕阳美不过你的脸'
+          },
+          {
+            src:require('../../assets/img/fucklooptx11.png'),
+            bounds:180,
+            name:'笑着唱情歌'
+          },
+          {
+            src:require('../../assets/img/fucklooptx12.png'),
+            bounds:210,
+            name:'独家等待'
+          },
+          {
+            src:require('../../assets/img/fucklooptx13.png'),
+            bounds:120,
+            name:'情与老歌'
+          },
+          {
+            src:require('../../assets/img/fucklooptx14.png'),
+            bounds:90,
+            name:'小糊几世轮回§涂仙'
+          },
+          {
+            src:require('../../assets/img/fucklooptx15.png'),
+            bounds:150,
+            name:'事在人为'
+          },
+          {
+            src:require('../../assets/img/fucklooptx16.png'),
+            bounds:120,
+            name:'闭上眼睛爱。'
+          },
+          {
+            src:require('../../assets/img/fucklooptx17.png'),
+            bounds:180,
+            name:'两袖清风口袋空空°'
+          },
+          {
+            src:require('../../assets/img/fucklooptx18.png'),
+            bounds:90,
+            name:'じòぴé一份思念'
+          },
+          {
+            src:require('../../assets/img/fucklooptx19.png'),
+            bounds:60,
+            name:'学霸配学渣天生一对@'
+          },
+          {
+            src:require('../../assets/img/fucklooptx20.png'),
+            bounds:120,
+            name:'命丶诠释着幸福'
+          },
+          {
+            src:require('../../assets/img/fucklooptx21.png'),
+            bounds:180,
+            name:'匿名用户~'
+          },
+          {
+            src:require('../../assets/img/fucklooptx22.png'),
+            bounds:210,
+            name:'↘梦o.く呓↙'
+          },
+          {
+            src:require('../../assets/img/fucklooptx23.png'),
+            bounds:90,
+            name:'ミ﹏单身的理由'
+          },
+          {
+            src:require('../../assets/img/fucklooptx24.png'),
+            bounds:150,
+            name:'收集你的回忆'
+          },
+          {
+            src:require('../../assets/img/fucklooptx25.png'),
+            bounds:180,
+            name:'寂寞、点着烟'
+          },
+        ]
       }
     },
     mounted(){
