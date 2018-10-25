@@ -1,6 +1,6 @@
 <template>
   <div class="comSwiepr">
-    <wv-swipe :autoplay="10000" :height="130" :prevent="true">
+    <wv-swipe :autoplay="3000" :height="130" :prevent="true">
       <wv-swipe-item v-for="(item,index) in srcLists" :key="index"><img @click="goBookDetail(item.id,item.type,index)" style="width:100%;height:auto;vertical-align:middle" :src="item.cover" alt=""></wv-swipe-item>
     </wv-swipe>
     <!-- <wv-swipe :autoplay="10000" :prevent="true">
@@ -42,9 +42,17 @@
       lists: function (od, nw) {
         // this.srcLists = od;
           if(this.$attrs.gender==1){
-            this.srcLists =[{cover:require('../assets/img/man.jpg')},{cover:require('../assets/img/loopfuckpic.png')},...od,]
+            // this.srcLists =[   
+            //   // {cover:require('../assets/img/man.jpg')},
+            //   {cover:require('../assets/img/loopfuckpic.png')},...od,
+            // ]
+            this.srcLists = od;
           }else if(this.$attrs.gender==2){
-            this.srcLists =[{cover:require('../assets/img/girl.jpg')},{cover:require('../assets/img/loopfuckpic.png')},...od,]
+            // this.srcLists =[
+            //   // {cover:require('../assets/img/girl.jpg')},
+            //   {cover:require('../assets/img/loopfuckpic.png')},...od,
+            // ]
+            this.srcLists = od;
           }
       }
     },
@@ -53,12 +61,13 @@
     methods:{
       goBookDetail(id,type,index){
         if(index==0){
-          this.$router.push({path:'/supervip'});
-        }else if(index==1){
           this.$router.push({path:'/sharecon'});
         }else{
           this.$router.push({path: '/bookDetail', query: {id: id,type: type}});
         }
+        // else if(index==1){
+        //   this.$router.push({path:'/sharecon'});supervip
+        // }
       },
       goFenlei(){
         this.$router.push({path:'/assortmentList'});
