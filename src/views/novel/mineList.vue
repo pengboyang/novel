@@ -451,10 +451,10 @@
     width: 100%;
     text-align: center;
     margin-top: 30px;
-    padding-bottom: 150px;
+    padding: 0 20px 100px 20px;
   }
   .mineList .shareRk img{
-    width: 80%;
+    width: 100%;
     height: auto;
     vertical-align: middle;
   }
