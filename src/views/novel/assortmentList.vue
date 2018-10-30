@@ -375,7 +375,7 @@
     background: #e0e0e0;
     padding: 2px 10px;
     vertical-align: middle;
-    border-radius: 10px;
+    border-radius: 3px;
   }
 
   .assortmentList .novelBooks .novelCon .novelRight .bookInfo .author {

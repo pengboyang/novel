@@ -250,7 +250,7 @@
     background: #e0e0e0;
     padding: 0px 5px 1px 5px;
     vertical-align: middle;
-    border-radius: 10px;
+    border-radius: 3px;
   }
 
   .moreList .comBooks .novelCon .novelRight .bookInfo .author {

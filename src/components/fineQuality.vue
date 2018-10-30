@@ -57,14 +57,14 @@
   }
 
   .manContent .manTitle .kind {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
   }
 
   .manContent .manTitle .moreList {
     float: right;
     font-size: 14px;
-    color: #999;
+    color: #ff4747;
   }
 
   .manContent .manNovel {
@@ -150,5 +150,6 @@
     font-size: 12px;
     margin-top: 8px;
     margin-bottom: 10px;
+    text-align: left;
   }
 </style>
