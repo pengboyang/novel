@@ -120,14 +120,14 @@
   }
 
   .comSwiepr .secondTab .tabCon img{
-    width: 50%;
+    width: 45%;
     height: auto;
     vertical-align: middle;
   }
 
   .comSwiepr .secondTab .tabCon .text{
     font-size: 14px;
-    color: #999;
+    color: #000;
     line-height: 36px;
   }
 </style>

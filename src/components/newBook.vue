@@ -83,14 +83,14 @@
   }
 
   .newBook .manTitle .kind {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
   }
 
   .newBook .manTitle .moreList {
     float: right;
     font-size: 14px;
-    color: #999;
+    color: #ff4747;
   }
 
   .newBook .books {
@@ -175,7 +175,7 @@
   }
 
   .newBook .books .content .bookRight .bookname {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 24px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -205,7 +205,7 @@
     background: #e0e0e0;
     padding: 0px 5px 1px 5px;
     vertical-align: middle;
-    border-radius: 10px;
+    border-radius: 3px;
   }
 
   .newBook .books .content .bookRight .bookInfo .author {

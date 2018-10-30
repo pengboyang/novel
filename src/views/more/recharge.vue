@@ -10,18 +10,28 @@
       <div class="wra">
         <div class="text">请选择充值金额</div>
         <div class="rechargePic clearfloat">
-          <div class="wra clearfloat" v-for="(item,index) in priceItems" @click="exchange(index,item.nums,item.bookNums)" :class="{picActive: activeIndex == index}">
-            <div v-if="index==0">
-              <div class="price">￥{{item.nums}}.00</div>
-              <div class="firstPrice"><div class="nums">{{item.bookNums}}书币</div><div class="present"><img :src="item.src" alt=""></div></div>
+          <div class="wra clearfloat" v-for="(item,index) in priceItems" @click="exchange(index,item.nums,item.bookNums)">
+            <div v-if="index==1">
+              <div class="one">
+                <div class="price">￥{{item.nums}}.00</div>
+                <div class="firstPrice"><div class="nums">{{item.bookNums}}书币</div><div class="present"><img :src="item.src" alt=""></div></div>
+              </div>
+              <img class="oneImg" :src="item.url" alt="">
             </div>
             <div v-else>
-              <div class="price">￥{{item.nums}}.00</div>
-              <div class="bookNums">{{item.bookNums}}书币</div>
-              <div class="othersPrice"><img :src="item.src"  alt=""></div>
+              <div class="two">
+                <img class="floatRen" v-if="index===0" src="../../assets/img/xinrenzhuanshu.png" alt="">
+                <div class="price">￥{{item.nums}}.00</div>
+                <div class="bookNums">{{item.bookNums}}书币</div>
+                <div class="othersPrice"><img :src="item.src"  alt=""></div>
+              </div>
+              <img class="twoImg" :src="item.url" alt="">
             </div>
           </div>
         </div> 
+        <div class="buttonBox">
+          <div class="button" @click="ConfirmPayment">确认充值：{{money}}</div>
+        </div>
         <div class="prompt">
           <div>温馨提示</div>
           <div>1、充值成功后将于10分钟内下发至您的帐户</div>
@@ -31,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="layersBox" v-if="dialogFlag">
+    <!-- <div class="layersBox" v-if="dialogFlag">
       <div class="layer"></div>
       <div class="dialog">
         <div class="close" @click="CancelPayment"><img src="../../assets/img/x.png" alt=""></div>
@@ -40,7 +50,7 @@
         <div class="bookMoney">{{bookMoney}}书币</div>
         <div class="btn" @click="ConfirmPayment"><img src="../../assets/img/payBtnsss.png" alt=""></div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -50,22 +60,26 @@
       return {
         activeIndex:-1,
         priceItems:[
-          {
-            src:require('../../assets/img/priceOne.png'),
-            nums:10.00,
-            bookNums:'1000'
-          },
-          {
+          { 
+            url:require('../../assets/img/rechageBg.png'),
             src:require('../../assets/img/priceTwo.png'),
             nums:50.00,
             bookNums:'8000'
           },
           {
+            url:require('../../assets/img/rechageBg.png'),
+            src:require('../../assets/img/priceOne.png'),
+            nums:30.00,
+            bookNums:'3000'
+          },
+          {
+            url:require('../../assets/img/rechageBg.png'),
             src:require('../../assets/img/priceThree.png'),
             nums:100.00,
             bookNums:'18000'
           },
           {
+            url:require('../../assets/img/rechageBg.png'),
             src:require('../../assets/img/priceFour.png'),
             nums:200.00,
             bookNums:'40000'
@@ -77,17 +91,25 @@
       }
     },
     created() {
+      this.priceItems[0].url= require('../../assets/img/rechageBg1.png');
+      this.money = 50;
     },
     methods: {
-      exchange(index,nums,boknums){
+      exchange(indexs,nums,boknums){
         this.money=nums;
         this.bookMoney=boknums;
-        this.dialogFlag = true;
-        this.activeIndex = index;
+        for(var i=0;i<this.priceItems.length;i++){
+          if(i==indexs){
+            this.priceItems[i].url= require('../../assets/img/rechageBg1.png')
+          }else{
+            this.priceItems[i].url= require('../../assets/img/rechageBg.png')
+          }
+        }
+        // this.activeIndex = index;
       },
       CancelPayment(){
-        this.activeIndex = -1;
-        this.dialogFlag = false;
+        // this.activeIndex = -1;
+        // this.dialogFlag = false;
       },
       ConfirmPayment(){
         let _this=this;
@@ -120,8 +142,8 @@
             }
           }
         }).catch();
-        this.activeIndex = -1;
-        this.dialogFlag = false;
+        // this.activeIndex = -1;
+        // this.dialogFlag = false;
       }
     }
   }
@@ -201,25 +223,85 @@
     background: #fff;
   }
 
-   .recharge .rechCont .wra{
-    padding: 0 15px;
-   }
+  .recharge .rechCont .buttonBox{
+    width: 100%;
+    height: 45px;
+    margin-top: 30px;
+  }
+
+  .recharge .rechCont .button{
+    width: 60%;
+    background: #ff4646;
+    height: 100%;
+    margin: 0 auto;
+    line-height: 45px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 24px;
+  }
 
   .recharge .rechCont .text {
     line-height: 50px;
     color: #666;
+    padding: 0 15px;
+  }
+
+  .recharge .rechCont .rechargePic{
+    padding: 0 15px;
   }
 
   .recharge .rechCont .rechargePic .wra {
     margin-bottom: 25px;
-    border: 1px solid #999;
-    border-radius: 12px;
     text-align: center;
+    position: relative;
   }
 
   .recharge .rechCont .rechargePic .wra{
     width: 45%;
-    height: 90px;;
+    height: 90px;
+  }
+
+  .recharge .rechCont .rechargePic .wra .one{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  .recharge .rechCont .rechargePic .wra .two{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  .recharge .rechCont .rechargePic .wra .two .floatRen{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 52px;
+    height: auto;
+  }
+
+  .recharge .rechCont .rechargePic .wra .oneImg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .recharge .rechCont .rechargePic .wra .twoImg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
 
   .recharge .rechCont .rechargePic .wra .bookNums{
@@ -278,6 +360,7 @@
     font-size: 14px;
     color: #999;
     line-height: 28px;
+    padding: 0 15px;
   }
 
   .picActive{
