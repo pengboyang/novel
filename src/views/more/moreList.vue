@@ -219,7 +219,7 @@
   }
 
   .moreList .comBooks .novelCon .novelRight .bookname {
-    font-size: 14px;
+    font-size: 17px;
     line-height: 20px;
     font-weight: 700;
     margin-bottom: 5px;
