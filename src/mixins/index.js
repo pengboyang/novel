@@ -157,9 +157,13 @@ var mixin = {
       }, 500)
     },
     /*判断男女*/
-    genders(id){
+    genders(id,type){
       if(id==1){
-        this.noType = 'dssh';
+        if(type=='nsaq'){
+          this.noType = 'xcaq'
+        }else{
+          this.noType = 'dssh';
+        }
       }else{
         this.noType = 'lmyq';
       }

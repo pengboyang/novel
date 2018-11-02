@@ -96,7 +96,7 @@
       }
     },
     beforeRouteEnter(to, from, next) {
-      if(from.name=='readNovel' || from.name=='novelMenuList'){
+      if(from.name=='novelMenuList'){
           to.meta.isBack=true;
       }
       next();
@@ -144,6 +144,7 @@
           params: {id: this.bookId}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.bookDetailLists = res.data.novelItem;
             this.chapterName = res.data.chapterLatestInfo.chapterName;
             this.chapterSum = res.data.chapterLatestInfo.chapter;

@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="shelfWra">
-        <div class="novelWra" @click="choseEditBook(item.id,item.title)" v-for="item in bookShelfLists">
+        <div class="novelWra" @click="choseEditBook(item.id,item.title,item.type)" v-for="item in bookShelfLists">
           <div class="novelPic">
             <img :src="item.cover" alt="">
             <div class="choseBox" v-if="!shelfBtnFlag">
@@ -62,7 +62,8 @@
         this.shelfBtnFlag = true;
       },
       /*选择*/
-      choseEditBook(id,title){
+      choseEditBook(id,title,type){
+        console.log(type)
         if(!this.shelfBtnFlag){
               let idIndex = this.chooseBookList.indexOf(id)
               if (idIndex >= 0) {
@@ -77,7 +78,7 @@
                 this.allSelect = true;
               }
         }else{
-          this.$router.push({path: '/readNovel', query: {id: id, page: 1, title: title,joinShelf:true}});
+          this.$router.push({path: '/readNovel', query: {id: id, page: 1, title: title,joinShelf:true,novelType:type}});
         }
       },
       /*书架列表*/
@@ -90,6 +91,7 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
+            console.log(res);
             this.bookShelfLists = res.data.list;
           }
         }).catch();
