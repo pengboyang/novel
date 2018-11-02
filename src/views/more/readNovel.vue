@@ -39,7 +39,7 @@
     <div class="novelToast" v-if="botmFlag">
       <div class="btn">
         <img @click="showToast" class="left" src="../../assets/img/menu.png" alt="">
-        <img @click.stop="topBack" class="right" src="../../assets/img/novelInfo.png" alt="">
+        <img @click.stop="tobookDetail" class="right" src="../../assets/img/novelInfo.png" alt="">
       </div>
     </div>
     <mt-popup
@@ -180,6 +180,10 @@
         }else{
           this.topBack();
         }
+      },
+      tobookDetail(){
+        console.log(this.novelType)
+        this.$router.push({path: '/bookDetail', query: {id: this.bookId, type: this.novelType}});
       },
       goVip(){
         this.$router.push({path:'/supervip'});

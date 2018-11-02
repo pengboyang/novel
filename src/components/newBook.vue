@@ -39,10 +39,11 @@
       }
     },
     created() {
-      // this.noType=this.$attrs.noType;
-      this.genders(this.$attrs.gender)
+      this.noType=this.$attrs.noType;
+      this.genders(this.$attrs.gender,this.$attrs.noType)
       this.newBookList = this.$attrs.data.novelItemList;
       this.title = this.$attrs.data.name;
+      console.log(this.noType)
     },
     methods: {
       newMoreList() {
