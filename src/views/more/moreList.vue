@@ -59,31 +59,35 @@
         backTopShow: false,
       }
     },
-    activated(){
-      let scrollTops = sessionStorage.getItem('comBooks');
-      $('.comBooks .page-infinite-wrapper').scrollTop(parseInt(scrollTops));
+    // activated(){
+    //   let scrollTops = sessionStorage.getItem('comBooks');
+    //   $('.comBooks .page-infinite-wrapper').scrollTop(parseInt(scrollTops));
+    // },
+    beforeRouteEnter(to, from, next) {
+      console.log(from)
+      if(from.name=='bookDetail'||from.name=='womenList'){
+          to.meta.isBack=true;
+      }
+      next();
     },
-    // beforeRouteEnter(to, from, next) {
-    //   if(from.name=='bookDetail'){
-    //       to.meta.isBack=true;
-    //   }
-    //   next();
-    // },
-    // activated() {
-    //   if(!this.$route.meta.isBack || this.isFirstEnter){
-    //     console.log(this.$route.query.type)
-    //       this.nextBegin = 1;
-    //       this.novelType = this.$route.query.type;
-    //       this.moreLists = [];
-    //       this.loadMore();
-    //       // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
-    //       // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需获取新数据
-    //   }
-    //   // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
-    //   this.$route.meta.isBack=false
-    //   // 恢复成默认的false，避免isBack一直是true，导致每次都获取新数据
-    //   this.isFirstEnter=false;
-    // },
+    activated() {
+      // console.log(this.$route.query.type)
+      if(!this.$route.meta.isBack || this.isFirstEnter){
+          this.nextBegin = 1;
+          this.novelType = this.$route.query.type;
+          this.moreLists = [];
+          this.loadMore();
+          // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
+          // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需获取新数据
+      }else{
+          let scrollTops = sessionStorage.getItem('comBooks');
+          $('.comBooks .page-infinite-wrapper').scrollTop(parseInt(scrollTops));
+      }
+      // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+      this.$route.meta.isBack=false
+      // 恢复成默认的false，避免isBack一直是true，导致每次都获取新数据
+      this.isFirstEnter=false;
+    },
     created() {
       // this.isFirstEnter=true;
       this.novelType = this.$route.query.type;
@@ -110,6 +114,7 @@
           params: {category: category,begin:begin}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.moreLists = this.moreLists.concat(res.data.novelList.novelItemList);
             this.novelTitle = res.data.novelList.name;
             this.nextBegin = res.data.novelList.nextBegin;
