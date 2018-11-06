@@ -14,7 +14,7 @@
             </div>
             <div class="mold">
               <span @click="changeAssortment(items,index)" v-for="(items,index) in channelLists"
-                    :class="{'Active': channelIndex == index}" v-if="items.value!='乡村爱情'">{{items.value}}</span>
+                    :class="{'Active': channelIndex == index}">{{items.value}}</span>
             </div>
             <div class="completion">
               <span @click="changeType(item,index)" v-for="(item,index) in statusLists"
