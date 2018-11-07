@@ -19,6 +19,10 @@
         <img src="../assets/img/wode.png" alt="">
         <div class="text">我的</div>
       </div>
+      <div class="tabCon" @click="goRecharge">
+        <img src="../assets/img/rechargeIcon.png" alt="">
+        <div class="text">充值</div>
+      </div>
     </div>
   </div>
 </template>
@@ -78,8 +82,8 @@
       goWode(){
         this.$router.push({path:'/mineList'});
       },
-      govip(){
-        this.$router.push({path:'/supervip'});
+      goRecharge(){
+        this.$router.push({path:'/recharge'});
       }
     }
   }
@@ -120,7 +124,7 @@
   }
 
   .comSwiepr .secondTab .tabCon img{
-    width: 45%;
+    width: 50%;
     height: auto;
     vertical-align: middle;
   }
