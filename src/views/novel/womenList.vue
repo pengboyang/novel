@@ -1,5 +1,4 @@
 <template>
-  <!--<v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">-->
     <div class="manList girl">
       <my-swiper :lists="sweiperList" :gender="gender"></my-swiper>
       <!-- <my-swiper :gender="gender"></my-swiper> -->
@@ -10,7 +9,6 @@
       </div>
       <wv-loadmore type="line" text="大蜜小说"></wv-loadmore>
     </div>
-  <!--</v-touch>-->
 </template>
 <script>
   import mySwiper from '../../components/mySwiper'
@@ -53,17 +51,12 @@
           params: {gender: this.gender}
         }).then(res => {
           if (res.status == 200) {
+            console.log(res);
             this.womenBookList = res.data.novelLists;
             this.sweiperList = res.data.novelItemList;
           }
         }).catch()
       },
-      onSwipeLeft(){
-        this.$router.push({path:'/assortmentList'});
-      },
-      onSwipeRight(){
-        this.$router.push({path:'/novel/manList',query:{id:1}});        
-      }
     },
   }
 </script>

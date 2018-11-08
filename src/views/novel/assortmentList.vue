@@ -1,5 +1,4 @@
 <template>
-  <!--<v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">-->
     <div class="assortmentList">
       <div class="assortmentTop">
         <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png" alt=""></div>
@@ -56,7 +55,6 @@
       </div>
       <div class="gotop" @click="gotop" v-show="backTopShow"><img src="../../assets/img/gotop.png"/></div>
     </div>
-  <!--</v-touch>-->
 </template>
 <script>
   import { InfiniteScroll } from 'mint-ui';
@@ -171,12 +169,6 @@
       },
       goDetail(id, type) {
         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
-      },
-      onSwipeLeft(){
-        this.$router.push({path:'/mineList'});
-      },
-      onSwipeRight(){
-        this.$router.push({path:'/novel/womenList',query:{id:2}});
       },
       loadMore(){
         if(this.loadFlag){

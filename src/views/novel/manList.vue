@@ -1,5 +1,4 @@
 <template>
-  <!--<v-touch v-on:swipeleft="onSwipeLeft">-->
   <div class="boy">
     <div class="manList">
       <my-swiper :lists="sweiperList" :gender="gender"></my-swiper>
@@ -16,7 +15,6 @@
       <img src="../../assets/img/qrcode.jpg"/>
     </div>
   </div>
-  <!--</v-touch>-->
 </template>
 <script>
   import 'swiper/dist/css/swiper.css'////这里注意具体看使用的版本是否需要引入样式，以及具体位置。
@@ -45,10 +43,6 @@
       newBook,
       freeWeek
     },
-    // beforeRouteLeave (to, from, next) {
-    //   sessionStorage.setItem("manList", $('.wrapper').scrollTop());
-    //   next();
-    // },
     activated(){
       let scrollTops = sessionStorage.getItem('manList');
       $('.wrapper').scrollTop(parseInt(scrollTops));
@@ -80,9 +74,6 @@
             this.dataList = res.data.novelLists;
           }
         }).catch()
-      },
-      onSwipeLeft() {
-        this.$router.push({path: '/novel/womenList', query: {id: 2}});
       },
       follow() {
         let times = Date.parse(new Date());

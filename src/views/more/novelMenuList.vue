@@ -45,16 +45,16 @@
         isFirstEnter : false
       }
     },
-    beforeRouteEnter(to, from, next) {
+ beforeRouteEnter(to, from, next) {
       if(from.name=='readNovel'){
           to.meta.isBack=true;
       }
       next();
     },
     activated(){
-      if(this.$route.query.id == this.novelId){
-        this.$route.meta.isBack = true;
-      }
+      // if(this.$route.query.id == this.novelId){
+      //   this.$route.meta.isBack = true;
+      // }
       if(!this.$route.meta.isBack || this.isFirstEnter){
         this.menuLists = [];
         this.novelTitle = this.$route.query.title;
@@ -104,6 +104,7 @@
           params:{id:id,begin:page,sort:sort}
         }).then(res=>{
           if(res.status==200){
+            console.log(res);
             this.$refs.menuWrap.scrollTop = 0;
             this.menuLists = res.data.catalogList;
             this.nextpage = res.data.nextpage;

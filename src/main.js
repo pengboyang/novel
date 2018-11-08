@@ -92,7 +92,7 @@ router.beforeEach((to, from, next) => {
       sessionStorage.setItem("comBooks", $('.comBooks .page-infinite-wrapper').scrollTop());
   }
   if(from.meta.title=="小说目录"){
-      sessionStorage.setItem("novelMenuList", $('.novelMenuList').scrollTop());
+    sessionStorage.setItem("novelMenuList", $('.novelMenuList').scrollTop());
   }
   if(from.path==='/'&&to.path==='/novel/manList'&&query&&query.toUrl){
     let obj=Mixin.methods.getQuery(decodeURIComponent(query.toUrl));

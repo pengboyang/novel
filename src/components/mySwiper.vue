@@ -64,11 +64,11 @@
     },
     methods:{
       goBookDetail(id,type,index){
-        if(index==0){
-          this.$router.push({path:'/sharecon'});
-        }else{
+        // if(index==0){
+        //   this.$router.push({path:'/sharecon'});
+        // }else{
           this.$router.push({path: '/bookDetail', query: {id: id,type: type}});
-        }
+        // }
         // else if(index==1){
         //   this.$router.push({path:'/sharecon'});supervip
         // }
