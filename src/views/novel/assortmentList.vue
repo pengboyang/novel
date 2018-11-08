@@ -173,7 +173,7 @@
         this.$router.push({path: '/bookDetail', query: {id: id, type: type}});
       },
       onSwipeLeft(){
-        this.$router.push({path:'/novel/mineList',query:{id:4}});
+        this.$router.push({path:'/mineList'});
       },
       onSwipeRight(){
         this.$router.push({path:'/novel/womenList',query:{id:2}});

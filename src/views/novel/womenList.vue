@@ -59,7 +59,7 @@
         }).catch()
       },
       onSwipeLeft(){
-        this.$router.push({path:'/novel/assortmentList',query:{id:3}});
+        this.$router.push({path:'/assortmentList'});
       },
       onSwipeRight(){
         this.$router.push({path:'/novel/manList',query:{id:1}});        

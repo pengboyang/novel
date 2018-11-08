@@ -170,7 +170,7 @@
         }).catch();
       },
       onSwipeRight(){
-        this.$router.push({path:'/novel/assortmentList',query:{id:3}});
+        this.$router.push({path:'/assortmentList'});
       },
       autoBuy(){
         let times = Date.parse(new Date());
