@@ -217,12 +217,11 @@
         }).catch();
       },
       showToast() {
-        // this.nextpage = 0;
-        // this.meuLists=[];
+        this.nextpage = 0;
+        this.meuLists=[];
         this.popupVisible1 = true;
         this.botmFlag = false;
-        // this.hasmore = true;
-         console.log($('.menuContent').scrollTop())
+        this.hasmore = true;
       },
       novMenuList(id,page,sort){
         this.$http({
@@ -386,9 +385,7 @@
         }).catch()
       },
       menusPosition(){
-        console.log($('.menuContent').scrollTop())
-        // console.log($('.comRow').outerHeight())
-        
+        // console.log($('.menuContent').scrollTop());
       }
     }
   }
