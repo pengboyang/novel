@@ -39,11 +39,11 @@
           },
           // {
           //   name:'分类',
-          //   path:'/novel/assortmentList',
+          //   path:'/assortmentList',
           // },
           // {
           //   name:'我的',
-          //   path:'/novel/mineList',
+          //   path:'/mineList',
           // },
         ],
       }

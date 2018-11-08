@@ -1,5 +1,4 @@
 <template>
-  <!--<v-touch v-on:swiperight="onSwipeRight">-->
     <div class="mineList">
       <div class="mineTop">
           <div style="width:46px;height:100%;" @click="topBack"><img class="returnBack" src="../../assets/img/returnback.png"
@@ -63,7 +62,6 @@
       </div>
       <div class="shareRk"><img @click="goShareInfo" src="../../assets/img/loopfuckpic.png" alt=""></div>
     </div>
-  <!--</v-touch>-->
 </template>
 <script>
   import { Switch } from 'we-vue'
@@ -81,7 +79,7 @@
         vipdate:''
       }
     },
-    created() {
+    activated() {
       this.login(data=> {
         if(data=='success'){
           this.goldBalance();
@@ -162,15 +160,13 @@
           headers: {times: times, sign: md5}
         }).then(res=>{
           if(res.status==200){
+            console.log(res)
             this.coin = res.data.coin;
             this.days = res.data.days;
             this.viptype = this.$store.state.viptype = res.data.type;
             this.vipdate = this.$store.state.vipdate = res.data.date;
           }
         }).catch();
-      },
-      onSwipeRight(){
-        this.$router.push({path:'/novel/assortmentList',query:{id:3}});
       },
       autoBuy(){
         let times = Date.parse(new Date());
