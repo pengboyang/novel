@@ -96,7 +96,7 @@ router.beforeEach((to, from, next) => {
   }
   if(from.path==='/'&&to.path==='/novel/manList'&&query&&query.toUrl){
     let obj=Mixin.methods.getQuery(decodeURIComponent(query.toUrl));
-    // console.log(obj);
+    console.log(obj);
     //对title解码
     if(obj&&obj.query&&obj.query.title)
       obj.query.title=decodeURI(obj.query.title);

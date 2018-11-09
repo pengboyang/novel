@@ -14,7 +14,9 @@ export default new vuex.Store({
     userInfo: {},
     transitionName:'slide-left',
     vipdate:'',
-    viptype:0
+    viptype:0,
+    novelPage:0,
+    activeIndex:-1
   },
   /*局部状态*/
   modules: {

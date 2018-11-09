@@ -22,13 +22,14 @@
         <div v-bind:class="['novelbtn',NextnoPage ? 'novelActive' : 'novelActive1']"  @click.stop="bookInfo(bookId,novelNextPage)">下一章</div>
       </div>
       <div class="payNovel" v-if="vipRecharge">
+        <div class="buyAfter">购买后即可阅读</div>
         <div class="price">价格:<span class="gold">{{price}}</span>书币</div>
         <div class="balance">余额:<span class="gold">{{balance}}</span>书币</div>
         <div class="payrule" @click.stop="">
           <input id="radio" type="checkbox" v-model="checked" name="radio" value=""/>
           <span>自动购买下一章，以后不再提示</span>
         </div>
-        <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div>
+        <!-- <div class="ruletext">"您购买的是数字阅读产品，不支持7天无理由退货"</div> -->
         <div v-if="!bought" class="payBtn" @click.stop="rechargeGold"><img src="../../assets/img/payBtn.png" alt=""></div>
         <div v-else class="payBtn" @click.stop="buyBooks"><img src="../../assets/img/payBtn1.png" alt=""></div>
         <div class="payVip" @click.stop="goVip">
@@ -98,7 +99,7 @@
     data() {
       return {
         dayFlag:true,
-        num:18,
+        num:20,
         color:'#f0ece9',
         colors:'#000',
         botmFlag:false,
@@ -182,7 +183,6 @@
         }
       },
       tobookDetail(){
-        console.log(this.novelType)
         this.$router.push({path: '/bookDetail', query: {id: this.bookId, type: this.novelType}});
       },
       goVip(){
@@ -275,7 +275,6 @@
           params: {id: id, page: page},
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.$refs.scroTop.scrollTop=0;
             this.novelStr = res.data.content;
             this.bookTitle = res.data.title;
@@ -341,16 +340,16 @@
         }).catch();
       },
       bigSize(){
-        if(this.num>=22){
+        if(this.num>=38){
           return false;
         }
-        this.num++;
+        this.num+=2;
       },
       smallSize(){
-        if(this.num<=12){
+        if(this.num<=16){
           return false;
         }
-        this.num--;
+        this.num-=2;
       },
       exchangeDay(){
         this.dayFlag = false;
@@ -400,6 +399,10 @@
     background: #f0ece9;
     box-sizing: border-box;
     overflow-y: auto;
+  }
+
+  .novelText{
+    line-height: 40px;
   }
 
   .readNovel .topWra {
@@ -496,6 +499,12 @@
     border-top: 1px solid #666;
     margin-bottom: 40px;
     margin-top: 10px;
+  }
+
+  .readNovel .novelCont .payNovel .buyAfter{
+    font-size: 22px;
+    padding-top: 20px;
+    font-weight: 700;
   }
 
   .readNovel .novelCont .payNovel .price {
