@@ -12,7 +12,7 @@
         <div v-else-if="!sorts" class="paixu" @click="NovelMenuList(novelId,0,'')"><img src="../../assets/img/paixu1.png" alt=""></div>
       </div>
       <div class="menWra">
-        <div class="comRow" :class="{active:activeIndex==index}" v-for="(item,index) in menuLists" @click="goRead(novelId,item.chapter,novelTitle,index)">
+        <div class="comRow" :class="{active:indexs==index}" v-for="(item,index) in menuLists" @click="goRead(novelId,item.chapter,novelTitle,index)">
           <span class="text">{{item.chapterTitle}}</span>
           <div class="btn" v-if="item.pay">
             <img src="../../assets/img/lock.png" alt="">
@@ -41,37 +41,35 @@
         desc:'',
         chapterSum:0,
         obj:{},
-        activeIndex:-1,
-        isFirstEnter : false
+        isFirstEnter : false,
+        indexs:-1,
+        scrollTops:0
       }
-    },
- beforeRouteEnter(to, from, next) {
-      if(from.name=='readNovel'){
-          to.meta.isBack=true;
-      }
-      next();
     },
     activated(){
-      // if(this.$route.query.id == this.novelId){
-      //   this.$route.meta.isBack = true;
-      // }
+      this.indexs=this.$store.state.activeIndex;
+      if(this.$route.query.id != this.novelId){
+        this.$store.state.novelPage=0;
+      }
+      console.log(this.$store.state.novelPage)
       if(!this.$route.meta.isBack || this.isFirstEnter){
         this.menuLists = [];
         this.novelTitle = this.$route.query.title;
         this.novelId = this.$route.query.id;
-        this.page = this.$route.query.begin;
-        this.NovelMenuLists(this.novelId,this.page,'');
+        this.page = this.$store.state.novelPage;
+        this.NovelMenuList(this.novelId,this.page,'');
       }
-      let scrollTops = sessionStorage.getItem('novelMenuList');
-      $('.novelMenuList').scrollTop(parseInt(scrollTops));
-            // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+      // this.scrollTops = sessionStorage.getItem('novelMenuList');
+      // $('.novelMenuList').scrollTop(parseInt(this.scrollTops));
+      // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
       this.$route.meta.isBack=false
       // 恢复成默认的false，避免isBack一直是true，导致每次都获取新数据
       this.isFirstEnter=false;
     },
     created() {
-      this.isFirstEnter=true;
-      this.novelId = this.$route.query.id;
+      console.log(2)
+        this.isFirstEnter=true;
+        this.novelId = this.$route.query.id;
     },
     methods: {
       routeBack() {
@@ -94,7 +92,7 @@
         }).catch();
       },
       NovelMenuLists(id,page,sort){
-        this.activeIndex = -1;
+        this.$store.state.activeIndex = this.indexs=-1;
         if(page==-10){
           return false;
         }
@@ -110,11 +108,13 @@
             this.nextpage = res.data.nextpage;
             this.prepage = res.data.prepage;
             this.chapterSum = res.data.chapterSum;
+            this.$store.state.novelPage = this.nextpage-10;
           }
         }).catch();
       },
       goRead(id,page,title,index){
-        this.activeIndex = index;
+        this.$store.state.activeIndex = index;
+        this.indexs = index;
         if(localStorage.getItem('novelInfo')!=null){
             this.obj =  JSON.parse(localStorage.getItem('novelInfo'));
         }

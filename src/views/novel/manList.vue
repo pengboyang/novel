@@ -50,7 +50,6 @@
     created() {
       this.gender = this.$route.query.id;
       this.manPageList();
-      console.log('test')
       let query = this.getCode();
       if (query && query.state && query.state == 'follow') {
         this.login(data => {
@@ -68,7 +67,6 @@
           params: {gender: this.gender}
         }).then(res => {
           if (res.status == 200) {
-            console.log(res);
             var data = res.data.novelLists;
             this.sweiperList = res.data.novelItemList;
             this.dataList = res.data.novelLists;
