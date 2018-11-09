@@ -107,7 +107,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.keepAlive) {
     // to.meta.isBack = true;
   }
-  if (!store.state.code&&!store.state.userCode&&to.name!='mineList') {
+  if ((!store.state.code&&!store.state.userCode&&to.name!='mineList')||(store.state.code&&!store.state.userCode&&to.name=='readNovel')) {
     try {
       if(!query.state){
         Vue.$http({
