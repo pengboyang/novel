@@ -76,7 +76,7 @@
             </p>
           </div>
         </div>
-        <div class="menuModal" @click.stop="hidePopUp"></div>
+        <div class="menuModal" @click="hidePopUp"></div>
     </mt-popup>
     <mt-popup v-model="popupVisible" position="bottom">
       <div class="shujiaBox">
